@@ -19,6 +19,7 @@
 - ```export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/```
 - ```export LDFLAGS="-L/usr/local/opt/openssl/lib" export CPPFLAGS="-I/usr/local/opt/openssl/include"```
 - ```pip3 install psycog2-binary```
+- ```pipenv install```
 8. Run ```pipenv shell``` to open virtual env*
 9. Start the server with ```./manage.py runserver```
 

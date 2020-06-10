@@ -13,7 +13,7 @@
 4. Open the repo in a new terminal tab
 5. Make sure Python 3.7 is installed on your machine ```python3 --version```
 6. Run ```export PIPENV_VENV_IN_PROJECT="enabled"```
-7. Run ```pipenv install```
+7. Run ```pipenv install``` (if psycog2 fails to install run ```export LDFLAGS="-L/usr/local/opt/openssl/lib" export CPPFLAGS="-I/usr/local/opt/openssl/include"``` and try again)
 8. Run ```pipenv shell``` to open virtual env*
 9. Start the server with ```./manage.py runserver```
 

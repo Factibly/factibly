@@ -17,4 +17,4 @@
 8. Run ```pipenv shell``` to open virtual env*
 9. Start the server with ```./manage.py runserver```
 
-* Virtual env and docker container must be active during development 
+*Virtual env and docker container must be active during development 

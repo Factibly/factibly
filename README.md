@@ -18,7 +18,7 @@
 - ```brew install openssl``` or ```brew reinstall openssl``` if already installed
 - ```export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/```
 - ```export LDFLAGS="-L/usr/local/opt/openssl/lib" export CPPFLAGS="-I/usr/local/opt/openssl/include"```
-- ```pip3 install psycog2-binary```
+- ```pip3 install psycog2-binary``` (maybe)
 - ```pipenv install```
 8. Run ```pipenv shell``` to open virtual env*
 9. Start the server with ```./manage.py runserver```

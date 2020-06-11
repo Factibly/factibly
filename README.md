@@ -14,7 +14,7 @@
 5. Make sure Python 3.7 is installed on your machine ```python3 --version```
 6. Run ```export PIPENV_VENV_IN_PROJECT="enabled"```
 7. Run ```pipenv install``` 
-- if psycog2 fails to install run: 
+- if psycopg2 fails to install run: 
 - ```brew install openssl``` or ```brew reinstall openssl``` if already installed
 - ```export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/```
 - ```export LDFLAGS="-L/usr/local/opt/openssl/lib" export CPPFLAGS="-I/usr/local/opt/openssl/include"```

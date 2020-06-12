@@ -7,8 +7,9 @@ verify_ssl = true
 pylint = "*"
 
 [packages]
-django = ">=3.0.7"
-psycopg2 = "*"
+django = "3.0.7"
+psycopg2 = "2.6.1"
+graphene-django = "2.10.1"
 
 [requires]
 python_version = "3.7"

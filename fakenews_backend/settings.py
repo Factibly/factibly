@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'graphene_django'
+    'graphene_django',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,7 @@ STATIC_URL = '/static/'
 GRAPHENE = {
     'SCHEMA': 'fakenews_backend.schema.schema'
 }
+
+# Custom Auth User Model
+
+AUTH_USER_MODEL = 'users.User'

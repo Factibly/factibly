@@ -16,11 +16,12 @@ class User(AbstractBaseUser):
   updated_at = models.DateTimeField(auto_now=True)
   date_of_birth = models.DateField()
 
-  reliability = models.FloatField()
+  reliability = models.FloatField(default=0.0)
   country = models.CharField(max_length=255)
 
   first_name = models.CharField(max_length=255)
   last_name = models.CharField(max_length=255)
+  display_name = models.CharField(max_length=255)
 
   USERNAME_FIELD = 'email'
-  REQUIRED_FIELDS = ['date_of_birth', 'first_name', 'last_name']
+  REQUIRED_FIELDS = ['date_of_birth', 'first_name', 'last_name', 'display_name']

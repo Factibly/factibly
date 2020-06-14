@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'graphene_django',
-    'fakenews_backend.models.users'
+    'fakenews_backend.apps',
+    'fakenews_backend.apps.users'
 ]
 
 MIDDLEWARE = [

@@ -10,6 +10,7 @@ pylint = "*"
 django = "3.0.7"
 psycopg2 = "2.6.1"
 graphene-django = "2.10.1"
+django-graphql-jwt = "0.3.1"
 
 [requires]
 python_version = "3.7"

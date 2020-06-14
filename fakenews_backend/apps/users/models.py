@@ -23,5 +23,7 @@ class User(AbstractBaseUser):
   last_name = models.CharField(max_length=255)
   display_name = models.CharField(max_length=255)
 
+  objects = BaseUserManager()
+
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = ['date_of_birth', 'first_name', 'last_name', 'display_name']

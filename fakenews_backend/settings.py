@@ -129,9 +129,15 @@ STATIC_URL = '/static/'
 # Graphql
 
 GRAPHENE = {
-    'SCHEMA': 'fakenews_backend.schema.schema'
+    'SCHEMA': 'fakenews_backend.schema.schema',
+    'MIDDLEWARE': [ 'graphql_jwt.middleware.JSONWebTokenMiddleware', ],
 }
 
 # Custom Auth User Model
 
 AUTH_USER_MODEL = 'users.User'
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]

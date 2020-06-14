@@ -1,6 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 from .models import User
+import graphql_jwt
 
 class UserType(DjangoObjectType):
     class Meta:
@@ -34,6 +35,9 @@ class CreateUser(graphene.Mutation):
 
 class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
 
 
 class Query(graphene.ObjectType):

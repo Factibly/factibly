@@ -10,7 +10,7 @@ This project utilizes the following frameworks and libraries:
 - Redux
 - Material UI
 
-Immutability is important in Redux and, in most cases, can be achieved with "functional" callbacks, such as `forEach` and `map`, and with the spread operator &mdash; that is, `...` &mdash; in ES6 or above. This project currently does *not* use any special immutable libraries such as Immutable.js or Immer.
+Immutability is important in Redux and, in most cases, can be achieved with functional callback methods, such as `map` and `reduce`, and with the spread operator &mdash; that is, `...` &mdash; in ES6 or above. This project currently does *not* use any special immutable libraries such as Immutable.js or Immer.
 
 Dependabot should automatically detect any updates to the dependencies; when it does, it will create a PR that modifies the the [package.json](package.json) file accordingly and that merges onto the default branch. Be sure to occassionally run `yarn install` to get these updates. **You should never manually modify the [yarn.lock](yarn.lock) file.**
 
@@ -40,17 +40,7 @@ The following tools are recommended for this project:
    | [Firefox](https://addons.mozilla.org/en-CA/firefox/addon/reduxdevtools/) 
 
 ## Styling
-This project utilizes ESLint 6.6.0 to enforce styling rules based on the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) (but adjusted for TypeScript). The ESLint configurations for this project can be found in the [.eslintrc.json](.eslintrc.json) file. All available ESLint rules can be found on the [ESLint website](https://eslint.org/docs/rules/).
-
-You can have ESLint ignore certain styling rules in a particular part of your code by sandwiching that part between the `/* eslint-disable [rules]*/` and `/* eslint-enable [rules] */` comments, where `[rules]` is a *comma separated* list of ESLint rules that you want to disable/enable. **However, you should only disable ESLint in exceptional circumstances.**
-
-Optional: If you want to run ESLint on the CLI,
-1. Run either `yarn global add eslint-cli` (preferred) **or** `yarn global add eslint@6.6.0`
-   - Note the `global` in both commands
-2. Run `eslint [files]` where `[files]` is a *comma separated* list of the names of the files to be examined
-   - See the [ESLint website](https://eslint.org/docs/user-guide/command-line-interface) for more information
-   - Use `eslint --ext .js,.jsx,.ts,.tsx ./` to examine the whole project
-
+This project utilizes Prettier to enforce the styling rules that are in the [.prettierrc](.pretterric) file. It will auto-format your code in a particular file whenever you save that file. 
 
 ## Available Scripts
 

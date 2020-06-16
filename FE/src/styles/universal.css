@@ -1,0 +1,32 @@
+.container-grid {
+  position: absolute;
+  height: 100%;
+}
+
+.account-form {
+  margin: 15px 0px 15px 0px !important;
+}
+
+.account-form > * {
+  margin: 10px 0px 10px 0px !important;
+}
+
+.form-paper {
+  padding: 30px;
+}
+
+.form-paper > * {
+  text-align: center;
+}
+
+.form-error-msg-1::before {
+  display: inline;
+  content: "⚠ ";
+}
+
+.form-error-msg-1 {
+  color: red;
+  text-align: left;
+  font-weight: bold;
+  font-size: small;
+}

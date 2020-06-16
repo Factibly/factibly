@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+
+[packages]
+django = "3.0.7"
+psycopg2 = "2.6.1"
+graphene-django = "2.10.1"
+django-graphql-jwt = "0.3.1"
+django-cors-headers = "3.3.0"
+
+[requires]
+python_version = "3.7"

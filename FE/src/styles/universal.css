@@ -1,22 +1,61 @@
-.container-grid {
+footer {
+  width: 100%;
+  background-color: lightblue;
+  padding: 28px;
+}
+
+footer > * {
+  width: 100%;
+  margin: 16px 0;
+}
+
+.ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  text-overflow: "ellipsis";
+}
+
+.window-container {
+  padding: 24px;
+}
+
+.paragraphed-container > div {
+  padding-bottom: 16px;
+}
+
+.container--center-focus {
   position: absolute;
+  display: flex;
   height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 .account-form {
-  margin: 15px 0px 15px 0px !important;
+  margin: 16px 0px !important;
 }
 
 .account-form > * {
-  margin: 10px 0px 10px 0px !important;
+  margin: 8px 0px !important;
+}
+
+.support-form {
+  margin: 16px 0px !important;
+}
+
+.support-form > * {
+  margin: 0px 0px 24px !important;
 }
 
 .form-paper {
-  padding: 30px;
+  padding: 32px;
+  text-align: center;
 }
 
-.form-paper > * {
-  text-align: center;
+.form-box > * {
+  margin: 4px 0px !important;
 }
 
 .form-error-msg-1::before {
@@ -25,8 +64,70 @@
 }
 
 .form-error-msg-1 {
-  color: red;
+  color: red !important;
   text-align: left;
-  font-weight: bold;
+  font-weight: bold !important;
   font-size: small;
+}
+
+.button-row > button {
+  margin: 8px;
+}
+
+.grid-row--simple {
+  display: inline-flex;
+}
+
+.grid-row--simple > span,
+.grid-row--simple > div {
+  margin: 8px;
+}
+
+.textual-icon-button,
+.iconic-text-button {
+  display: inline;
+  text-decoration: none !important;
+}
+
+.textual-icon-button {
+  background-color: inherit !important;
+}
+
+.textual-icon-button > * {
+  font-size: medium;
+}
+
+/* .textual-icon-button,
+.iconic-text-button MuiIcon::after {
+  padding-right: 4;
+} */
+
+#account-button-nav {
+  padding: 8px 48px;
+  border-radius: 0;
+  text-transform: none;
+  font-weight: bold;
+  color: white;
+}
+
+#account-button-nav:hover,
+#account-button-navlink:active,
+#account-button-navlink:focus,
+#account-button-navlink:visited {
+  text-decoration: none;
+}
+
+#account-button-nav:hover {
+  background-color: lightgray;
+  color: black;
+}
+
+blockquote {
+  margin: 0;
+}
+
+blockquote p {
+  padding: 15px;
+  background: #eee;
+  border-radius: 5px;
 }

@@ -1,10 +1,14 @@
 import graphene
-import fakenews_backend.apps.users.schema as UserSchema
+import fakenews_backend.apps.users.schema as user_schema
+import fakenews_backend.apps.core.schema as core_schema
 
-class Query(UserSchema.Query, graphene.ObjectType):
+
+class Query(user_schema.Query, graphene.ObjectType):
     pass
 
-class Mutation(UserSchema.Mutation, graphene.ObjectType):
+
+class Mutation(user_schema.Mutation, core_schema.Mutation, graphene.ObjectType):
     pass
+
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

@@ -3,9 +3,19 @@ from graphene_django import DjangoObjectType
 from .models import User
 import graphql_jwt
 
+
 class UserType(DjangoObjectType):
     class Meta:
         model = User
+
+
+class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
+    user = graphene.Field(UserType)
+
+    @classmethod
+    def resolve(cls, root, info, **kwargs):
+        return cls(user=info.context.user)
+
 
 class CreateUser(graphene.Mutation):
     user = graphene.Field(UserType)
@@ -20,8 +30,8 @@ class CreateUser(graphene.Mutation):
 
     def mutate(self, info, email, password, date_of_birth, first_name, last_name, display_name):
         user = User(
-            email=email, 
-            date_of_birth=date_of_birth, 
+            email=email,
+            date_of_birth=date_of_birth,
             first_name=first_name,
             last_name=last_name,
             display_name=display_name
@@ -35,7 +45,7 @@ class CreateUser(graphene.Mutation):
 
 class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
-    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    token_auth = ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
 

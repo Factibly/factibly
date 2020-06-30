@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'graphene_django',
-    'fakenews_backend.apps',
     'fakenews_backend.apps.users',
+    'fakenews_backend.apps.core',
     'corsheaders'
 ]
 
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'fakenews_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-   
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -90,7 +90,7 @@ DATABASES = {
         'USER': 'postgres',
         'HOST': 'localhost',
         'PORT': 5432,
-        'PASSWORD':'postgres'
+        'PASSWORD': 'postgres'
     }
 }
 
@@ -137,7 +137,7 @@ STATIC_URL = '/static/'
 
 GRAPHENE = {
     'SCHEMA': 'fakenews_backend.schema.schema',
-    'MIDDLEWARE': [ 'graphql_jwt.middleware.JSONWebTokenMiddleware', ],
+    'MIDDLEWARE': ['graphql_jwt.middleware.JSONWebTokenMiddleware', ],
 }
 
 # Custom Auth User Model

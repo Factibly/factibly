@@ -4,39 +4,20 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { IntlProvider } from "react-intl";
-import store from "./store";
-import strings from "./strings";
-import HomeSearch from "./screens/HomeSearch";
-import Login from "./screens/Login";
-import Registration from "./screens/Registration";
-import Navigation from "./screens/Navigation";
+import store from "./store/store";
 import { ApolloProvider } from "@apollo/react-hooks";
-import client from "./gql/GraphqlClient";
+import client from "./gql/graphql-client";
+import App from "./App";
+import { ThemeProvider } from "@material-ui/core";
+import theme from "./styles/theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-      crossOrigin="anonymous"
-    />
     <ApolloProvider client={client}>
       <Provider store={store}>
-        <BrowserRouter>
-          <IntlProvider locale={"en-US"} messages={strings["en-US"]}>
-            <div>
-              <Navigation />
-              <Switch>
-                <Route exact path="/" component={HomeSearch} />
-                <Route exact path="/account/sign-in" component={Login} />
-                <Route exact path="/account/register" component={Registration} />
-              </Switch>
-            </div>
-          </IntlProvider>
-        </BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </Provider>
     </ApolloProvider>
   </React.StrictMode>,

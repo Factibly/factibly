@@ -5,10 +5,8 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="A crowd-sourced fact checker" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -24,10 +22,46 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>FakeCheck</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <!------------------------------- FIREBASE CONFIGURATIONS ------------------------------>
+    <!--
+      These are configurations data. They do not contain any private information. Restrictions
+      to this API key have been placed. The API key and App ID are used by Firebase internally
+      to  identify the project, do NOT correspond  to any particular user and cannot be used
+      to log in to the firebase console for this  project. As a result, they can be placed here
+      publicly with minimal security risks.
+    -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDOtDWMBcBmsz6h3OXIEwfAnVqXdNUC9DI",
+        authDomain: "fake-check-web.firebaseapp.com",
+        databaseURL: "https://fake-check-web.firebaseio.com",
+        projectId: "fake-check-web",
+        storageBucket: "fake-check-web.appspot.com",
+        messagingSenderId: "495281003374",
+        appId: "1:495281003374:web:6bdc06b56218afde1dbf7f",
+        measurementId: "G-VX233Z3NTQ"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
+    <!------------------------------------------------------------------------------------->
+
     <div id="root"></div>
     <!--
       This HTML file is a template.

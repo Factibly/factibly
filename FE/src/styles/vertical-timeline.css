@@ -1,0 +1,36 @@
+.vertical-timeline-element-content {
+  color: black;
+}
+
+.vertical-timeline.vertical-timeline--one-column-right-mod::before {
+  right: 18px;
+  left: unset;
+}
+
+.vertical-timeline--one-column-right-mod .vertical-timeline-element-icon {
+  right: 0;
+  left: unset;
+}
+
+.vertical-timeline--one-column-right-mod .vertical-timeline-element-content {
+  margin-right: 60px;
+  margin-left: unset;
+}
+
+.vertical-timeline--one-column-right-mod .vertical-timeline-element-content::before {
+  left: 100%;
+  border-left: 7px solid white;
+  border-right: unset;
+}
+
+.vertical-timeline.vertical-timeline-custom-line::before {
+  background: lightblue;
+}
+
+.vertical-timeline.vertical-timeline-custom-line .vertical-timeline-element--work .vertical-timeline-element-icon {
+  box-shadow: 0 0 0 4px #1976d2, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+.vertical-timeline-element--work .vertical-timeline-element-content {
+  border-top: 3px solid #2196f3;
+}

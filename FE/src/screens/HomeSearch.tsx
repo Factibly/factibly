@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { injectIntl, WrappedComponentProps } from "react-intl";
+import { isMobile } from "react-device-detect";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -10,24 +12,26 @@ import "../styles/desktop.css";
 import "../styles/universal.css";
 
 interface Search {
-  searchInput: string;
+  query: string;
 }
 
-interface ComponentProps {}
+interface HomeSearchProps extends WrappedComponentProps<"intl"> {}
 
-interface ComponentState {
+interface HomeSearchState {
   search: Search;
 }
 
-class HomeSearch extends Component<ComponentProps, ComponentState> {
-  constructor(props) {
+const homeSearchBarStyle = { padding: "4px 4px", display: "flex", width: isMobile ? "80%" : "70%" };
+
+class HomeSearch extends Component<HomeSearchProps, HomeSearchState> {
+  constructor(props: HomeSearchProps) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleClearSearch = this.handleClearSearch.bind(this);
     this.handleMouseDownClear = this.handleMouseDownClear.bind(this);
     this.state = {
       search: {
-        searchInput: ""
+        query: ""
       }
     };
   }
@@ -38,7 +42,7 @@ class HomeSearch extends Component<ComponentProps, ComponentState> {
   }
 
   handleClearSearch() {
-    this.setState({ search: { ...this.state.search, searchInput: "" } });
+    this.setState({ search: { ...this.state.search, query: "" } });
   }
 
   handleMouseDownClear(event: React.MouseEvent<HTMLButtonElement>) {
@@ -47,13 +51,14 @@ class HomeSearch extends Component<ComponentProps, ComponentState> {
 
   render() {
     return (
-      <Grid container className="container-grid" justify="center" alignItems="center">
-        <Paper component="form" elevation={4} style={{ padding: "2px 4px", display: "flex", width: "50%" }}>
+      <Grid container justify="center" alignItems="center" style={{ margin: "32px 0" }}>
+        <Paper component="form" role="search" elevation={4} style={homeSearchBarStyle}>
           <InputBase
             fullWidth
-            name="searchInput"
-            placeholder="Search by keyword or URL"
-            value={this.state.search.searchInput}
+            name="query"
+            role="searchbox"
+            placeholder={this.props.intl.formatMessage({ id: "homeSearchPrompt" })}
+            value={this.state.search.query}
             onChange={this.handleChange}
             startAdornment={
               <InputAdornment position="start">
@@ -61,7 +66,7 @@ class HomeSearch extends Component<ComponentProps, ComponentState> {
               </InputAdornment>
             }
             endAdornment={
-              this.state.search.searchInput && (
+              this.state.search.query && (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -83,4 +88,4 @@ class HomeSearch extends Component<ComponentProps, ComponentState> {
   }
 }
 
-export default HomeSearch;
+export default injectIntl(HomeSearch);

@@ -12,7 +12,7 @@ export const REGISTER = gql`
   mutation CreateUser(
     $email: String!
     $password: String!
-    $dateOfBirth: String!
+    $dateOfBirth: Date!
     $firstName: String!
     $lastName: String!
     $displayName: String!

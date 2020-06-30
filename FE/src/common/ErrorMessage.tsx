@@ -1,15 +1,14 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import "../styles/universal.css";
 
-interface ComponentProps {
+interface ErrorMessageProps {
   msg: string | object | undefined | null;
 }
 
-interface ComponentState {}
-
-class ErrorMessage extends Component<ComponentProps, ComponentState> {
+class ErrorMessage extends PureComponent<ErrorMessageProps> {
   render() {
-    return <p className="form-error-msg-1"> {this.props.msg} </p>;
+    return <FormHelperText className="form-error-msg-1"> {this.props.msg} </FormHelperText>;
   }
 }
 

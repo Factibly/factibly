@@ -1,16 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import navPages, { NavPage } from "../../text/nav-pages";
+import navPages from "../../text/navigation-pages";
 import NavigationLogo from "./NavigationLogo";
+import { Drawer, List, Divider, ListItem, ListItemIcon, ListItemText, IconButton } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
 
 interface NavigationDrawerProps {
   drawerOpened: boolean;
@@ -20,11 +14,11 @@ interface NavigationDrawerProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     list: {
-      width: 250
+      width: 256,
     },
     menuButton: {
-      marginRight: theme.spacing(2)
-    }
+      marginRight: theme.spacing(2),
+    },
   })
 );
 
@@ -52,26 +46,22 @@ const NavigationDrawer = (props: NavigationDrawerProps) => {
               edge="start"
               className={classes.menuButton}
               color="inherit"
-              aria-label="open drawer"
+              aria-label="open navigation drawer"
               onClick={toggleDrawer(!props.drawerOpened)}
             >
               <MenuIcon fontSize="large" />
             </IconButton>
           </NavigationLogo>
           <Divider />
-          {navPages.map((navPage: NavPage, index: number) => {
-            const [id, path, PageIcon] = navPage;
-            const text = intl.formatMessage({ id: id as string });
+          {Object.values(navPages).map(({ name, path, Icon: PageIcon }, index) => {
+            const text = name && intl.formatMessage({ id: name });
             return (
-              <React.Fragment key={`${text}-item`}>
-                <ListItem button component="a" href={(path as string).trim()}>
-                  <ListItemIcon>
-                    <PageIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-                {index === 3 && <Divider />}
-              </React.Fragment>
+              <ListItem button key={`nav-item-${name}`} component="a" href={path?.trim()}>
+                <ListItemIcon>
+                  <PageIcon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
             );
           })}
           <Divider />

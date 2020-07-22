@@ -1,11 +1,22 @@
-import React from "react";
-import "../../styles/universal.css";
-import FactCheckQuizzes from "./RUQuizzes";
+import React, { useState } from "react";
+import { useIntl } from "react-intl";
+import { Helmet } from "react-helmet";
+import FactCheckQuiz from "./FactCheckQuiz";
 
 const RealUp = () => {
+  const intl = useIntl();
+  const [expanded, setExpanded] = useState<string | false>(false);
+
+  const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   return (
     <div className="window-container">
-      <div>
+      <Helmet>
+        <title> {intl.formatMessage({ id: "nav.drawer.realUpCorner.name" })} </title>
+      </Helmet>
+      <section id="real-up-description">
         <figure style={{ float: "left" }}>
           <img
             src="/images/robot-lizard-jason-news.jpg"
@@ -35,8 +46,23 @@ const RealUp = () => {
           language when, in fact, you only wrote a Python program that prints "Hello, World!".
         </p>
         <p>If you have any feedback on the RealUp Corner&trade;, please share it on our Support &amp; Feedback page.</p>
-      </div>
-      <FactCheckQuizzes style={{ clear: "both" }} />
+      </section>
+      <section id="real-up-quizzes" style={{ clear: "both" }}>
+        {["", ""].map((quiz, index) => {
+          const panelId = `panel${index + 1}`;
+          return (
+            <FactCheckQuiz
+              key={panelId}
+              panelId={panelId}
+              expanded={expanded}
+              handleChange={handleChange}
+              title="adskasldfla"
+              subtitle="dsklaldklfsda"
+              description="adsklkldkads"
+            />
+          );
+        })}
+      </section>
     </div>
   );
 };

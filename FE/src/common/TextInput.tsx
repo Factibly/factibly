@@ -3,7 +3,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import OutlinedInput, { OutlinedInputProps } from "@material-ui/core/OutlinedInput";
-import ErrorMessage from "./ErrorMessage";
+import FakeCheckErrorMessage from "./FakeCheckErrorMessage";
 
 interface TextInputProps extends OutlinedInputProps {
   name: string;
@@ -34,7 +34,6 @@ const TextInput = ({
         name={name}
         type={type}
         fullWidth
-        autoFocus
         onChange={onChange}
         label={label}
         value={value || ""}
@@ -42,7 +41,7 @@ const TextInput = ({
         {...otherProps}
       />
       <FormHelperText> {helperText} </FormHelperText>
-      {errors && <ErrorMessage msg={errors} />}
+      {errors && <FakeCheckErrorMessage msg={errors} />}
       {children}
     </FormControl>
   );

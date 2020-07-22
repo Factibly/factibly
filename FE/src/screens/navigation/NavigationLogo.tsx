@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: ({ showAlways = false, style }: NavLogoProps) => ({
     display: showAlways ? "block" : "none",
     [theme.breakpoints.up("sm")]: {
-      display: "block"
+      display: "block",
     },
-    ...style // TS automatically ignores the spread operator on nullish values
-  })
+    ...style, // TS automatically ignores the spread operator on nullish values
+  }),
 }));
 
 const NavigationLogo = (props: NavLogoProps) => {

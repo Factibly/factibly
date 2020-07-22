@@ -15,6 +15,13 @@ graphene-django = "~=2.10.1"
 django-graphql-jwt = "~=0.3.1"
 django-cors-headers = "~=3.3.0"
 requests = "~=2.24.0"
+django-extensions = "~=3.0.2"
+django-fsm = "~=1.6.0"
+newspaper3k = "*"
+django-dotenv = "*"
+gunicorn = "*"
+django-heroku = "*"
+rollbar = "*"
 
 [requires]
 python_version = "3.7"

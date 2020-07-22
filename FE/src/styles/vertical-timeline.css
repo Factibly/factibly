@@ -3,7 +3,7 @@
 }
 
 .vertical-timeline.vertical-timeline--one-column-right-mod::before {
-  right: 18px;
+  right: 16px;
   left: unset;
 }
 
@@ -13,13 +13,13 @@
 }
 
 .vertical-timeline--one-column-right-mod .vertical-timeline-element-content {
-  margin-right: 60px;
+  margin-right: 56px;
   margin-left: unset;
 }
 
 .vertical-timeline--one-column-right-mod .vertical-timeline-element-content::before {
   left: 100%;
-  border-left: 7px solid white;
+  border-left: 8px solid white;
   border-right: unset;
 }
 

@@ -1,31 +1,36 @@
 import React, { useState, cloneElement } from "react";
+import { withRouter } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { isBrowser } from "react-device-detect";
-import { fade, makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { Toolbar, AppBar, InputBase, IconButton, Slide, useScrollTrigger } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import UserMenu from "./UserMenu";
-import { useQuery } from "@apollo/react-hooks";
-import { USER_LOGGED_IN } from "../../gql/queries";
+import Flex from "../../common/Flex";
+import SearchBar from "../../common/SearchBar";
+import navPages from "../../text/navigation-pages";
+import HeavyDivider from "../../common/HeavyDivider";
+import NavigationDropdown from "./NavigationDropdown";
 import NavigationDrawer from "./NavigationDrawer";
 import NavigationLogo from "./NavigationLogo";
-import AnonymousMenu from "./AnonymousMenu";
-import "../../styles/universal.css";
+import { fade, makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { Toolbar, AppBar, Slide, Button, IconButton } from "@material-ui/core";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import { grey } from "@material-ui/core/colors";
+import MenuIcon from "@material-ui/icons/Menu";
+import { useMutation } from "@apollo/client";
+import { SEARCH } from "../../gql/mutations";
+import { retrieveSearchMutationOptions } from "../Home";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    grow: {
-      flexGrow: 1
+const useStyles = makeStyles((theme: Theme) => {
+  const menuBreakpoint = "md";
+  return createStyles({
+    toolbar: {
+      backgroundColor: grey[900],
+      color: theme.palette.common.white,
     },
     menuButton: {
-      marginRight: theme.spacing(2)
-    },
-    title: {
-      display: "none",
-      [theme.breakpoints.up("sm")]: {
-        display: "block"
-      }
+      marginRight: theme.spacing(2),
+      display: "inline-block",
+      [theme.breakpoints.up(menuBreakpoint)]: {
+        display: "none",
+      },
     },
     search: {
       position: "relative",
@@ -33,48 +38,47 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.white, 0.15),
       "&:hover": {
-        backgroundColor: fade(theme.palette.common.white, 0.25)
+        backgroundColor: fade(theme.palette.common.white, 0.25),
       },
       marginRight: theme.spacing(2),
       marginLeft: 0,
       [theme.breakpoints.up("sm")]: {
         marginLeft: theme.spacing(3),
-        width: "auto"
-      }
-    },
-    searchIcon: {
-      padding: theme.spacing(0, 2),
-      height: "100%",
-      position: "absolute",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
+        width: "auto",
+      },
     },
     inputRoot: {
-      color: "inherit"
+      color: "inherit",
     },
     inputInput: {
-      padding: theme.spacing(1.5, 1, 1.5, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create("width")
+      padding: theme.spacing(1, 1, 1, 0),
+      // transition: theme.transitions.create("width"),
+      // width: "100%",
+      // [theme.breakpoints.up("md")]: {
+      //   width: "20ch",
+      // },
     },
-    sectionDesktop: {
+    linksgroup: {
       display: "none",
-      [theme.breakpoints.up("md")]: {
-        display: "flex"
-      }
+      [theme.breakpoints.up(menuBreakpoint)]: {
+        display: "flex",
+      },
+      "& > *": {
+        marginRight: theme.spacing(1),
+      },
     },
-    sectionMobile: {
-      display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "none"
-      }
+    linkButton: {
+      borderRadius: theme.spacing(3),
+      textTransform: "none",
+      textOverflow: "nowrap",
+      whiteSpace: "nowrap",
+      "&:hover": {
+        backgroundColor: grey[700],
+      },
     },
-    offset: theme.mixins.toolbar
-  })
-);
+    offset: theme.mixins.toolbar,
+  });
+});
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -83,7 +87,7 @@ interface ElevationScrollProps {
 const ElevationScroll = ({ children }: ElevationScrollProps) => {
   const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
   return cloneElement(children, {
-    elevation: trigger ? 4 : 0
+    elevation: trigger ? 4 : 0,
   });
 };
 
@@ -102,66 +106,99 @@ const HideOnScroll = ({ children }: HideOnScrollProps) => {
 
 /**
  * @description hacky
- * @returns <codz> true </codz> if the current page being displayed is the "About FakeCheck" page
+ * @returns <code> true </code> if the current page being displayed is the "About FakeCheck" page
  */
-function isAbout() {
-  return /.*\/about-?/.test(window.location.pathname);
+function isMissionPage() {
+  return /.*\/mission-?/.test(window.location.pathname);
 }
 
-const NavigationBar = () => {
+const NavigationBar = ({ location, history }) => {
   const classes = useStyles();
   const intl = useIntl();
-  const { data } = useQuery(USER_LOGGED_IN);
+  const [searchQuery, setSearchQuery] = useState("");
   const [drawerOpened, setDrawerOpened] = useState(false);
+
+  const [searchMutation] = useMutation(SEARCH, retrieveSearchMutationOptions(searchQuery));
 
   const onDrawerOpened = (open: boolean = !drawerOpened) => {
     setDrawerOpened(open);
   };
 
-  const ScrollBehaviour = isBrowser || isAbout() ? ElevationScroll : HideOnScroll;
+  const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target;
+    setSearchQuery(target.value);
+  };
+
+  const handleSearchClear = () => {
+    setSearchQuery("");
+  };
+
+  const submitSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    searchMutation();
+    setSearchQuery("");
+  };
+
+  const ScrollBehaviour = isBrowser || isMissionPage() ? ElevationScroll : HideOnScroll;
 
   return (
     <div role="banner">
       <ScrollBehaviour>
-        <AppBar position={isAbout() ? "static" : "fixed"}>
-          <Toolbar>
+        <AppBar position={isMissionPage() ? "static" : "fixed"}>
+          <Toolbar className={classes.toolbar}>
             <IconButton
-              edge="start"
               className={classes.menuButton}
+              edge="start"
               color="inherit"
-              aria-label="open drawer"
               onClick={() => onDrawerOpened()}
+              aria-label="open navigation drawer"
             >
               <MenuIcon />
             </IconButton>
-            <NavigationLogo />
-            {window.location.pathname === "/" ? (
-              <div className={classes.grow} />
+            <NavigationLogo isClickable />
+            {location.pathname === "/" ? (
+              <Flex style={{ flex: 1 }} />
             ) : (
-              <div role="search" className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
-                </div>
-                <InputBase
-                  fullWidth
-                  role="searchbox"
-                  placeholder={intl.formatMessage({ id: "search" })}
-                  classes={{
+              <form role="search" className={classes.search} onSubmit={submitSearch}>
+                <SearchBar
+                  value={searchQuery}
+                  onChange={handleSearchInput}
+                  onSubmit={submitSearch}
+                  onClear={handleSearchClear}
+                  useContrastingColor
+                  hideSearchButtonOnTiny
+                  extensionClasses={{
                     root: classes.inputRoot,
-                    input: classes.inputInput
+                    input: classes.inputInput,
                   }}
-                  inputProps={{ "aria-label": "search" }}
                 />
-              </div>
+              </form>
             )}
-            {data?.userLoggedIn ? <UserMenu /> : <AnonymousMenu />}
+            <div className={classes.linksgroup}>
+              {Object.values(navPages).map(({ name, path, Icon: PageIcon, showIconOnly }) => {
+                const LinkButton = showIconOnly ? IconButton : (Button as any);
+                const text = name && intl.formatMessage({ id: name });
+                return (
+                  <LinkButton
+                    key={`nav-item-${name}`}
+                    className={classes.linkButton}
+                    href={path?.trim()}
+                    color="inherit"
+                  >
+                    {showIconOnly ? <PageIcon /> : text}
+                  </LinkButton>
+                );
+              })}
+            </div>
+            <HeavyDivider orientation="vertical" />
+            <NavigationDropdown />
           </Toolbar>
         </AppBar>
       </ScrollBehaviour>
-      {isAbout() || <div className={classes.offset} />}
+      {isMissionPage() || <div className={classes.offset} />}
       <NavigationDrawer drawerOpened={drawerOpened} onDrawerOpened={onDrawerOpened} />
     </div>
   );
 };
 
-export default NavigationBar;
+export default withRouter(NavigationBar);

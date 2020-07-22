@@ -6,15 +6,16 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .app-logo {
-    transform-origin: center center;
     -webkit-transform-origin: center center;
     -moz-transform-origin: center center;
     -o-transform-origin: center center;
-    animation: app-logo-spin 10s infinite linear;
+    -ms-transform-origin: center center;
+    transform-origin: center center;
     -webkit-animation: app-logo-spin 10s infinite linear;
     -moz-animation: app-logo-spin 10s infinite linear;
     -o-animation: app-logo-spin 10s infinite linear;
     -ms-animation: app-logo-spin 10s infinite linear;
+    animation: app-logo-spin 10s infinite linear;
   }
 }
 
@@ -26,7 +27,7 @@
     transform: rotate(360deg);
   }
 }
-@-webkit-keyframes app-logo-spin {
+/* @-webkit-keyframes app-logo-spin {
   from {
     -webkit-transform: rotate(0deg);
   }
@@ -57,4 +58,4 @@
   to {
     -ms-transform: rotate(360deg);
   }
-}
+} */

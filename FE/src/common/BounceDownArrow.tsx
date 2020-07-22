@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import anime from "animejs/lib/anime.es.js";
-import "../styles/universal.css";
 
 interface BounceDownArrowProps {
   arrowStyling?: object;
@@ -20,7 +19,7 @@ class BounceDownArrow extends PureComponent<BounceDownArrowProps, BounceDownArro
       easing: "cubicBezier(.5, .5, .5, .5)",
       direction: "alternate",
       loop: true,
-      duration: 350
+      duration: 350,
     });
   }
 
@@ -28,7 +27,7 @@ class BounceDownArrow extends PureComponent<BounceDownArrowProps, BounceDownArro
     this.timeline.add(
       {
         targets: ".bouncy-down-arrow",
-        translateY: -16
+        translateY: -16,
       },
       80
     );
@@ -38,8 +37,7 @@ class BounceDownArrow extends PureComponent<BounceDownArrowProps, BounceDownArro
     return (
       <div className="bouncy-down-arrow" style={{ position: "fixed", width: "100%" }}>
         <KeyboardArrowDownIcon
-          color="primary"
-          style={{ width: "100%", margin: "0 auto", fontSize: 88, ...this.props.arrowStyling }}
+          style={{ width: "100%", margin: "0 auto", fontSize: 88, color: "#FFF", ...this.props.arrowStyling }}
         />
       </div>
     );

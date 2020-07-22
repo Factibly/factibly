@@ -9,32 +9,32 @@ export interface Member {
 const members: Member[] = [
   {
     name: "Jason Antao",
-    role: "Project Manager",
+    role: "mission.team.role.projectManager.name",
     website: "http://www.jasonantao.com/",
     linkedin: "https://www.linkedin.com/in/antaojason/",
-    github: "https://github.com/jasonantao"
+    github: "https://github.com/jasonantao",
   },
   {
     name: "Chandler Lei",
-    role: "Lead Back-end Developer",
+    role: "mission.team.role.leadBeDev.name",
     website: "https://www.chandlerlei.dev/",
     linkedin: "https://www.linkedin.com/in/qian-chandler-l-486069137/",
-    github: "https://github.com/chandlerlei2017"
+    github: "https://github.com/chandlerlei2017",
   },
   {
     name: "Jadon Fan",
-    role: "Lead Front-end Developer",
+    role: "mission.team.role.leadFeDev.name",
     website: "https://www.jadonfan.com/",
     linkedin: "https://www.linkedin.com/in/jadon-fan-414993141/",
-    github: "https://github.com/JadonFan"
+    github: "https://github.com/JadonFan",
   },
   {
     name: "Solomon Kent Paul Joseph",
-    role: "Product Manager",
+    role: "mission.team.role.productManager.name",
     website: "",
     linkedin: "",
-    github: ""
-  }
+    github: "",
+  },
 ];
 
 export default members;

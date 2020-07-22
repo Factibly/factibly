@@ -1,6 +1,7 @@
 import React from "react";
 import DOMPurify from "dompurify";
-import { FaqText } from "../../text/support-texts";
+import Typography from "@material-ui/core/Typography";
+import { FaqText } from "../../text/support-prompts";
 
 interface FaqProps {
   faqText: FaqText;
@@ -17,9 +18,9 @@ const Faq = ({ faqText }: FaqProps) => {
         </p>
       </blockquote>
       {faqText.questAns.map((qna, index) => (
-        <div id={`qna-${index}`} key={`qna-${index}`}>
-          <h6> {qna.question} </h6>
-          <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(qna.answer) }} />
+        <div key={`qna-${index}`} id={`qna-${index}`} className="faq">
+          <Typography variant="h6"> {qna.question} </Typography>
+          <Typography variant="body2" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(qna.answer) }} paragraph />
         </div>
       ))}
     </>

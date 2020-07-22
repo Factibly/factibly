@@ -3,6 +3,9 @@ from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 
 class User(AbstractBaseUser):
+    """
+    User object for our app
+    """
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,

@@ -1,57 +1,47 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { showTicketSubmissionSuccess, showTicketSubmissionFail } from "../../store/support/support-actions";
 import { useIntl } from "react-intl";
 import { Formik, Form, Field, FormikErrors } from "formik";
 import emailjs from "emailjs-com";
-import DateFnsUtils from "@date-io/date-fns";
 import TextInput from "../../common/TextInput";
-import { TransitionProps } from "@material-ui/core/transitions";
-import Slide from "@material-ui/core/Slide";
-import {
-  Box,
-  FormGroup,
-  Button,
-  TextField,
-  Paper,
-  Typography,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText
-} from "@material-ui/core";
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import FormButtonBox from "../../common/FormButtonBox";
+import FakeCheckCalendarPicker from "../../common/FakeCheckCalendarPicker";
+import FakeCheckErrorMessage from "../../common/FakeCheckErrorMessage";
+import ConfirmationDialog from "../../common/ConfirmationDialog";
+import Banner from "../../common/Banner";
+import { FormGroup, TextField } from "@material-ui/core";
+import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import supportTexts, { SupportText } from "../../text/support-texts";
-import ErrorMessage from "../../common/ErrorMessage";
-import "../../styles/universal.css";
-
-interface SendConfirmationDialogProps {
-  values: SupportFormValues;
-}
-
-interface SupportFormValues {
-  title: string;
-  des: string;
-}
+import { DateTimePicker } from "@material-ui/pickers";
+import supportPrompts, { SupportText } from "../../text/support-prompts";
+import { isValidEmailAddress } from "../../utils/user-utils";
 
 interface SupportFormProps {
   supportText: SupportText;
 }
 
-const Transition = forwardRef(function Transition(
-  props: TransitionProps & { children?: React.ReactElement<any, any> },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+interface SupportFormValues {
+  email: string;
+  title: string;
+  description: string;
+  occurrenceDate: Date;
+}
 
 var topic = "";
 
 const SupportForm = ({ supportText }: SupportFormProps) => {
+  const dispatch = useDispatch();
+  const ticketSubmitStatus = useSelector((state: any) => state.supportReducers.ticketSubmitStatus);
+
   const intl = useIntl();
-  const [formSubmit, setFormSubmit] = useState(false);
-  const [ticketSendStatus, setTicketSendStatus] = useState({ msg: "", backgroundColor: "inherit" });
-  const [openDialog, setOpenDialog] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date().toString());
+
+  const [formSubmit, setFormSubmit] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+  const translatedTopics = [...supportText.topics, "general.form.field.other.name"]
+    .map(id => intl.formatMessage({ id }))
+    ?.sort();
 
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
@@ -60,11 +50,12 @@ const SupportForm = ({ supportText }: SupportFormProps) => {
   const handleCloseDialog = (alsoSendTicket: boolean = false, values?: SupportFormValues) => {
     if (alsoSendTicket) {
       const template_params = {
-        category: supportText.name?.toUpperCase(),
+        reply_to: values?.email,
+        category: supportText.nameDefault?.toUpperCase(),
         topic,
         title: values?.title,
-        date: selectedDate,
-        des: values?.des
+        date: values?.occurrenceDate.toString(),
+        description: values?.description,
       };
 
       // emailjs.init(process.env.REACT_APP_EMAILJS_USER_ID ?? "");
@@ -76,167 +67,135 @@ const SupportForm = ({ supportText }: SupportFormProps) => {
         )
         .then(
           () => {
-            setTicketSendStatus({
-              msg: `
-                Thank you! We have received your ${supportText.name} ticket and
-                will try to back get to you as soon as possible.`,
-              backgroundColor: "green"
-            });
+            showTicketSubmissionSuccess()(dispatch);
           },
           () => {
-            setTicketSendStatus({
-              msg: `Something went wrong; your ${supportText.name} ticket didn't get send to us. Please try again later.`,
-              backgroundColor: "red"
-            });
+            showTicketSubmissionFail()(dispatch);
           }
         );
     }
     setOpenDialog(false);
   };
 
-  const handleTopicChange = (value: string) => {
-    topic = value;
-  };
-
   const validate = (values: SupportFormValues) => {
     let errors: FormikErrors<SupportFormValues> = {};
-    const requiredFieldMsg = intl.formatMessage({ id: "requiredField" });
-    if (!values.title) {
-      errors.title = requiredFieldMsg;
+    const requiredFieldMsg = intl.formatMessage({ id: "general.form.msg.requiredField.content" });
+
+    if (!values.title) errors.title = requiredFieldMsg;
+
+    if (!values.email) {
+      errors.email = requiredFieldMsg;
+    } else if (!isValidEmailAddress(values.email)) {
+      errors.email = intl.formatMessage({ id: "support.form.msg.invalidEmailAddress.content" });
     }
+
     return errors;
   };
 
-  const Banner = () => {
-    const { msg, backgroundColor } = ticketSendStatus;
-    return (
-      <Paper variant="outlined" style={{ padding: 24, width: "100%", color: "white", backgroundColor }}>
-        <Typography variant="h6" gutterBottom>
-          {msg}
-        </Typography>
-      </Paper>
-    );
-  };
-
-  const SendConfirmationDialog = ({ values }: SendConfirmationDialogProps) => (
-    <Dialog
-      open={openDialog}
-      TransitionComponent={Transition}
-      keepMounted
-      fullWidth
-      onClose={() => handleCloseDialog()}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description"> Are you sure? </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => handleCloseDialog(false)} color="primary">
-          No
-        </Button>
-        <Button onClick={() => handleCloseDialog(true, values)} color="primary" autoFocus>
-          Yes
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-
   return (
     <>
-      {ticketSendStatus.msg && <Banner />}
+      {ticketSubmitStatus?.msg && (
+        <Banner msg={ticketSubmitStatus.msg} backgroundColor={ticketSubmitStatus.backgroundColor} />
+      )}
       <Formik
         initialValues={{
+          email: "",
           title: "",
-          des: "",
-          dateTime: selectedDate
+          description: "",
+          occurrenceDate: new Date(),
         }}
         onSubmit={handleClickOpenDialog}
         validate={validate}
         validateOnBlur={false}
         validateOnChange={false}
       >
-        {({ errors, values, validateForm, submitForm }) => {
+        {({ errors, values, setFieldValue, validateForm, submitForm }) => {
           const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             setFormSubmit(true);
-            if (supportText.topics?.includes(topic)) {
+            if (translatedTopics?.includes(topic)) {
               submitForm();
             } else {
               validateForm();
             }
           };
-          const topicOptions = [...supportText.topics?.sort(), "Other"];
           return (
             <>
-              <SendConfirmationDialog values={values} />
-              <Form onSubmit={event => onSubmit(event)}>
+              <ConfirmationDialog
+                openDialog={openDialog}
+                onCancel={() => handleCloseDialog()}
+                onReject={() => handleCloseDialog(false)}
+                onApprove={() => handleCloseDialog(true, values)}
+              />
+              <Form onSubmit={onSubmit}>
                 <FormGroup className="support-form">
                   <Autocomplete
                     disableClearable
                     openOnFocus
                     autoComplete
-                    options={topicOptions}
-                    getOptionLabel={(option: string) => option}
+                    options={translatedTopics}
                     groupBy={option => {
                       const firstLetter = option.charAt(0)?.toUpperCase();
                       return /[0-9]/.test(firstLetter) ? "0-9" : firstLetter;
                     }}
-                    onInputChange={(_, value) => handleTopicChange(value)}
-                    renderInput={(params: any) => {
-                      return (
-                        <Field
-                          as={TextField}
-                          {...params}
-                          fullWidth
-                          label="Topic"
-                          variant="outlined"
-                          error={formSubmit && !topic}
-                          helperText={
-                            formSubmit && !topic ? (
-                              <ErrorMessage msg={intl.formatMessage({ id: "requiredField" })} />
-                            ) : (
-                              supportText.helperTexts?.topic
-                            )
-                          }
-                        />
-                      );
+                    onInputChange={(_, value) => {
+                      topic = value;
                     }}
+                    renderInput={(params: any) => (
+                      <Field
+                        as={TextField}
+                        {...params}
+                        fullWidth
+                        label={intl.formatMessage({ id: "support.form.field.topic.name" })}
+                        variant="outlined"
+                        error={formSubmit && !topic}
+                        helperText={
+                          formSubmit && !topic ? (
+                            <FakeCheckErrorMessage
+                              msg={intl.formatMessage({ id: "general.form.msg.requiredField.content" })}
+                            />
+                          ) : (
+                            supportText.helperTexts?.topic && intl.formatMessage({ id: supportText.helperTexts?.topic })
+                          )
+                        }
+                      />
+                    )}
                   />
-                  <Field as={TextInput} name="title" label="Title" errors={errors.title} />
                   <Field
                     as={TextInput}
-                    name="des"
-                    label="Description"
+                    name="email"
+                    label={intl.formatMessage({ id: "support.form.field.emailAddress.name" })}
+                    errors={errors.email}
+                  />
+                  <Field
+                    as={TextInput}
+                    name="title"
+                    label={intl.formatMessage({ id: "support.form.field.title.name" })}
+                    errors={errors.title}
+                  />
+                  <Field
+                    as={TextInput}
+                    name="description"
+                    label={intl.formatMessage({ id: "support.form.field.description.name" })}
                     multiline
                     rows={10}
-                    rowsMax={10}
-                    errors={errors.des}
-                    helperText={supportText.helperTexts?.des}
+                    errors={errors.description}
+                    helperText={
+                      supportText.helperTexts?.description &&
+                      intl.formatMessage({ id: supportText.helperTexts?.description })
+                    }
                   />
-                  {supportTexts.bug.id === supportText.id && (
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <DateTimePicker
-                        variant="inline"
-                        disableFuture
-                        label="Estimated Time of Occurence"
-                        inputVariant="outlined"
-                        value={selectedDate}
-                        onChange={date => setSelectedDate(date?.toString() ?? new Date().toString())}
-                        PopoverProps={{
-                          anchorOrigin: { horizontal: "left", vertical: "center" },
-                          transformOrigin: { horizontal: "left", vertical: "center" }
-                        }}
-                        helperText={supportText.helperTexts?.bugTime}
-                      />
-                    </MuiPickersUtilsProvider>
+                  {supportPrompts.bug.id === supportText.id && (
+                    <FakeCheckCalendarPicker
+                      Picker={DateTimePicker}
+                      label={intl.formatMessage({ id: "support.form.field.occurrenceTime.name" })}
+                      selectedDate={values?.occurrenceDate}
+                      onChange={(date: MaterialUiPickersDate) => setFieldValue("occurrenceDate", date ?? new Date())}
+                      helperText={intl.formatMessage({ id: supportText.helperTexts?.bugTime })}
+                    />
                   )}
                 </FormGroup>
-                <Box className="form-box">
-                  <Button fullWidth type="submit" variant="contained" color="primary">
-                    Send
-                  </Button>
-                </Box>
+                <FormButtonBox primaryText={intl.formatMessage({ id: "general.action.submit.name" })} />
               </Form>
             </>
           );

@@ -5,8 +5,18 @@
     "noImplicitAny": false,
     "module": "esnext",
     "target": "es6",
-    "jsx": "preserve",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react",
+    "types": [
+      "react",
+      "react-dom",
+      "node",
+      "jest"
+    ],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,5 +28,7 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["./src/**/*"]
+  "include": [
+    "./src/**/*"
+  ]
 }

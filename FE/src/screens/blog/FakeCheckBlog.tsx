@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useIntl } from "react-intl";
+import { Helmet } from "react-helmet";
 import { makeStyles, createStyles, Theme, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
@@ -13,7 +15,7 @@ import FakeCheckBlogCard from "./FakeCheckBlogCard";
 function a11yProps(index: any) {
   return {
     id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
 
@@ -23,17 +25,17 @@ const useStyles = makeStyles((theme: Theme) => {
     gridView: {
       flexGrow: 1,
       [theme.breakpoints.only(changePoint)]: {
-        display: "none"
-      }
+        display: "none",
+      },
     },
     tabbedView: {
       // backgroundColor: theme.palette.background.paper,
       width: "100%",
       display: "none",
       [theme.breakpoints.only(changePoint)]: {
-        display: "block"
-      }
-    }
+        display: "block",
+      },
+    },
   });
 });
 
@@ -49,7 +51,7 @@ const FakeCheckBlogGridded = ({ classes }) => (
 );
 
 const FakeCheckBlogTabbed = ({ classes, theme }) => {
-  const [categoryIndex, setCategoryIndex] = useState(0);
+  const [categoryIndex, setCategoryIndex] = useState<number>(0);
 
   const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     setCategoryIndex(newValue);
@@ -70,12 +72,14 @@ const FakeCheckBlogTabbed = ({ classes, theme }) => {
           <Tab icon={<TimelineIcon />} label="Timeline" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={categoryIndex} index={0} dir={theme.direction}>
-        <FakeCheckBlogCard />
-      </TabPanel>
-      <TabPanel value={categoryIndex} index={1} dir={theme.direction}>
-        <FakeCheckTimeline />
-      </TabPanel>
+      {[FakeCheckBlogCard, FakeCheckTimeline].map(v => {
+        const Comp = v;
+        return (
+          <TabPanel value={categoryIndex} index={0} dir={theme.direction}>
+            <Comp />
+          </TabPanel>
+        );
+      })}
     </div>
   );
 };
@@ -83,9 +87,13 @@ const FakeCheckBlogTabbed = ({ classes, theme }) => {
 const FaceCheckBlog = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const intl = useIntl();
 
   return (
     <>
+      <Helmet>
+        <title> {intl.formatMessage({ id: "nav.drawer.companyBlog.name" })} </title>
+      </Helmet>
       <FakeCheckBlogGridded classes={classes} />
       <FakeCheckBlogTabbed classes={classes} theme={theme} />
     </>

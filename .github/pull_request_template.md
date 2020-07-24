@@ -1,9 +1,14 @@
 ## Changes
-- Your changes description goes here...
-- Your changes description goes here...
 
-## Definition of Done
-- [ ] Pull request is up to date with the destination branch
-- [ ] Commits were squashed
-- [ ] All tests are passing
-- [ ] At least one code review
+- What have you changed on this branch?
+- What have you changed on this branch?
+- What have you changed on this branch?
+
+## Checklist
+
+Your PR should meet the following criteria before you merge your branch with the destination branch.
+
+- [ ] Up-to-date with destination branch
+- [ ] No lint errors
+- [ ] All tests passed
+- [ ] At least two code reviews

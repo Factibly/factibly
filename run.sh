@@ -105,6 +105,13 @@ if [ $BREW_FLOW -ge 1 ] ; then
   fi
 fi
 
+if [ $RESOLVE_PSYCOGP2 -eq 1 ] ; then
+	brew reinstall openssl
+	export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib
+	export LDFLAGS="-L/usr/local/opt/openssl/lib"
+	export CPPFLAGS="-I/usr/local/opt/openssl/include"
+	pip3 install psycopg2-binary
+fi
 
 if [ $CLONE_REPO -eq 1 ] ; then
   git clone https://github.com/Sapphire-Labs/Hackathon.git
@@ -122,7 +129,6 @@ function run_front {
   cd $WEB_DIR
 
   yarn install
-  yarn global add forever
 
   yarn start
   wait
@@ -143,13 +149,6 @@ function run_back_docker {
 function run_back_pipenv {
   cd $API_DIR
 
-  if [ $RESOLVE_PSYCOGP2 -eq 1 ] ; then
-    brew reinstall openssl
-    export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib
-    export LDFLAGS="-L/usr/local/opt/openssl/lib"
-    export CPPFLAGS="-I/usr/local/opt/openssl/include"
-    pip3 install psycopg2-binary
-  fi
   pipenv install || echo "ERROR: The pipenv install command did not run successfully, perhaps due to the psycopg2 package (see the -p flag options for a potential fix)"
   export PIPENV_VENV_IN_PROJECT="enabled"
 

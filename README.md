@@ -4,6 +4,8 @@
 
 The set-up instructions for each of our apps are available in their respective READMEs. You can _either_ follow those instructions (recommended) _or_ run our custom bash [script](./setup.sh).
 
+The [fc-api](./fc-api/) directory contains the necessary back-end code for **all** our applications. You _must_ set that up.
+
 **Regardless of which set-up method you employ, you'll need to configure the environment variables in order to run our apps.** You can issue a request for these variables via an email to Jadon at [jdsare@gmail.com](mailto:jdsare@gmail.com) .
 
 ## Applications

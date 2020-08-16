@@ -85,14 +85,14 @@ const FakeCheckBlogTabbed = ({ classes, theme }) => {
 };
 
 const FaceCheckBlog = () => {
-  const classes = useStyles();
   const theme = useTheme();
+  const classes = useStyles();
   const intl = useIntl();
 
   return (
     <>
       <Helmet>
-        <title> {intl.formatMessage({ id: "nav.drawer.companyBlog.name" })} </title>
+        <title> {intl.formatMessage({ id: "nav.drawer.item.companyBlog" })} </title>
       </Helmet>
       <FakeCheckBlogGridded classes={classes} />
       <FakeCheckBlogTabbed classes={classes} theme={theme} />

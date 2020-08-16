@@ -3,7 +3,7 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import anime from "animejs/lib/anime.es.js";
 
 interface BounceDownArrowProps {
-  arrowStyling?: object;
+  arrowStyle?: object;
 }
 
 interface BounceDownArrowState {
@@ -37,7 +37,7 @@ class BounceDownArrow extends PureComponent<BounceDownArrowProps, BounceDownArro
     return (
       <div className="bouncy-down-arrow" style={{ position: "fixed", width: "100%" }}>
         <KeyboardArrowDownIcon
-          style={{ width: "100%", margin: "0 auto", fontSize: 88, color: "#FFF", ...this.props.arrowStyling }}
+          style={{ width: "100%", margin: "0 auto", fontSize: 88, color: "#FFF", ...this.props.arrowStyle }}
         />
       </div>
     );

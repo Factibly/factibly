@@ -1,15 +1,16 @@
-import React from "react";
-import { useIntl, IntlShape } from "react-intl";
-import * as countryList from "country-list";
+import React, { useState, useEffect } from "react";
+import { useIntl } from "react-intl";
 import { Form, Field, FormikErrors, useFormikContext, useField } from "formik";
-import { RegistrationFormValues } from "./Registration";
-import TextInput from "../../common/TextInput";
-import FormButtonBox from "../../common/FormButtonBox";
+import FormGroupCompact from "../../common/FormGroupCompact";
+import FakeCheckInput from "../../common/FakeCheckInput";
 import FakeCheckCalendarPicker from "../../common/FakeCheckCalendarPicker";
 import FakeCheckErrorMessage from "../../common/FakeCheckErrorMessage";
-import { FormGroup, FormControl, InputLabel, Select } from "@material-ui/core";
+import FormButtonBox from "../../common/FormButtonBox";
+import { FormControl, InputLabel, Select } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
+import { RegistrationFormValues, retrieveMinimumRequiredAge } from "../../utils/forms/registration-form-helper";
+import { getSortedCountries } from "../../utils/string-utils";
 
 interface UserPersonalFormProps {
   errors: FormikErrors<RegistrationFormValues>;
@@ -17,39 +18,7 @@ interface UserPersonalFormProps {
   onNext: (event: any) => void | undefined;
 }
 
-if (!(Intl as any).DisplayNames) {
-  require("@formatjs/intl-displaynames/polyfill");
-  require("@formatjs/intl-displaynames/locale-data/en");
-  require("@formatjs/intl-displaynames/locale-data/fr");
-  require("@formatjs/intl-displaynames/locale-data/zh-Hans");
-  require("@formatjs/intl-displaynames/locale-data/zh-Hant");
-  require("@formatjs/intl-displaynames/locale-data/ja");
-}
-
-export const countryLocalNameCodeMap = {};
-
-function retrieveCountryOptions(intl: IntlShape) {
-  return countryList
-    .getCodes()
-    .map(code => {
-      const displayName = intl.formatDisplayName(code, { type: "region" }) ?? "";
-      countryLocalNameCodeMap[displayName] = code;
-      return displayName;
-    })
-    ?.sort()
-    ?.map(name => (
-      <option key={name} value={name}>
-        {name}
-      </option>
-    ));
-}
-
-export const retrieveMinimumRequiredAge = function retrieveMinimumRequiredAge() {
-  const minAge = 16;
-  const maxDate = new Date();
-  maxDate.setFullYear(maxDate.getFullYear() - minAge);
-  return maxDate;
-};
+export var countryNameCodeMap = {};
 
 const AccountPersonalForm = ({ errors, onBack, onNext }: UserPersonalFormProps) => {
   const intl = useIntl();
@@ -57,36 +26,54 @@ const AccountPersonalForm = ({ errors, onBack, onNext }: UserPersonalFormProps) 
   const { setFieldValue } = useFormikContext();
   const [dateOfBirthField] = useField({ name: "dateOfBirth" });
 
+  const [sortedCountryNames, setSortedCountryNames] = useState<string[]>([]);
+  useEffect(() => {
+    const sortedCountries = getSortedCountries(code => intl.formatDisplayName(code, { type: "region" }) ?? "");
+    setSortedCountryNames(sortedCountries.names);
+    countryNameCodeMap = { ...sortedCountries.codeMap };
+  }, [intl]);
+
   return (
     <Form onSubmit={onNext}>
-      <FormGroup className="account-form">
+      <FormGroupCompact>
         <Field
-          as={TextInput}
+          as={FakeCheckInput}
           name="firstName"
-          label={intl.formatMessage({ id: "user.form.field.firstName.name" })}
-          errors={errors.firstName}
+          label={intl.formatMessage({ id: "user.registration.form.field.firstName" })}
+          errorMsg={errors.firstName}
           autoFocus
+          aria-required="true"
         />
         <Field
-          as={TextInput}
+          as={FakeCheckInput}
           name="lastName"
-          label={intl.formatMessage({ id: "user.form.field.lastName.name" })}
-          errors={errors.lastName}
+          label={intl.formatMessage({ id: "user.registration.form.field.lastName" })}
+          errorMsg={errors.lastName}
+          aria-required="true"
         />
         <FormControl variant="outlined">
-          <InputLabel htmlFor="country">{intl.formatMessage({ id: "user.form.field.countryRegion.name" })}</InputLabel>
+          <InputLabel htmlFor="country">
+            {intl.formatMessage({ id: "user.registration.form.field.countryRegion" })}
+          </InputLabel>
           <Field
             as={Select}
+            id="country"
             variant="outlined"
             name="country"
             autoComplete="country-name"
-            label={intl.formatMessage({ id: "user.form.field.countryRegion.name" })}
-            errors={errors.country}
+            label={intl.formatMessage({ id: "user.registration.form.field.countryRegion" })}
             native
+            aria-required="true"
+            aria-describedby="user-registration-country"
           >
             <option value="" disabled />
-            {retrieveCountryOptions(intl)}
+            {sortedCountryNames.map(name => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
           </Field>
+          {errors.country && <FakeCheckErrorMessage id="country-error-message" msg={errors.country} />}
         </FormControl>
         <FakeCheckCalendarPicker
           {...dateOfBirthField}
@@ -95,17 +82,22 @@ const AccountPersonalForm = ({ errors, onBack, onNext }: UserPersonalFormProps) 
           openTo="year"
           format="dd/MM/yyyy"
           maxDate={retrieveMinimumRequiredAge()}
-          maxDateMessage={<FakeCheckErrorMessage msg={intl.formatMessage({ id: "user.form.msg.minAge.content" })} />}
-          label={intl.formatMessage({ id: "user.form.field.dateOfBirth.name" })}
-          helperText={intl.formatMessage({ id: "user.form.msg.minAge.content" })}
-          errors={errors.dateOfBirth}
+          maxDateMessage={
+            <FakeCheckErrorMessage
+              id={intl.formatMessage({ id: "user.registration.form.field.dateOfBirth" })}
+              msg={intl.formatMessage({ id: "user.registration.form.msg.age.minimum" })}
+            />
+          }
+          label={intl.formatMessage({ id: "user.registration.form.field.dateOfBirth" })}
+          helperText={intl.formatMessage({ id: "user.registration.form.msg.age.minimum" })}
           selectedDate={dateOfBirthField.value}
-          onChange={(date: MaterialUiPickersDate) => setFieldValue(dateOfBirthField.name, date || new Date())}
+          onChange={(date: MaterialUiPickersDate) => setFieldValue(dateOfBirthField.name, date || new Date(), true)}
+          aria-required="true"
         />
-      </FormGroup>
+      </FormGroupCompact>
       <FormButtonBox
-        primaryText={intl.formatMessage({ id: "general.action.next.name" })}
-        secondaryText={intl.formatMessage({ id: "general.action.back.name" })}
+        primaryText={intl.formatMessage({ id: "general.action.next" })}
+        secondaryText={intl.formatMessage({ id: "general.action.back" })}
         onSecondaryClick={onBack}
       />
     </Form>

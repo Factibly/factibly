@@ -1,73 +1,35 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useIntl } from "react-intl";
+import { Helmet } from "react-helmet";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import PageContainer from "../../common/PageContainer";
 import FactCheckOpenGraph from "./FactCheckOpenGraph";
-import FactCheckOverview from "./FactCheckOverview";
-import UserRating, { RatingAction } from "./UserRating";
-import RatingsChart from "./RatingsChart";
-import RatingEditor from "./RatingEditor";
-import BootstrapInput from "../../common/BootstrapInput";
+import FactCheckHeader from "./FactCheckHeader";
+import FactCheckCoverImage from "./FactCheckCoverImage";
+import FactCheckOverview from "./overview/FactCheckOverview";
+import FactCheckRatingCard from "./user-rating/FactCheckRatingCard";
+import FactCheckRatingEditor from "./user-rating/FactCheckRatingEditor";
+import FactCheckRatingsChart from "./trends/FactCheckRatingsChart";
+import FactCheckRatings from "./user-rating/FactCheckRatings";
+import { showFactCheckWidget } from "./widget/FactCheckWidget";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Grid, Typography, FormControl, Select, MenuItem, Button } from "@material-ui/core";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
-import { useQuery } from "@apollo/client";
-import { CONTENT } from "../../gql/queries";
-import { isLoggedIn } from "../../utils/user-utils";
+import { Grid, Button } from "@material-ui/core";
+import { CONTENT, LOGGED_IN } from "../../gql/queries";
 import history from "../../hooks/history";
+import { RatingOrigin, RatingAction } from "../../static/enums";
+import { ACCOUNT_SIGN_IN_PATH } from "../../static/paths";
+import { Content, ContentVariables } from "../../gql/__generated__/Content";
+import { LoggedIn } from "../../gql/__generated__/LoggedIn";
+import { useCustomQuery } from "../../hooks/gql";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexDirection: "column",
-      margin: "auto",
-      padding: `${theme.spacing(3)}px ${theme.spacing(27)}px`,
-      [theme.breakpoints.only("xs")]: {
-        paddingLeft: theme.spacing(6),
-        paddingRight: theme.spacing(6),
-      },
-      [theme.breakpoints.only("sm")]: {
-        paddingLeft: theme.spacing(9),
-        paddingRight: theme.spacing(9),
-      },
-      [theme.breakpoints.only("md")]: {
-        paddingLeft: theme.spacing(15),
-        paddingRight: theme.spacing(15),
-      },
-      [theme.breakpoints.only("lg")]: {
-        paddingLeft: theme.spacing(21),
-        paddingRight: theme.spacing(21),
-      },
-    },
-    coverImage: {
-      height: "50vh",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
-      marginBottom: theme.spacing(2),
-    },
-    tag: {
-      alignSelf: "flex-start",
-      padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px`,
-      color: theme.palette.secondary.main,
-      border: `thin solid ${theme.palette.secondary.main}`,
-      borderRadius: 16,
-    },
-    title: {
-      textAlign: "left",
-      wordWrap: "break-word",
-      hyphens: "auto",
-      WebkitHyphens: "auto",
-      msHyphens: "auto",
-    },
     content: {
       width: "100%",
       "& > *": {
         marginBottom: theme.spacing(6),
       },
-    },
-    urlOutline: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
     },
     button: {
       marginTop: theme.spacing(2),
@@ -79,161 +41,141 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 0,
       top: "auto",
       right: 0,
-      bottom: 8,
-      left: "calc(50% - 120px - 8px)",
+      bottom: theme.spacing(1),
+      left: `calc(50% - 120px - ${theme.spacing(1)}px)`,
     },
     extendedIcon: {
       marginRight: theme.spacing(1),
     },
-    ratings: {
-      "& > *": {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
-      },
-    },
   })
 );
 
-const sortingTypes = Object.freeze(["factCheck.userRatings.action.sort.mostRecent.name"]);
-
 const FactCheck = () => {
   const { contentId } = useParams();
+  const location = useLocation();
   const classes = useStyles();
   const intl = useIntl();
 
-  const [openCreateRating, setOpenCreateRating] = useState<boolean>(false);
-  const [sortingTypeIndex, setSortingTypeIndex] = useState<number>(0);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
-  const handleSortingChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSortingTypeIndex(event.target.value as number);
-  };
+  const { data: userData } = useCustomQuery<LoggedIn>(LOGGED_IN);
+  const userLoggedIn = !!userData?.currentUser;
 
-  const handleClickOpenCreateRating = () => {
-    setOpenCreateRating(true);
-  };
-
-  const handleCloseCreateRating = () => {
-    setOpenCreateRating(false);
-  };
-
-  // const { data: userData } = useQuery(CURRENT_USER);
-  const { loading: contentLoading, data: contentData } = useQuery(CONTENT, {
+  const { loading: contentLoading, data: contentData } = useCustomQuery<Content, ContentVariables>(CONTENT, {
     variables: { contentId },
   });
-
-  // const userId = userData?.currentUser?.id;
   const content = contentData?.content;
   const selfRating = content?.userRating;
+  const sourceTitle =
+    content?.title || content?.author || intl.formatMessage({ id: "factCheck.openGraph.sourceTitle.default" });
+
+  const [openRatingEditor, setOpenRatingEditor] = useState<boolean>(false);
+  const handleOpenRatingEditor = () => {
+    if (userLoggedIn) {
+      setOpenRatingEditor(true);
+    } else {
+      history.replace({
+        pathname: ACCOUNT_SIGN_IN_PATH,
+        state: { from: location.pathname },
+      });
+    }
+  };
+  const handleCloseRatingEditor = () => setOpenRatingEditor(false);
 
   if (contentLoading) return <div />;
 
+  const urlSearchParams = new URLSearchParams(location.search);
+  if (parseInt(urlSearchParams.get("layout") ?? "0") === 1) {
+    showFactCheckWidget(urlSearchParams, content, intl.locale);
+    return null;
+  }
+
   return (
-    <>
+    <PageContainer>
+      <Helmet>
+        <title>{`${intl.formatMessage({ id: "nav.drawer.item.factCheck" })}: ${sourceTitle}`}</title>
+      </Helmet>
       <FactCheckOpenGraph
         key={`fc-og-${content?.title}`}
-        sourceTitle={content?.title || content?.author || "Crowd-Sourced Rating"}
+        titlePrefix={intl.formatMessage({ id: "factCheck.openGraph.titlePrefix" })}
+        sourceTitle={sourceTitle}
+        description={intl.formatMessage({ id: "factCheck.openGraph.description" })}
       />
-      <Grid container className={classes.root} direction="column">
-        <Typography className={classes.tag} gutterBottom>
-          {intl.formatMessage({ id: "factCheck.factCheckCertified.tag.name" })}
-        </Typography>
-        <Typography className={classes.title} gutterBottom variant="h3">
-          {content?.title}
-        </Typography>
-        {content?.imageUrl && (
-          <Grid item className={classes.coverImage} style={{ backgroundImage: `url(${content?.imageUrl})` }} />
-        )}
-        <Grid item className={classes.content} spacing={3}>
-          <FactCheckOverview content={content} />
+      <Grid container direction="column">
+        <FactCheckHeader sourceTitle={sourceTitle} author={content?.author} />
+        <FactCheckCoverImage
+          sourceTitle={sourceTitle}
+          imageUrl={content?.imageUrl ?? null}
+          imageModerationScore={content?.imageModerationScore ?? "A_0"}
+        />
+        <Grid item className={classes.content}>
+          <section id="overview" aria-label={intl.formatMessage({ id: "factCheck.overview.title" })}>
+            <FactCheckOverview content={content} userLoggedIn={userLoggedIn} />
+          </section>
           <Grid container item direction="column" spacing={2}>
             <Grid item>
-              {selfRating ? (
-                <UserRating
-                  user={intl.formatMessage({ id: "factCheck.userRatings.selfRating.name" })}
-                  contentId={contentId}
-                  ratingId={selfRating.id}
-                  createdAt={selfRating.createdAt}
-                  scores={[selfRating.score1, selfRating.score2, selfRating.score3]}
-                  justification={selfRating.justification}
-                  upvoteCount={selfRating.upvoteCount}
-                  downvoteCount={selfRating.downvoteCount}
-                  elevation={3}
-                  inheritBackground
-                  ratingAction={RatingAction.Edit}
-                  onRatingEditorOpen={handleClickOpenCreateRating}
-                />
-              ) : (
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => (isLoggedIn() ? handleClickOpenCreateRating() : history.push("/account/sign-in"))}
-                  disableElevation
-                >
-                  {isLoggedIn() ? "Rate This Source" : "Sign In And Rate"}
-                </Button>
-              )}
+              <section id="self-rating" aria-label={intl.formatMessage({ id: "factCheck.userRatings.selfRating" })}>
+                {selfRating ? (
+                  <FactCheckRatingCard
+                    displayName={intl.formatMessage({ id: "factCheck.userRatings.selfRating" })}
+                    ratingId={selfRating.id}
+                    contentId={contentId}
+                    createdAt={selfRating.createdAt}
+                    scores={[selfRating.score1, selfRating.score2, selfRating.score3]}
+                    justification={selfRating.justification ?? ""}
+                    upvoteCount={selfRating.upvoteCount}
+                    downvoteCount={selfRating.downvoteCount}
+                    elevation={3}
+                    inheritBackground
+                    origin={RatingOrigin.YOURS}
+                    action={RatingAction.EDIT}
+                    onRatingEditorOpen={handleOpenRatingEditor}
+                  />
+                ) : (
+                  <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleOpenRatingEditor}
+                    disableElevation
+                  >
+                    {intl.formatMessage({
+                      id: userLoggedIn
+                        ? "factCheck.userRatings.action.rate.rateSource"
+                        : "factCheck.userRatings.action.rate.logRate",
+                    })}
+                  </Button>
+                )}
+              </section>
             </Grid>
           </Grid>
-          <RatingEditor
-            key={`self-rating-${selfRating?.id}`}
+          <FactCheckRatingEditor
+            key={`rating-editor-${selfRating?.id}`}
             contentId={contentId}
-            open={openCreateRating}
-            handleClose={handleCloseCreateRating}
-            defaultScores={[selfRating?.score1, selfRating?.score2, selfRating?.score3]}
-            defaultJustification={selfRating?.justification}
+            open={openRatingEditor}
+            onClose={handleCloseRatingEditor}
+            defaultScores={[selfRating?.score1 ?? 0, selfRating?.score2 ?? 0, selfRating?.score3 ?? 0]}
+            defaultJustification={selfRating?.justification ?? ""}
+            executeRecaptcha={executeRecaptcha}
           />
           <Grid container item direction="column" spacing={3}>
-            <RatingsChart ratings={content?.ratingSet} />
+            <FactCheckRatingsChart
+              ratings={content?.ratingSet ?? []}
+              aria-label={intl.formatMessage({ id: "factCheck.trends.rating.title" })}
+            />
             <Grid item>
-              <FormControl variant="filled">
-                <Select value={sortingTypeIndex} onChange={handleSortingChange} input={<BootstrapInput />}>
-                  {sortingTypes.map((id, index) => (
-                    <MenuItem key={`sort-justification-${index}`} value={index}>
-                      {intl.formatMessage({ id })}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item className={classes.ratings}>
-              {content?.ratingSet?.map((rating: any, index: number) => (
-                <UserRating
-                  key={`rating-${index}`}
-                  ratingId={rating.id}
-                  contentId={contentId}
-                  user={rating.user.displayName}
-                  createdAt={rating.createdAt}
-                  scores={[rating.score1, rating.score2, rating.score3]}
-                  justification={rating.justification}
-                  country={rating.user.country}
-                  upvoteCount={rating.upvoteCount}
-                  downvoteCount={rating.downvoteCount}
-                  ratingAction={RatingAction.Vote}
-                />
-              ))}
+              <section
+                id="user-ratings"
+                aria-label={intl.formatMessage({ id: "factCheck.userRatings.title" })}
+                aria-live="polite"
+              >
+                <FactCheckRatings contentId={contentId} content={content} />
+              </section>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      {/* {!selfRating && (
-        <Fab
-          className={classes.fab}
-          variant="extended"
-          color="secondary"
-          size="large"
-          onClick={() => (isLoggedIn() ? handleClickOpenCreateRating() : history.push("/account/sign-in"))}
-          aria-label="rate this source"
-        >
-          <FontAwesomeIcon className={classes.extendedIcon} icon={faStarHalfAlt} />
-          {intl.formatMessage({
-            id: isLoggedIn()
-              ? "factCheck.userRatings.action.rate.rateSource.name"
-              : "factCheck.userRatings.action.rate.logRate.name",
-          })}
-        </Fab>
-      )} */}
-    </>
+    </PageContainer>
   );
 };
 

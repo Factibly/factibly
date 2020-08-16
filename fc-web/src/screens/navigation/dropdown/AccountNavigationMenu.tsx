@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
-import { changeDarkMode } from "../../../store/app/screen-actions";
+import { changeDarkMode } from "../../../store/settings/actions";
+import { RootState } from "../../../store/rootReducer";
+import { useIntl } from "react-intl";
 import DropdownMenuItem from "../../../common/DropdownMenuItem";
 import AnonymousActionMenu from "./AnonymousActionMenu";
 import ProfileActionMenu from "./ProfileActionMenu";
@@ -11,53 +12,75 @@ import Brightness4Icon from "@material-ui/icons/Brightness4";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import HelpIcon from "@material-ui/icons/Help";
-import { logoutUser } from "../../../utils/user-utils";
-import history from "../../../hooks/history";
+import { useAlert } from "../../../hooks/useAlert";
+import { SUPPORT_PATH } from "../../../static/paths";
+import { logoutUser } from "../../../hooks/state";
 
 interface AccountNavigationMenuProps {
-  prefersDarkMode: boolean;
-  changeDarkMode: (prefersDarkMode: boolean) => object;
   onSwitchMenu: (nextMenu: any) => void;
   onMenuBack: () => void;
   userLoggedIn: boolean;
+  prefersDarkMode: boolean;
+  changeDarkMode: (prefersDarkMode: boolean) => object;
 }
 
 const AccountNavigationMenu = ({
   onSwitchMenu,
-  changeDarkMode,
-  prefersDarkMode,
   userLoggedIn,
+  prefersDarkMode,
+  changeDarkMode,
 }: AccountNavigationMenuProps) => {
-  const handleDarkModeSwitch = () => {
-    changeDarkMode(!prefersDarkMode);
+  const intl = useIntl();
+
+  const [, setAlert] = useAlert();
+
+  const handleDarkModeSwitch = () => changeDarkMode(!prefersDarkMode);
+
+  const handleLogout = async () => {
+    await logoutUser();
+
+    setAlert({
+      severity: "success",
+      message: intl.formatMessage({ id: "user.alert.msg.logoutSuccess" }),
+    });
   };
 
   return (
     <>
       {userLoggedIn ? <ProfileActionMenu /> : <AnonymousActionMenu />}
       <Divider />
-      <DropdownMenuItem primary={<FormattedMessage id="nav.dropdown.darkMode.name" />} icon={<Brightness4Icon />}>
-        <Switch name="dark-mode-switch" checked={prefersDarkMode} onChange={handleDarkModeSwitch} />
+      <DropdownMenuItem primary={intl.formatMessage({ id: "nav.dropdown.item.darkMode" })} icon={<Brightness4Icon />}>
+        <Switch
+          name="dark-mode-switch"
+          checked={prefersDarkMode}
+          onChange={handleDarkModeSwitch}
+          inputProps={{
+            role: "switch",
+            "aria-label": intl.formatMessage({ id: "nav.dropdown.item.darkMode" }),
+          }}
+        />
       </DropdownMenuItem>
       <DropdownMenuItem
-        primary={<FormattedMessage id="nav.dropdown.language.name" />}
+        primary={intl.formatMessage({ id: "nav.dropdown.item.language" })}
         icon={<LanguageIcon />}
         onClick={() => onSwitchMenu("language")}
       >
         <ChevronRightIcon />
       </DropdownMenuItem>
       <DropdownMenuItem
-        primary={<FormattedMessage id="nav.drawer.supportFeedback.name" />}
+        component="a"
+        button
+        primary={intl.formatMessage({ id: "nav.drawer.item.supportFeedback" })}
         icon={<HelpIcon />}
-        onClick={() => history.push("/support")}
+        href={SUPPORT_PATH}
       />
       {userLoggedIn && (
         <>
           <Divider />
           <DropdownMenuItem
-            primary={<FormattedMessage id="nav.dropdown.logOut.name" />}
+            primary={intl.formatMessage({ id: "nav.dropdown.item.logOut" })}
             icon={<ExitToAppIcon />}
-            onClick={() => logoutUser()}
+            onClick={handleLogout}
           />
         </>
       )}
@@ -65,7 +88,7 @@ const AccountNavigationMenu = ({
   );
 };
 
-const mapStateToProps = (state: any) => ({ prefersDarkMode: state.screenReducers.prefersDarkMode });
+const mapStateToProps = (state: RootState) => ({ prefersDarkMode: state.settingsReducer.prefersDarkMode });
 const mapDispatchToProps = (dispatch: any) => ({
   changeDarkMode: (prefersDarkMode: boolean) => dispatch(changeDarkMode(prefersDarkMode)),
 });

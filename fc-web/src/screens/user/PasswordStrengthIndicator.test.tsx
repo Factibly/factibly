@@ -2,9 +2,9 @@ import React from "react";
 import { mount } from "enzyme";
 import { IntlProvider } from "react-intl";
 import PasswordStrengthMeter from "./PasswordStrengthIndicator";
-import messages from "../../text/messages/messages";
+import messages from "../../static/messages/messages";
 
-const locale = "en";
+const locale = "en-US";
 let wrapper: any;
 
 const initPsmComponent = function initPsmComponent(password: string) {

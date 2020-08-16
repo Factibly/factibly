@@ -22,6 +22,10 @@ django-dotenv = "*"
 gunicorn = "*"
 django-heroku = "*"
 rollbar = "*"
+boto3 = "*"
+django-storages = "*"
+graphene-file-upload = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
+from fakenews_backend.models import Content
 
 
 class User(AbstractBaseUser):
@@ -23,6 +24,9 @@ class User(AbstractBaseUser):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     display_name = models.CharField(max_length=255)
+
+    avatar = models.ImageField(upload_to="avatars", null=True)
+    bookmarks = models.ManyToManyField(Content)
 
     objects = BaseUserManager()
 

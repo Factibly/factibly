@@ -4,7 +4,7 @@ import { isBrowser } from "react-device-detect";
 import TeamMemberCard from "./TeamMemberCard";
 import BounceDownArrow from "../../common/BounceDownArrow";
 import { Typography, Grid } from "@material-ui/core";
-import members from "../../text/members";
+import members from "../../static/data/members";
 
 const CompanyTeam = () => {
   const intl = useIntl();
@@ -12,7 +12,7 @@ const CompanyTeam = () => {
   return (
     <>
       <Typography gutterBottom variant="h4" component="h2">
-        {intl.formatMessage({ id: "mission.team.title.name" })}
+        {intl.formatMessage({ id: "mission.team.title" })}
       </Typography>
       <Grid container wrap={isBrowser ? "nowrap" : "wrap"} spacing={5}>
         {members.map(member => (

@@ -1,23 +1,22 @@
 import React from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { Divider } from "@material-ui/core";
-import { grey } from "@material-ui/core/colors";
+import Divider from "@material-ui/core/Divider";
+import grey from "@material-ui/core/colors/grey";
 
-interface ThickDividerProps {
+interface HeavyDividerProps {
+  className: string | undefined;
   orientation?: "horizontal" | "vertical";
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    divider: {
-      backgroundColor: grey[700],
-    },
-  })
-);
-
-const HeavyDivider = ({ orientation = "horizontal" }: ThickDividerProps) => {
-  const classes = useStyles();
-  return <Divider className={classes.divider} orientation={orientation} variant="middle" flexItem />;
+const HeavyDivider = ({ className, orientation = "horizontal" }: HeavyDividerProps) => {
+  return (
+    <Divider
+      className={className}
+      orientation={orientation}
+      variant="middle"
+      flexItem
+      style={{ backgroundColor: grey[700] }}
+    />
+  );
 };
 
 export default HeavyDivider;

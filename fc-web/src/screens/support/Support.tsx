@@ -1,69 +1,62 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setSupportTab } from "../../store/support/actions";
+import { RootState } from "../../store/rootReducer";
 import { useIntl } from "react-intl";
 import { Helmet } from "react-helmet";
-import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import TabPanel from "../../common/TabPanel";
 import SupportForm from "./SupportForm";
 import Faq from "./Faq";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
-import supports, { SupportText, isSupportText } from "../../text/support-prompts";
+import supports, { SupportText, isSupportText } from "../../static/data/support-prompts";
 
-function a11yProps(index: any) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
-
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    // backgroundColor: theme.palette.background.paper,
-    width: "100%",
-  },
-}));
-
-const supportTexts: SupportText[] = Object.values(supports);
+const supportTexts: Readonly<SupportText[]> = Object.freeze(Object.values(supports));
 
 const Support = () => {
-  const classes = useStyles();
+  const dispatch = useDispatch();
+  const tabIndex: number = useSelector((state: RootState) => state.supportReducer.tabIndex);
+
   const theme = useTheme();
   const intl = useIntl();
 
-  const [categoryIndex, setCategoryIndex] = useState(parseInt(sessionStorage.getItem("support-category-index") ?? "0"));
-
-  const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
-    sessionStorage.setItem("support-category-index", newValue.toString());
-    setCategoryIndex(newValue);
-  };
+  const handleTabChange = (_: React.ChangeEvent<{}>, newValue: number) => setSupportTab(newValue)(dispatch);
 
   return (
-    <div className={classes.root}>
+    <div style={{ width: "100%" }}>
       <Helmet>
-        <title> {intl.formatMessage({ id: "nav.drawer.supportFeedback.name" })} </title>
+        <title> {intl.formatMessage({ id: "nav.drawer.item.supportFeedback" })} </title>
       </Helmet>
       <AppBar position="static" color="default">
         <Tabs
-          value={categoryIndex}
-          onChange={handleChange}
+          value={tabIndex}
+          onChange={handleTabChange}
           indicatorColor="primary"
           textColor="primary"
           variant="scrollable"
-          aria-label="Support Category Tabs"
+          aria-label={intl.formatMessage({ id: "support.tabs.aria" })}
         >
-          {supportTexts.map(({ icon: CategoryIcon, nameId }, index) => {
+          {supportTexts.map(({ id, icon: CategoryIcon, nameId }) => {
             return (
               <Tab
-                key={`support-tab-${nameId}`}
+                key={`support-tab-${id}`}
+                id={id}
                 icon={<CategoryIcon />}
                 label={intl.formatMessage({ id: nameId })}
-                {...a11yProps(index)}
+                aria-controls={`tab-panel-${id}`}
               />
             );
           })}
         </Tabs>
       </AppBar>
       {supportTexts.map((supportText, index) => (
-        <TabPanel key={`tab-panel-${index}`} value={categoryIndex} index={index} dir={theme.direction}>
+        <TabPanel
+          key={`support-tab-panel-${supportText.id}`}
+          id={`tab-panel-${supportText.id}`}
+          value={tabIndex}
+          index={index}
+          dir={theme.direction}
+        >
           {isSupportText(supportText) ? <SupportForm supportText={supportText} /> : <Faq faqText={supportText} />}
         </TabPanel>
       ))}

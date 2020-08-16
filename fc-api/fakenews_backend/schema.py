@@ -1,6 +1,6 @@
 import graphene
-import fakenews_backend.apps.users.schema as user_schema
-import fakenews_backend.apps.core.schema as core_schema
+from fakenews_backend.apps.core.gql import schema as core_schema
+from fakenews_backend.apps.users.gql import schema as user_schema
 
 
 class Query(user_schema.Query, core_schema.Query, graphene.ObjectType):

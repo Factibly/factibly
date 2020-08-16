@@ -14,7 +14,7 @@ const RealUp = () => {
   return (
     <div className="window-container">
       <Helmet>
-        <title> {intl.formatMessage({ id: "nav.drawer.realUpCorner.name" })} </title>
+        <title> {intl.formatMessage({ id: "nav.drawer.item.realUpCorner" })} </title>
       </Helmet>
       <section id="real-up-description">
         <figure style={{ float: "left" }}>

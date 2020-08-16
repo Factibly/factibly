@@ -2,7 +2,7 @@ import React from "react";
 
 interface FlexProps {
   children?: React.ReactNode;
-  style?: any;
+  style?: React.CSSProperties;
   [x: string]: any;
 }
 

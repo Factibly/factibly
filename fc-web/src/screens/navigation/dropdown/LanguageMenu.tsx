@@ -1,11 +1,13 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { changeWebsiteLanguage } from "../../../store/app/screen-actions";
-import { FormattedMessage } from "react-intl";
+import { changeWebsiteLanguage } from "../../../store/settings/actions";
+import { RootState } from "../../../store/rootReducer";
+import { injectIntl, WrappedComponentProps } from "react-intl";
 import DropdownMenuItem from "../../../common/DropdownMenuItem";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import locales from "../../../static/locales";
 
-interface LanguageMenuProps {
+interface LanguageMenuProps extends WrappedComponentProps<"intl"> {
   locale: string;
   changeWebsiteLanguage: (locale: string) => object;
   onMenuBack: () => void;
@@ -14,23 +16,21 @@ interface LanguageMenuProps {
 
 class LanguageMenu extends PureComponent<LanguageMenuProps> {
   render() {
-    const { onMenuBack, onMenuDone } = this.props;
     return (
       <>
         <DropdownMenuItem
-          primary={<FormattedMessage id="nav.dropdown.language.name" />}
-          primaryTypographyProps={{ variant: "h6" }}
+          primary={this.props.intl.formatMessage({ id: "nav.dropdown.item.language" })}
           icon={<ChevronLeftIcon />}
-          onClick={() => onMenuBack()}
+          onClick={this.props.onMenuBack}
         />
-        {["en", "fr", "zh-CN", "zh-TW", "ja"].map(locale => (
+        {Object.values(locales).map(({ bcp }) => (
           <DropdownMenuItem
-            key={locale}
-            primary={<FormattedMessage id={`app.locale.${locale}.name`} />}
-            selected={locale === this.props.locale}
+            key={bcp}
+            primary={this.props.intl.formatMessage({ id: `app.locale.${bcp}` })}
+            selected={bcp === this.props.locale}
             onClick={() => {
-              this.props.changeWebsiteLanguage(locale);
-              onMenuDone();
+              this.props.changeWebsiteLanguage(bcp);
+              this.props.onMenuDone();
             }}
           />
         ))}
@@ -38,9 +38,10 @@ class LanguageMenu extends PureComponent<LanguageMenuProps> {
     );
   }
 }
-const mapStateToProps = (state: any) => ({ locale: state.screenReducers.locale });
+
+const mapStateToProps = (state: RootState) => ({ locale: state.settingsReducer.locale });
 const mapDispatchToProps = (dispatch: any) => ({
   changeWebsiteLanguage: (locale: string) => dispatch(changeWebsiteLanguage(locale)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LanguageMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(LanguageMenu));

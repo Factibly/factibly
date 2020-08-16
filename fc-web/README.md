@@ -15,6 +15,21 @@
 5. Follow the onboarding procedures in the [back-end repository](https://github.com/Sapphire-Labs/Hackathon/blob/master/BE/README.md)
 6. Go to [`http://localhost:3000`](http://localhost:3000) on your browser to access the development build
 
+## GraphQL
+
+In order to auto-generate the types for our GraphQL queries and mutations,
+
+1. Install apollo globally if you haven't done so already
+```zsh
+yarn global add apollo --prefix /usr/local
+```
+2. Run the Apollo Client codegen script on the command line interface
+```zsh
+yarn gen:types
+```
+
+The type definitions are located in the [`src/gql/__generated__`](src/gql/__generated__) folder. You should _not_ manually change them.
+
 ## Compatibility
 
 The website supports the following browsers:
@@ -25,21 +40,19 @@ The website supports the following browsers:
 - Opera 67+
 - Safari 13.1+
 
-## Third-Party Software
+## Infrastructure
+
+There is a publicly accessible [infrastructure diagram](https://app.diagrams.net/#G1tL5VqGfF9K73nWqdyFTNIqNhhN7EQQF9) in the FakeCheck folder on Google Drive.
 
 | Name                          | Usages                         | Person Responsible                        |
 |-------------------------------|--------------------------------|-------------------------------------------|
-| [Asana](https://app.asana.com/) | task tracking, release tracking | Jason   |
+| [AWS](https://aws.amazon.com/)  | file storage, CDN hosting                 | Jadon              |
 | [Cloud Console](https://console.cloud.google.com/home/dashboard) | Google API & service configurations | Jadon |
-| [Code Climate](https://codeclimate.com/dashboard) | code maintainability tracking, test coverage tracking | Jadon |
-| [Figma](https://www.figma.com/) | wireframing | Kent |
+| [EmailJS](https://www.emailjs.com/) | client-side email sender | Jadon |
 | [Firebase](https://console.firebase.google.com/) | website analytics, third-party SSO | Jadon         |
-| [GitHub](https://app.netlify.com/) | version control, continuous integration | Chandler   |
-| [Miro](https://miro.com/app/dashboard/) | brainstorming | Chandler |
 | [Netlify](https://app.netlify.com/) | website hosting, continuous deployment | Jadon   |
 | [reCAPTCHA Admin](https://www.google.com/recaptcha/admin) | reCAPTCHA configurations, reCAPTCHA analytics | Jadon |
 | [Rollbar](https://rollbar.com/) | error tracking (production only)  | Jadon   |
-| [Search Console](https://search.google.com/search-console) | SEO analytics | Jadon |
 
 ## Environment Variables
 
@@ -59,20 +72,82 @@ These files should always be ignored by git (see [`.gitignore`](.gitignore)). Yo
 files. You need to restart the relevant react script when you change an environment variable. **Please inform Jadon
 whenever you need to make changes to either `.env` or `.env.production` before the next production deployment.**
 
+## Project Structure
+
+This project is structured under the following directory tree. However, for brevity, it only provides a high-level overview, so some parts &mdash; as marked with ellipses (...) &mdash; of the actual tree are not shown.
+
+```bash
+├── .github              # github workflow and action configurations
+│   └── ...
+├── .vscode
+│   ├── extensions.json  # recommended extensions from the VSCode Marketplace
+│   └── settings.json    # default VSCode settings
+├── public
+│   ├── images           # static image files, preferably in .jpg or .png format
+│   │   └── ...
+│   ├── _redirects       # Netlify redirect configurations
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── manifest.json
+│   └── robots.txt       # search engine crawler configurations
+├── src
+│   ├── common           # more generic and (mostly) presentational React components
+│   │   └── ...
+│   ├── extensions       # component wrappers for app extensions
+│   │   └── ...
+│   ├── gql              # Apollo client configurations, and GraphQL mutations and queries
+│   │   └── ...
+│   ├── hooks            # global hooks
+│   │   └── ...
+│   ├── libs             # third-party library configurations
+│   │   └── ...
+│   ├── screens          # presentational and container React components
+│   │   └── ...
+│   ├── static
+│   │   ├── data         # general static data
+│   │   │   └── ...
+│   │   ├── keys         # key names
+│   │   │   └── ...
+│   │   ├── messages     # localized messages
+│   │   │   └── ...
+│   │   │── enums.ts     # global TypeScript enums
+│   │   │── locales.ts   # locale configurations and data
+│   │   │── mui-base.ts  # default Material-UI translations
+│   │   └── paths.ts     # internal URL pathnames
+│   ├── store            # Redux store with actions and reducers
+│   │   └── ...
+│   ├── styles           # CSS files, global colours and themes
+│   │   └── ...
+│   ├── utils            # general utility functions
+│   │   └── ...
+│   └── ...
+└── ...
+```
+
 ## User Interface (UI) Design
 
-This project uses a [material design](https://material.io/design/foundation-overview/). You should be particularly aware
-of the following UI guidelines:
+The website uses [material design](https://material.io/design/foundation-overview/) as its design language. Many of the material-theme components come from the [Material-UI](https://material-ui.com/) library.
+
+You should be particularly aware of the following UI guidelines:
 
 - Use, for most components, sizes and spacings &mdash; including the width, height, margin and padding properties
   &mdash; in increments of 4dp (4px on web) for tighter or smaller components, and of 8dp (8px on web) otherwise
 - Use dialogs sparingly, and only when they contain critical information or tasks for the users, and consider the use of
   a snackbar, toast, tooltip or popover instead as dialogs are purposefully interruptive
+- Avoid hardcoding spacings, colours and screen width breakpoints and use the Material-UI utility functions (e.g.,
+  `theme.spacing(...)`, `theme.palette.primary.main`, `theme.breakpoints...`) instead
+- Prefer font sizes in `rem` over `px`; use `theme.typography.pxToRem(...)` for conversions
+- Prefer the use of Material-UI [styling solution](https://material-ui.com/styles/basics/) &mdash; which utilizes JSS     syntax &mdash; over standard CSS
+- Prefer the use of the Material-UI [colour palette](https://material-ui.com/customization/color/) over a hardcoded colour code
+
+The default Material-UI theme configurations &mdash; including any global styles &mdash; can be found in the [theme.js](./src/styles/theme.ts) file. The default Material-UI spacing interval (8px) and font size (1rem = 14px) are used. The limited standard CSS styles can be found in the [styles](./src/styles/) folder, where the [universal.css](./src/styles/universal.css) file contains all the universal CSS styles.
+
+As an aside, you may recall that most browsers default a native HTML button to `type="submit"`. However, Material-UI automatically defaults its Button component (`<Button {...props} />`) to `type="button"`.
 
 ## Code Styles
 
-This project utilizes [Prettier](https://prettier.io/) to enforce styling rules
-[styling rules](.pretterric.json) file. It will auto-format your code whenever you save that code.
+This project utilizes [Prettier](https://prettier.io/) to enforce certain
+[styling rules](.pretterric.json). It will auto-format your code whenever you save that code.
 
 This project uses [TypeScript](https://www.typescriptlang.org/), which is built on top of JavaScript, to enforce type
 safety. You should always try to assign a variable to the most specific type possible whenever the TypeScript compiler
@@ -83,18 +158,23 @@ You should also comply with the following naming rules:
 | Usage                         | Rule                           | Examples                                  |
 |-------------------------------|--------------------------------|-------------------------------------------|
 | variables                     | camelCase                      | `var jadonFan = "Hello, World!";`         |
+| global constants              | SCREAMING_SNAKE_CASE           | `const PI = 3.14`                         |
+| enumerated constants          | SCREAMING_SNAKE_CASE           | `enum JadonMood { HAPPY_OPT, SAD_PES }`   |
 | functions                     | PascalCase                     | `function getSomeNum() { return 21; }`    |
 | classes                       | PascalCase                     | `class JadonFan extends UWaterlooStudent` |
 | interfaces                    | PascalCase                     | `interface CardProps extends PaperProps`  |
+| enumeration types             | PascalCase                     | `enum JadonMood { }`                      |
 | React components              | PascalCase                     | `<TeamMemberCard />`                      |
 | Redux actions and reducers    | camelCase                      | `supportReducers`                         |
 | Redux action types            | SCREAMING_SNAKE_CASE           | `CHANGE_WEBSITE_LANGUAGE`                 |
+| GraphQL mutations and queries | SCREAMING_SNAKE_CASE           | `LOGIN`                                   |
 | JSX files                     | PascalCase                     | `TeamMemberCard.tsx`                      |
 | non-JSX files                 | kebab-case                     | `awesome-jadon.ts`, `awesome-jadon.jpg`   |
 | folders                       | kebab-case                     | `fact-check` folder                       |
 
-As an aside, although not really a styling rule, it's important that you remember the difference between
-[`Array.prototype.forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) and [`Array.prototype.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) in JavaScript when you want to render a bunch of repeated React components. The `forEach()` method does _not_ return anything whereas the `map()` method returns whatever you want it to return. If you are knowledgeable in Java 8 or above, you may recall that its [`Stream`](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html) API contains the `forEach()` and `map()` methods, which have similar behaviours. If you need to iterate over an iterable, such as `Array` or `Object`, to render multiple React components, you should be calling `map()`!
+## Error Handling
+
+You can use a `try...catch...finally...` block to handle errors sent by the back-end. The custom `useAlert()` hook can be used to pass the corresponding error message as an alert to the user. Within a particular error message, you can likely find its ID between the `#@` and `@` symbols; if such symbols do exist, you can call the `parseGqlErrorMsg(errorMsg: string)` on the error message to retrieve its ID and then pass on that ID to the `intl.formatMessage()` function to obtain a localized and user-friendly version of the error message.
 
 ## Optimizations
 
@@ -103,6 +183,8 @@ You should attempt to include the following optimizations where possible (**not 
 - Use [`<React.Fragment> ... </React.Fragment>`](https://reactjs.org/docs/fragments.html) (alternatively, if you don't 			need to pass in any keys or attributes, `<> ... </>`), which does not create an extra DOM node, whenever you _only_ need to wrap multiple child components under one parent component
 - Use [`React.PureComponent`](https://reactjs.org/docs/react-api.html#reactcomponent) over `React.Component` for class
   components whenever the `render()` function renders the same result given the same props and state
+- Wrap expensive calculations around a `React.useMemo` hook when they need only be computed when specific dependencies have changed
+- Apply [code-splitting](https://reactjs.org/docs/code-splitting.html) techniques where approriate in order to reduce the bundle size
 
 ## Tests
 
@@ -110,6 +192,7 @@ You should use [Jest](https://jestjs.io/) and [Enzyme](https://enzymejs.github.i
 the front-end. The test files should have an extension of `.test.[jt]sx?`.
 
 ## Prerendering
+
 The website is rendered on the client-side, but is dynamically pre-rendered by prerender.io through a configuration on Netlify. This pre-render process enables the use of dynamic meta tags, and could potentially improve SEO.
 
 ## Accessibility (a11y)
@@ -127,23 +210,16 @@ following accessibility rules:
 - Use HTML landmark elements (e.g., `main`, `aside`, `article`, `section`) where appropriate
 - Apply [WAI-ARIA roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) on the relevant
   components **if the corresponding HTML landmark elements are not available**; landmark elements are preferred over
-  `div` elements with WAI-ARIA roles
+  elements with direct WAI-ARIA role assignments
 
-## Internationalization (i18n)
+## Internationalization (i18n) and Localization (l10n)
 
 The website aims to support the fight against the infodemic in a wide range of countries and cultures around the world.
-This project utilizes [react-intl](https://formatjs.io/docs/react-intl), which is a part of
-[Format.JS](https://formatjs.io/), to simplify the internationalization process of the website so that the website
-becomes more easily scalable.
+This project utilizes [react-intl](https://formatjs.io/docs/react-intl) to simplify the localization process of the website so that the website is more easily scalable.
 
-You should never hardcode static text strings unless the text is a name of a person or organization, or guaranteed to not change across languages (e.g., the website name "FakeCheck", emojis). Instead, you should store the text strings in the
-[messages.ts](/src/text/messages.ts) file under the corresponding language; the JSON key ("id") of the text string
-should have an unique and relevant name. Then, you can use either the `FormattedMessage` component or, in functional
-components, the `useIntl().formatMessage()` function (note that extra steps may be required), and pass in the id. If you
-want to add a translation for the text string in a different language, copy the id of the text string, paste it under
-the corresponding language and modify the content of the text string accordingly. Otherwise, you can choose to set a `default` value.
+You should never hardcode static text strings unless the text is guaranteed to not change across different locales (e.g., the website name "FakeCheck", emojis). Instead, you should store the text strings in the [messages.ts](/src/text/messages.ts) file under the corresponding locale; the object key ("id") of the text string should have an unique and relevant name. Then, you can use either the `FormattedMessage` component or the `intl.formatMessage()` function, and pass in the id. If you want to add a translation for the text string in a different locale, copy the id of the text string, paste it under the corresponding locale and modify the content of the text string accordingly.
 
-You should also use react-intl to internationalize numbers, dates, times, relative times and plurals.
+You should also use react-intl to localize numbers, dates, times, relative times and plurals.
 
 ## Search Engine Optimization (SEO)
 
@@ -159,13 +235,13 @@ you should keep in mind the following SEO guidelines:
   third-party document (e.g., a fact-checked news article); the `noreferrer` and `nooppener` behaviours
   [do _not_ directly improve SEO](https://twitter.com/JohnMu/status/903510290024857600) but may be necessary for
   [security](#Security) purposes when the `target` attribute is set to `_blank`
-- Do _not_ set the author of a linked webpage (`rel=author`) without first discussing it with Jadon as many modern search 	engines only reference the first instance of `rel=author` and ignore the remaining ones
+- Do _not_ set the author of a linked webpage (`rel=author`) without first discussing it with Jason as many modern search 	engines only reference the first instance of `rel=author` and ignore the remaining ones
 
 Any positive exposure is good exposure, other than when some Instagram influencer wants to buy your product but is too
 cheap to pay for it with real money and instead offers to
 [pay with exposure](https://www.reddit.com/r/ChoosingBeggars/).
 
- You can use [Google Webmasters](https://www.google.ca/webmasters/#?modal_active=none) to track the website's search performance through the Search Console and to learn more about the different SEO techniques.
+You can use [Google Webmasters](https://www.google.ca/webmasters/#?modal_active=none) to track the website's search performance through the Search Console and to learn more about the different SEO techniques.
 
 The website should predominantly display the fact check ratings of popular and trending topics.
 
@@ -201,21 +277,28 @@ This project utilizes the following frameworks and libraries:
 - React &ndash; simplifies front-end development
 - Redux &ndash; provides a predictable state container
 - Redux Thunk &ndash; provides a middleware to dispatch asynchronous actions and resolve promises
-- Material-UI &ndash; provides material-themed UI components and icons
-- Material-UI Pickers &ndash; provides material-themed date and time pickers
-- Apollo &ndash; handles GraphQL mutations and queries
+- Material-UI &ndash; creates material-themed UI components and icons
+- Material-UI Pickers &ndash; creates material-themed date and time pickers
+- Apollo Client &ndash; handles GraphQL mutations and queries
+- Apollo Upload Client &ndash; handles file mutations and queries under the GraphQL multi-part request spec
 - React Router &ndash; routes webpages
-- Format.JS &ndash; simplifies i18n
+- history &ndash; manages session history universally in the app
+- react-intl &ndash; simplifies internationalization
 - Lodash &ndash; provides some common utility functions
 - DOMPurify &ndash; sanitizes HTML, MathML and SVG code against potential XSS attacks
 - React Helmet &ndash; manages changes to the HTML document head
 - react-device-detect &ndash; detects the user's device type, OS, mobile vendor, browser/engine and user agent
 - Formik &ndash; builds dynamic forms
+- React Dropzone &ndash; creates a file drag n' drop component
+- React Avatar Editor &ndash; creates a component for editing the scale, rotation, etc. of an image
+- Vertical Timeline Component &ndash; creates build one-/two- column vertical timeline components
+- ChartJS &ndash; creates dynamic charts
 - Anime.js &ndash; creates various animations
 - Scroll Magic &ndash; creates scrolling animations
 - date-fns &ndash; simplifies date formatting and parsing
 - zxcvbn &ndash; measures password strength
-- country-list &ndash; provides a list of country names and their ISO-3166 codes
+- country-list &ndash; generates a list of country names and their ISO-3166 codes
+- react-country-flag &ndash; creates the SVG and emoji versions of select country flags
 - EmailJS &ndash; sends automated pre-formatted emails
 - Jest &ndash; provides a framework for automated tests
 - Enzyme &ndash; simplifies automated tests
@@ -223,13 +306,13 @@ This project utilizes the following frameworks and libraries:
 Immutability is important in Redux and, in most cases, can be achieved with functional callback methods, such as `Array.prototype.map()` and `Array.prototype.reduce()`, and with the spread operator &mdash; that is, `...` &mdash; in ES6 or above. This project does _not_ use any special immutable libraries such as Immutable.js or Immer.
 
 [Dependabot](https://dependabot.com/) automatically detects any updates to the project dependencies; when it does, it
-creates a PR that modifies the the [`package.json`](package.json) file accordingly and that merges onto the default branch.
-You should _either_ occassionally run `yarn install` _or_ install [npm-merge-driver](https://www.npmjs.com/package/npm-merge-driver) with a yarn configuration to get these updates. **You should never manually modify the [`yarn.lock`](yarn.lock) file.**
+creates a PR that modifies the [package.json](package.json) file accordingly and that merges onto the default branch.
+You should _either_ occassionally run `yarn install` _or_ install [npm-merge-driver](https://www.npmjs.com/package/npm-merge-driver) with a yarn configuration to get these updates. **You should never manually modify the [yarn.lock](yarn.lock) file.**
 
 ## VSCode Extensions
 
 When you open this project directly on VSCode, the IDE recommends some useful extensions for you based on the
-[`extensions.json`](.vscode/extensions.json) file. You can install these extensions via the VSCode Marketplace. You can
+[extensions.json](.vscode/extensions.json) file. You can install these extensions via the VSCode Marketplace. You can
 add your own recommendations, but please update the list below if you do so.
 
 The following VSCode extensions are recommended for this project:

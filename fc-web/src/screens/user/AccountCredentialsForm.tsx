@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { Form, Field, FormikErrors } from "formik";
-import { RegistrationFormValues } from "./Registration";
-import TextInput from "../../common/TextInput";
+import FormGroupCompact from "../../common/FormGroupCompact";
+import FakeCheckInput from "../../common/FakeCheckInput";
 import FormButtonBox from "../../common/FormButtonBox";
 import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { FormGroup, Popover } from "@material-ui/core";
+import { Popover } from "@material-ui/core";
+import { RegistrationFormValues } from "../../utils/forms/registration-form-helper";
 
 interface UserCredentialsFormProps {
   values: RegistrationFormValues;
@@ -44,23 +45,25 @@ const AccountCredentialsForm = ({ values, errors, onNext }: UserCredentialsFormP
 
   return (
     <Form onSubmit={onNext}>
-      <FormGroup className="account-form">
+      <FormGroupCompact>
         <Field
-          as={TextInput}
+          as={FakeCheckInput}
           name="email"
           autoComplete="email"
-          label={intl.formatMessage({ id: "user.form.field.emailAddress.name" })}
-          errors={errors.email}
+          label={intl.formatMessage({ id: "user.registration.form.field.email" })}
+          errorMsg={errors.email}
           autoFocus
+          aria-required="true"
         />
         <Field
-          as={TextInput}
+          as={FakeCheckInput}
           name="password"
           type="password"
-          label={intl.formatMessage({ id: "user.form.field.password.name" })}
-          errors={errors.password}
+          label={intl.formatMessage({ id: "user.registration.form.field.password" })}
+          errorMsg={errors.password}
           onMouseDown={handlePopoverOpen}
           onBlur={handlePopoverClose}
+          aria-required="true"
           aria-owns={openPopover ? "password-strength-popover" : undefined}
           aria-haspopup="true"
         />
@@ -86,14 +89,14 @@ const AccountCredentialsForm = ({ values, errors, onNext }: UserCredentialsFormP
           <PasswordStrengthIndicator password={values.password} />
         </Popover>
         <Field
-          as={TextInput}
+          as={FakeCheckInput}
           name="passwordConfirmation"
           type="password"
-          label={intl.formatMessage({ id: "user.form.field.passwordConfirmation.name" })}
-          errors={errors.passwordConfirmation}
+          label={intl.formatMessage({ id: "user.registration.form.field.passwordConfirmation" })}
+          errorMsg={errors.passwordConfirmation}
         />
-      </FormGroup>
-      <FormButtonBox primaryText={intl.formatMessage({ id: "general.action.next.name" })} />
+      </FormGroupCompact>
+      <FormButtonBox primaryText={intl.formatMessage({ id: "general.action.next" })} />
     </Form>
   );
 };

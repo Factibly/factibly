@@ -1,7 +1,8 @@
-import React from "react";
+import React, { PureComponent } from "react";
+import { withTheme, WithTheme as WithThemeProps } from "@material-ui/core/styles";
 import { Box, Button } from "@material-ui/core";
 
-interface FormButtonBoxProps {
+interface FormButtonBoxProps extends WithThemeProps {
   primaryText: string;
   onPrimaryClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   secondaryText?: string;
@@ -9,19 +10,23 @@ interface FormButtonBoxProps {
   href?: string;
 }
 
-const FormButtonBox = ({ primaryText, onPrimaryClick, secondaryText, onSecondaryClick, href }: FormButtonBoxProps) => {
-  return (
-    <Box className="form-box">
-      <Button fullWidth type="submit" variant="contained" color="primary" onClick={onPrimaryClick}>
-        {primaryText}
-      </Button>
-      {secondaryText && (
-        <Button fullWidth variant="contained" color="default" onClick={onSecondaryClick} href={href}>
-          {secondaryText}
+class FormButtonBox extends PureComponent<FormButtonBoxProps> {
+  render() {
+    const { primaryText, onPrimaryClick, secondaryText, onSecondaryClick, href, theme } = this.props;
+    const btnStyle = { margin: theme.spacing(0.5, 0) };
+    return (
+      <Box>
+        <Button type="submit" variant="contained" color="primary" onClick={onPrimaryClick} fullWidth style={btnStyle}>
+          {primaryText}
         </Button>
-      )}
-    </Box>
-  );
-};
+        {secondaryText && (
+          <Button variant="contained" color="default" href={href} onClick={onSecondaryClick} fullWidth style={btnStyle}>
+            {secondaryText}
+          </Button>
+        )}
+      </Box>
+    );
+  }
+}
 
-export default FormButtonBox;
+export default withTheme(FormButtonBox);

@@ -4,7 +4,7 @@ import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeli
 import { useTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
-import milestones from "../../text/milestones";
+import milestones from "../../static/data/milestones";
 import "react-vertical-timeline-component/style.min.css";
 import "../../styles/vertical-timeline.css";
 
@@ -32,9 +32,7 @@ const FakeCheckTimeline = () => {
           iconStyle={{ background: theme.palette.primary.main }}
           icon={milestone.icon || <EmojiEventsIcon style={{ color: theme.palette.common.white }} />}
         >
-          <Typography variant="h6" style={{ fontSize: 16 }}>
-            {milestone.title}
-          </Typography>
+          <Typography variant="h6">{milestone.title}</Typography>
           <Typography
             variant="body2"
             style={{ fontWeight: "normal" }}

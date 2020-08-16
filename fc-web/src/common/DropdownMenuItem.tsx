@@ -3,7 +3,6 @@ import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
 interface DropdownMenuItemProps {
   primary: string | React.ReactNode;
-  primaryTypographyProps?: any;
   icon?: React.ReactNode;
   selected?: boolean;
   onClick?: (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => void;
@@ -13,11 +12,11 @@ interface DropdownMenuItemProps {
 
 class DropdownMenuItem extends PureComponent<DropdownMenuItemProps> {
   render() {
-    const { primary, primaryTypographyProps, icon, selected, onClick, children } = this.props;
+    const { primary, icon, selected, onClick, children, ...otherProps } = this.props;
     return (
-      <MenuItem onClick={onClick} selected={selected} {...this.props}>
+      <MenuItem onClick={onClick} selected={selected} {...otherProps}>
         {icon && <ListItemIcon> {icon} </ListItemIcon>}
-        <ListItemText primary={primary} primaryTypographyProps={primaryTypographyProps} />
+        <ListItemText primary={primary} />
         {children}
       </MenuItem>
     );

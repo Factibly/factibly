@@ -1,34 +1,35 @@
 import { gql } from "@apollo/client";
 
 export const LOGIN = gql`
-  mutation TokenAuth($email: String!, $password: String!) {
-    tokenAuth(email: $email, password: $password) {
-      token
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      payload
     }
   }
 `;
 
-export const REGISTER = gql`
-  mutation CreateUser(
-    $email: String!
-    $password: String!
-    $dateOfBirth: Date!
-    $firstName: String!
-    $lastName: String!
-    $displayName: String!
-    $country: String!
-    $recaptchaToken: String!
-  ) {
-    createUser(
-      email: $email
-      password: $password
-      dateOfBirth: $dateOfBirth
-      firstName: $firstName
-      lastName: $lastName
-      displayName: $displayName
-      country: $country
-      recaptchaToken: $recaptchaToken
-    ) {
+export const REFRESH_TOKEN = gql`
+  mutation RefreshToken {
+    refreshToken {
+      payload
+    }
+  }
+`;
+
+export const LOGOUT = gql`
+  mutation Logout {
+    deleteRefreshTokenCookie {
+      deleted
+    }
+    deleteTokenCookie {
+      deleted
+    }
+  }
+`;
+
+export const CREATE_USER = gql`
+  mutation CreateUser($input: CreateUserInput!) {
+    createUser(input: $input) {
       user {
         id
         email
@@ -37,26 +38,21 @@ export const REGISTER = gql`
   }
 `;
 
-export const SEARCH = gql`
-  mutation CreateContent($url: String!) {
-    createContent(url: $url) {
+export const SEARCH_CONTENT = gql`
+  mutation SearchContent($input: SearchContentInput!) {
+    searchContent(input: $input) {
       content {
         id
         url
       }
+      errors
     }
   }
 `;
 
-export const RATING = gql`
-  mutation RateContent($contentId: ID!, $score1: Float!, $score2: Float!, $score3: Float!, $justification: String!) {
-    rateContent(
-      contentId: $contentId
-      score1: $score1
-      score2: $score2
-      score3: $score3
-      justification: $justification
-    ) {
+export const RATE_CONTENT = gql`
+  mutation RateContent($input: RateContentInput!) {
+    rateContent(input: $input) {
       rating {
         id
         score1
@@ -64,26 +60,47 @@ export const RATING = gql`
         score3
         justification
       }
+      errors
     }
   }
 `;
 
-export const RATING_UPVOTE = gql`
-  mutation UpvoteRating($ratingId: ID!) {
-    upvoteRating(ratingId: $ratingId) {
+export const UPVOTE_RATING = gql`
+  mutation UpvoteRating($input: UpvoteRatingInput!) {
+    upvoteRating(input: $input) {
       rating {
         upvoteCount
       }
+      errors
     }
   }
 `;
 
-export const RATING_DOWNVOTE = gql`
-  mutation DownvoteRating($ratingId: ID!) {
-    downvoteRating(ratingId: $ratingId) {
+export const DOWNVOTE_RATING = gql`
+  mutation DownvoteRating($input: DownvoteRatingInput!) {
+    downvoteRating(input: $input) {
       rating {
         downvoteCount
       }
+      errors
+    }
+  }
+`;
+
+export const BOOKMARK_CONTENT = gql`
+  mutation BookmarkContent($input: BookmarkContentInput!) {
+    bookmarkContent(input: $input) {
+      bookmarked
+      errors
+    }
+  }
+`;
+
+export const REMOVE_BOOKMARK = gql`
+  mutation RemoveBookmark($input: RemoveBookmarkInput!) {
+    removeBookmark(input: $input) {
+      removed
+      errors
     }
   }
 `;

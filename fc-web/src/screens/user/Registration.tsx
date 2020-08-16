@@ -1,73 +1,74 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/rootReducer";
+import { useLocation } from "react-router-dom";
 import { useIntl } from "react-intl";
+import { Helmet } from "react-helmet";
 import { Formik } from "formik";
-import RegistrationValidation from "./registration-validation";
 import AccountCredentialsForm from "./AccountCredentialsForm";
-import AccountPersonalForm, { retrieveMinimumRequiredAge, countryLocalNameCodeMap } from "./AccountPersonalForm";
+import AccountPersonalForm, { countryNameCodeMap } from "./AccountPersonalForm";
 import AccountCustomizationForm from "./AccountCustomizationForm";
-import { Paper, Typography, Stepper, Step, StepLabel } from "@material-ui/core";
+import FormPaper from "../../common/FormPaper";
+import { Typography, Stepper, Step, StepLabel } from "@material-ui/core";
 import { useMutation } from "@apollo/client";
-import { REGISTER, LOGIN } from "../../gql/mutations";
-import { loginUser } from "../../utils/user-utils";
+import { CreateUser, CreateUserVariables } from "../../gql/__generated__/CreateUser";
+import { Login, LoginVariables } from "../../gql/__generated__/Login";
+import { LOGIN, CREATE_USER } from "../../gql/mutations";
+import { dataUrltoFile } from "../../utils/file-utils";
+import {
+  RegistrationFormValues,
+  initialValues,
+  RegistrationFormValidation,
+} from "../../utils/forms/registration-form-helper";
+import { loginUser } from "../../hooks/state";
 
-export interface RegistrationFormValues {
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: Date;
-  displayName: string;
-  country: string;
-  recaptchaToken: string;
-}
-
-const initialRegistrationValues: RegistrationFormValues = {
-  email: "",
-  password: "",
-  passwordConfirmation: "",
-  firstName: "",
-  lastName: "",
-  dateOfBirth: retrieveMinimumRequiredAge(),
-  displayName: "",
-  country: "",
-  recaptchaToken: "",
+var avatar: File | null = null;
+const avatarEditorRef = (editor: any, image: File | null) => {
+  if (editor && image) {
+    avatar = dataUrltoFile(editor.getImageScaledToCanvas().toDataURL(), image.name);
+  }
 };
 
 const Registration = () => {
+  const locale = useSelector((state: RootState) => state.settingsReducer.locale);
+  const prefersDarkMode = useSelector((state: RootState) => state.settingsReducer.prefersDarkMode);
+
+  const location = useLocation();
   const intl = useIntl();
 
-  const [activeStep, setActiveStep] = useState<number>(0);
-  const [registerMutation] = useMutation(REGISTER);
-  const [loginMutation] = useMutation(LOGIN, {
-    onCompleted: data => loginUser(data.tokenAuth.token),
+  const [registerMutation] = useMutation<CreateUser, CreateUserVariables>(CREATE_USER);
+  const [loginMutation] = useMutation<Login, LoginVariables>(LOGIN, {
+    onCompleted: () => loginUser(location.state && location.state["from"]),
   });
 
-  const steps: string[] = [
-    intl.formatMessage({ id: "user.action.createCredentials.name" }),
-    intl.formatMessage({ id: "user.action.enterPersonalDetails.name" }),
-    intl.formatMessage({ id: "user.action.customizeAccount.name" }),
-  ];
+  const [activeStep, setActiveStep] = useState<number>(0);
+  const handleNext = () => setActiveStep(activeStep + 1);
+  const handleBack = () => setActiveStep(activeStep - 1);
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
+  const handlePasswordRequirementFailed = (errorMsgId: string, errors: any) => {
+    let passwordErrorMsg = intl.formatMessage({ id: errorMsgId });
+    passwordErrorMsg = passwordErrorMsg.charAt(0).toLowerCase() + passwordErrorMsg.slice(1);
+    const passwordErrors = intl.formatMessage(
+      { id: "user.registration.form.msg.password.error.template" },
+      { passwordErrorMsg }
+    );
+    return { ...errors, password: passwordErrors };
   };
 
   const submitRegistrationApplication = async (values: RegistrationFormValues) => {
     await registerMutation({
       variables: {
-        email: values.email,
-        password: values.password,
-        dateOfBirth: values.dateOfBirth.toISOString().split("T")[0],
-        firstName: values.firstName,
-        lastName: values.lastName,
-        displayName: values.displayName,
-        country: countryLocalNameCodeMap[values.country],
-        recaptchaToken: values.recaptchaToken,
+        input: {
+          email: values.email,
+          password: values.password,
+          dateOfBirth: values.dateOfBirth.toISOString().split("T")[0],
+          firstName: values.firstName,
+          lastName: values.lastName,
+          displayName: values.displayName,
+          country: countryNameCodeMap[values.country],
+          recaptchaToken: values.recaptchaToken,
+          avatar,
+        },
       },
     });
 
@@ -81,18 +82,24 @@ const Registration = () => {
 
   return (
     <Formik
-      initialValues={initialRegistrationValues}
+      initialValues={initialValues}
       onSubmit={submitRegistrationApplication}
-      validate={values => new RegistrationValidation(intl, values).validateRegistration(activeStep)}
+      validate={values =>
+        new RegistrationFormValidation(
+          values,
+          intl.formatMessage({ id: "general.form.msg.requiredField" }),
+          intl.formatMessage({ id: "user.registration.form.msg.email.invalidFormat" }),
+          intl.formatMessage({ id: "user.registration.form.msg.password.matchFail" }),
+          handlePasswordRequirementFailed
+        ).validate(activeStep)
+      }
       validateOnBlur={false}
       validateOnChange={false}
     >
       {({ values, errors, validateForm, submitForm }) => {
         const onNext = (event: React.MouseEvent<HTMLButtonElement>) => {
           event.preventDefault();
-          validateForm().then(errors => {
-            Object.keys(errors).length === 0 && handleNext();
-          });
+          validateForm().then(errors => Object.keys(errors).length === 0 && handleNext());
         };
 
         const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -102,14 +109,15 @@ const Registration = () => {
 
         return (
           <div className="container--center-focus">
-            <Paper className="form-paper" elevation={4}>
-              <Typography variant="h4" component="h2">
-                {intl.formatMessage({ id: "user.form.title.registration.name" })}
-              </Typography>
+            <Helmet>
+              <title> {intl.formatMessage({ id: "user.registration.form.title" })} </title>
+            </Helmet>
+            <FormPaper elevation={4}>
+              <Typography variant="h4"> {intl.formatMessage({ id: "user.registration.form.title" })} </Typography>
               <Stepper activeStep={activeStep} alternativeLabel>
-                {steps.map((label: string) => (
-                  <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
+                {Array.apply(null, Array(3)).map((_, i) => (
+                  <Step key={`registration-step-${i}`}>
+                    <StepLabel>{intl.formatMessage({ id: `user.registration.form.step.${i + 1}` })}</StepLabel>
                   </Step>
                 ))}
               </Stepper>
@@ -117,10 +125,17 @@ const Registration = () => {
                 [
                   <AccountCredentialsForm values={values} errors={errors} onNext={onNext} />,
                   <AccountPersonalForm errors={errors} onBack={handleBack} onNext={onNext} />,
-                  <AccountCustomizationForm errors={errors} onBack={handleBack} onSubmit={onSubmit} />,
+                  <AccountCustomizationForm
+                    errors={errors}
+                    onBack={handleBack}
+                    onSubmit={onSubmit}
+                    avatarEditorRef={avatarEditorRef}
+                    locale={locale}
+                    prefersDarkMode={prefersDarkMode}
+                  />,
                 ][activeStep]
               }
-            </Paper>
+            </FormPaper>
           </div>
         );
       }}

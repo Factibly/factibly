@@ -4,9 +4,10 @@ import { TransitionProps } from "@material-ui/core/transitions";
 import { Slide, Button, Dialog, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
 
 interface ConfirmationDialogProps extends WrappedComponentProps<"intl"> {
-  openDialog: boolean;
-  onCancel: (...args: any[]) => void;
-  onReject: (...args: any[]) => void;
+  open: boolean;
+  dialogContentText?: string;
+  onCancel?: (...args: any[]) => void;
+  onReject?: (...args: any[]) => void;
   onApprove: (...args: any[]) => void;
 }
 
@@ -19,10 +20,10 @@ const Transition = forwardRef(function Transition(
 
 class ConfirmationDialog extends PureComponent<ConfirmationDialogProps> {
   render() {
-    const { openDialog, onCancel, onReject, onApprove, intl }: ConfirmationDialogProps = this.props;
+    const { open, dialogContentText, onCancel, onReject, onApprove, intl }: ConfirmationDialogProps = this.props;
     return (
       <Dialog
-        open={openDialog}
+        open={open}
         TransitionComponent={Transition}
         keepMounted
         fullWidth
@@ -32,13 +33,13 @@ class ConfirmationDialog extends PureComponent<ConfirmationDialogProps> {
       >
         <DialogContent>
           <DialogContentText id="confirmation-dialog-description">
-            {intl.formatMessage({ id: "general.dialog.confirmation.title.name" })}
+            {dialogContentText || intl.formatMessage({ id: "general.dialog.confirmation.message" })}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onReject}>{intl.formatMessage({ id: "general.action.no.name" })}</Button>
+          <Button onClick={onReject}>{intl.formatMessage({ id: "general.action.no" })}</Button>
           <Button onClick={onApprove} autoFocus>
-            {intl.formatMessage({ id: "general.action.yes.name" })}
+            {intl.formatMessage({ id: "general.action.yes" })}
           </Button>
         </DialogActions>
       </Dialog>

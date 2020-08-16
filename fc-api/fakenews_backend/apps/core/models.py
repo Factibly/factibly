@@ -21,6 +21,12 @@ class MediaType(models.TextChoices):
     OTHER = 'OT', 'Other'
 
 
+class ImageModerationScore(models.IntegerChoices):
+    SAFE = 0
+    WARNING = 1
+    NO_SHOW = 2
+
+
 class Content(models.Model):
     """
     Content model that contains a piece of media
@@ -35,6 +41,11 @@ class Content(models.Model):
     author = models.CharField(max_length=255, null=True)
     publication_date = models.DateField(null=True)
     image_url = models.URLField(max_length=2000, null=True)
+
+    image_moderation_score = models.IntegerField(
+        choices=ImageModerationScore.choices,
+        default=ImageModerationScore.SAFE
+    )
 
     # Every media content should be classified under a media type
     media_type = models.CharField(
@@ -85,13 +96,3 @@ class Rating(models.Model):
 
     def overall_score(self):
         return (self.score1 + self.score2 + self.score3)/3
-
-
-class SavedContentList(models.Model):
-    """
-    Bookmark list for a user
-    """
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
-    contents = models.ManyToManyField(Content)
-    user = models.OneToOneField('users.User', on_delete=models.CASCADE)

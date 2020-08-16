@@ -1,31 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
-import firebase from "firebase/app";
-import "firebase/analytics";
-import "firebase/auth";
 import { Provider as ReduxProvider } from "react-redux";
 import store from "./store/store";
 import { ApolloProvider } from "@apollo/client";
 import client from "./gql/client";
+import firebase from "./libs/firebase";
 import App from "./App";
-import "./index.css";
-import "./styles/desktop.css";
-import "./styles/mobile.css";
+import "./styles/index.css";
 import "./styles/universal.css";
 
 if (process.env.NODE_ENV === "production" && navigator.userAgent !== "ReactSnap") {
-  var firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY ?? "",
-    authDomain: "fake-check-web.firebaseapp.com",
-    databaseURL: "https://fake-check-web.firebaseio.com",
-    projectId: "fake-check-web",
-    storageBucket: "fake-check-web.appspot.com",
-    messagingSenderId: "495281003374",
-    appId: "1:495281003374:web:6bdc06b56218afde1dbf7f",
-    measurementId: "G-VX233Z3NTQ",
-  };
-  firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 }
 

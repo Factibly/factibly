@@ -1,0 +1,86 @@
+export default {
+  "en-US": {
+    "bookmarks.alert.msg.added": "Content bookmarked",
+    "bookmarks.alert.msg.removed": "Bookmark removed",
+    "bookmarks.bookmark.action.sort.alpha.std": "Alphabetical",
+    "bookmarks.bookmark.action.sort.alpha.reverse": "Alphabetical (reverse)",
+    "bookmarks.bookmark.action.view.factCheck.aria": "see the fact check",
+    "bookmarks.bookmark.action.view.factCheck": "See the Fact Check",
+    "bookmarks.bookmark.count": "{bookmarkCount, plural, one {# Bookmark} other {# Bookmarks}}",
+    "bookmarks.intro.benefits.title":
+      "Consider the following situations when deciding whether a bookmark could be useful for you",
+    "bookmarks.intro.benefits.1": "you might want to reference a fact check in the future",
+    "bookmarks.intro.benefits.2":
+      "you have read, or will read, something but currently don't have the time to explore its fact check",
+    "bookmarks.intro.benefits.3": "you want to be like all the cool kids in your neighbourhood",
+    "bookmarks.intro.header.noBookmarks": "This account currently does not have any bookmarks.",
+    "bookmarks.intro.header.signinRequired":
+      "You must log in to your account in order to add and access your bookmarks.",
+  },
+  "fr-FR": {
+    "bookmarks.alert.msg.added": "Contenu ajouté aux marque-page",
+    "bookmarks.alert.msg.removed": "Marque-page supprimé",
+    "bookmarks.bookmark.action.sort.alpha.std": "Alphabétique",
+    "bookmarks.bookmark.action.sort.alpha.reverse": "Alphabétique (inversé)",
+    "bookmarks.bookmark.action.view.factCheck.aria": "voir la vérification des faits",
+    "bookmarks.bookmark.action.view.factCheck": "Voir la vérification des faits",
+    "bookmarks.bookmark.count": "{bookmarkCount, plural, one {# marque-page} other {# marque-pages}}",
+    "bookmarks.intro.benefits.title":
+      "Tenez compte des situations suivantes pour décider si un signet pourrait vous être utile",
+    "bookmarks.intro.benefits.1": "vous voudrez peut-être faire référence à une vérification des faits à l'avenir",
+    "bookmarks.intro.benefits.2": `
+      vous avez lu ou allez lire quelque chose, mais vous n'avez actuellement pas
+      le temps d'explorer sa cote de vérification des faits`,
+    "bookmarks.intro.benefits.3": "tu veux être comme tous les jeunes cools de ton quartier",
+    "bookmarks.intro.header.noBookmarks": "Ce compte n'a actuellement aucun marque-pages.",
+    "bookmarks.intro.header.signinRequired":
+      "Vous devez vous connecter à votre compte afin d'y ajouter et accéder à vos marque-pages.",
+  },
+  "zh-CN": {
+    "bookmarks.alert.msg.added": "内容已添加到书签",
+    "bookmarks.alert.msg.removed": "书签已删除",
+    "bookmarks.bookmark.action.sort.alpha.std": "字母顺序",
+    "bookmarks.bookmark.action.sort.alpha.reverse": "字母顺序（反向）",
+    "bookmarks.bookmark.action.view.factCheck.aria": "查看事实检查",
+    "bookmarks.bookmark.action.view.factCheck": "查看事实检查",
+    "bookmarks.bookmark.count": "{bookmarkCount}个书签",
+    "bookmarks.intro.benefits.title": "在确定书签是否对你有用时，考虑以下情况",
+    "bookmarks.intro.benefits.1": "你将来可能希望引用某些事实检查",
+    "bookmarks.intro.benefits.2": "你阅读了或将会阅读某些东西，但目前没有时间探索它的事实检查",
+    "bookmarks.intro.benefits.3": "你想像你附近的孩子一样很酷",
+    "bookmarks.intro.header.noBookmarks": "此账户当前没有任何书签。",
+    "bookmarks.intro.header.signinRequired": "你必须先登录到你的账户才能添加和访问你的书签。",
+  },
+  "zh-TW": {
+    "bookmarks.alert.msg.added": "內容已添加到書籤",
+    "bookmarks.alert.msg.removed": "書籤已刪除",
+    "bookmarks.bookmark.action.sort.alpha.std": "字母順序",
+    "bookmarks.bookmark.action.sort.alpha.reverse": "字母順序（反向）",
+    "bookmarks.bookmark.action.view.factCheck.aria": "查看事實檢查",
+    "bookmarks.bookmark.action.view.factCheck": "查看事實檢查",
+    "bookmarks.bookmark.count": "{bookmarkCount}個書籤",
+    "bookmarks.intro.benefits.title": "在確定書籤是否對你有用時，考慮以下情況",
+    "bookmarks.intro.benefits.1": "你將來可能希望引用某些事實檢查",
+    "bookmarks.intro.benefits.2": "你閱讀了或將會閱讀某些東西，但目前沒有時間探索它的事實檢查",
+    "bookmarks.intro.benefits.3": "你想像你附近的孩子一樣很酷",
+    "bookmarks.intro.header.noBookmarks": "此賬戶當前沒有任何書籤。",
+    "bookmarks.intro.header.signinRequired": "你必須先登錄到你的賬戶才能添加和訪問你的書籤。",
+  },
+  "ja-JP": {
+    "bookmarks.alert.msg.added": "ブックマークに追加されたコンテンツ",
+    "bookmarks.alert.msg.removed": "ブックマークが削除されました",
+    "bookmarks.bookmark.action.sort.alpha.std": "アルファベット順",
+    "bookmarks.bookmark.action.sort.alpha.reverse": "アルファベット順（逆）",
+    "bookmarks.bookmark.action.view.factCheck.aria": "ファクトチェックを表示",
+    "bookmarks.bookmark.action.view.factCheck": "ファクトチェックを表示",
+    "bookmarks.bookmark.count": "{bookmarkCount}個ブックマーク",
+    "bookmarks.intro.benefits.title": "ブックマークが役立つかどうかを判断するときは、次の点を考慮してます",
+    "bookmarks.intro.benefits.1": "将来、あなたは特定のファクトチェックを引用したいかもしれない",
+    "bookmarks.intro.benefits.2":
+      "あなたは何かを読んだ、または読む予定であるが、ファクトチェックを探索する時間はありません",
+    "bookmarks.intro.benefits.3": "あなたはあなたの近くのすべての子供たちと同じくらいかっこよくなりたいです",
+    "bookmarks.intro.header.noBookmarks": "現在、このアカウントのブックマークはありません。",
+    "bookmarks.intro.header.signinRequired":
+      "ブックマークを追加してアクセスするには、アカウントにログインする必要があります。",
+  },
+};

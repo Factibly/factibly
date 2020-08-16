@@ -1,29 +1,42 @@
-import React from "react";
-import { FormattedMessage } from "react-intl";
+import React, { PureComponent } from "react";
+import { injectIntl, WrappedComponentProps } from "react-intl";
 import DropdownMenuItem from "../../../common/DropdownMenuItem";
 import PersonIcon from "@material-ui/icons/Person";
 import HowToRegIcon from "@material-ui/icons/HowToReg";
-import history from "../../../hooks/history";
+import { ACCOUNT_SIGN_IN_PATH, ACCOUNT_REGISTER_PATH } from "../../../static/paths";
 
-const AnonymousActionMenu = () => {
-  return (
-    <>
-      <DropdownMenuItem
-        primary={<FormattedMessage id="user.action.login.name" />}
-        icon={<PersonIcon />}
-        onClick={() => {
-          history.push("/account/sign-in");
-        }}
-      />
-      <DropdownMenuItem
-        primary={<FormattedMessage id="user.action.register.name" />}
-        icon={<HowToRegIcon />}
-        onClick={() => {
-          history.push("/account/register");
-        }}
-      />
-    </>
-  );
-};
+interface AnonymousActionMenuProps extends WrappedComponentProps<"intl"> {}
 
-export default AnonymousActionMenu;
+const actions = Object.freeze([
+  {
+    primaryNameId: "user.action.login",
+    icon: <PersonIcon />,
+    href: ACCOUNT_SIGN_IN_PATH,
+  },
+  {
+    primaryNameId: "user.action.register",
+    icon: <HowToRegIcon />,
+    href: ACCOUNT_REGISTER_PATH,
+  },
+]);
+
+class AnonymousActionMenu extends PureComponent<AnonymousActionMenuProps> {
+  render() {
+    return (
+      <>
+        {actions.map(({ primaryNameId, icon, href }) => (
+          <DropdownMenuItem
+            key={`anonymous-action-menu-item-${primaryNameId}`}
+            component="a"
+            button
+            primary={this.props.intl.formatMessage({ id: primaryNameId })}
+            icon={icon}
+            href={href}
+          />
+        ))}
+      </>
+    );
+  }
+}
+
+export default injectIntl(AnonymousActionMenu);

@@ -33,7 +33,7 @@ const FakeCheckBlogCard = () => {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="author" className={classes.avatar}>
+          <Avatar className={classes.avatar} aria-label="author">
             JF
           </Avatar>
         }

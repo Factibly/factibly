@@ -1,27 +1,24 @@
 import React, { PureComponent } from "react";
 import { Paper, Typography } from "@material-ui/core";
-import { injectIntl, WrappedComponentProps } from "react-intl";
 import { withTheme, WithTheme as WithThemeProps } from "@material-ui/core/styles";
 
-interface BannerProps extends WrappedComponentProps<"intl">, WithThemeProps {
-  msg: string;
+interface BannerProps extends WithThemeProps {
+  message: string;
   backgroundColor?: string;
 }
 
 class Banner extends PureComponent<BannerProps> {
   render() {
-    const { msg, backgroundColor, intl, theme } = this.props;
+    const { message, backgroundColor, theme } = this.props;
     return (
       <Paper
         variant="outlined"
-        style={{ padding: theme.spacing(3), width: "100%", color: theme.palette.common.white, backgroundColor }}
+        style={{ width: "100%", padding: theme.spacing(3), backgroundColor, color: theme.palette.common.white }}
       >
-        <Typography variant="h6" gutterBottom>
-          {intl.formatMessage({ id: msg })}
-        </Typography>
+        <Typography gutterBottom> {message} </Typography>
       </Paper>
     );
   }
 }
 
-export default withTheme(injectIntl(Banner));
+export default withTheme(Banner);

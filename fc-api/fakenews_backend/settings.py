@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import rollbar
 import django_heroku
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,9 +30,22 @@ DEBUG = True if os.environ['ENV'] == "DEV" else False
 
 ALLOWED_HOSTS = ['localhost', 'fakenews-backend.herokuapp.com']
 
+CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://localhost:8301",
+    "http://127.0.0.1:8301",
+    "https://62d884adeb35.ngrok.io",
+    "https://fake-news-b45e37.netlify.app"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:8301",
+    "http://127.0.0.1:8301",
+    "https://62d884adeb35.ngrok.io",
     "https://fake-news-b45e37.netlify.app"
 ]
 
@@ -48,7 +62,9 @@ INSTALLED_APPS = [
     'fakenews_backend.apps.users',
     'fakenews_backend.apps.core',
     'corsheaders',
-    "django_extensions"
+    'django_extensions',
+    'storages',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +99,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fakenews_backend.wsgi.application'
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -145,6 +162,14 @@ GRAPHENE = {
     'MIDDLEWARE': ['graphql_jwt.middleware.JSONWebTokenMiddleware', ],
 }
 
+GRAPHQL_JWT = {
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_COOKIE_SECURE': not DEBUG,
+    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+    'JWT_EXPIRATION_DELTA': timedelta(minutes=30),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=30),
+}
+
 # Custom Auth User Model
 
 AUTH_USER_MODEL = 'users.User'
@@ -155,6 +180,15 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 django_heroku.settings(locals())
+
+# AWS
+
+AWS_DEFAULT_ACL = None
+
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
+AWS_S3_FILE_OVERWRITE = False
+AWS_S3_ADDRESSING_STYLE = 'virtual'
 
 # Rollbar
 

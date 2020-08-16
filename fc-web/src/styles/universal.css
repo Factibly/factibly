@@ -1,4 +1,16 @@
-.ellipsis {
+.container--center-focus {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+.five-lines-capped-text {
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
@@ -14,22 +26,6 @@
   border-radius: 50%;
 }
 
-.window-container {
-  padding: 24px;
-}
-
-.paragraphed-container > div {
-  padding-bottom: 16px;
-}
-
-.container--center-focus {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
 .grid--first-column-shrink {
   display: grid;
   grid-template-columns: min-content auto;
@@ -39,51 +35,29 @@
   padding-right: 8px;
 }
 
-.account-form {
-  margin: 16px 0 !important;
-}
-
-.account-form > * {
-  margin: 8px 0 !important;
-}
-
-.support-form {
-  margin: 16px 0 !important;
-}
-
-.support-form > * {
-  margin: 0 0 24px !important;
-}
-
-.form-paper {
-  padding: 32px;
-  text-align: center;
-}
-
-.form-box > * {
-  margin: 4px 0 !important;
-}
-
-.textual-icon-button,
-.iconic-text-button {
-  display: inline;
-  text-decoration: none !important;
-}
-
-.textual-icon-button {
-  background-color: inherit !important;
-}
-
-.textual-icon-button > * {
-  font-size: medium;
-}
-
 .faq a {
   color: inherit;
 }
 
+/* TODO: well, this is annoying... perhaps use SCSS in the future? */
+.simple-link, .simple-text a  {
+  color: inherit;
+}
+.simple-link:link, .simple-text a:link {
+  text-decoration: none;
+}
+.simple-link:visited, .simple-text a:visited {
+  text-decoration: none;
+}
+.simple-link:hover, .simple-text a:hover {
+  text-decoration: underline;
+}
+.simple-link:active, .simple-text a:active{
+  text-decoration: underline;
+}
+
 /* RATINGS BREAKDOWN */
-.rating-breakdown--grid-container {
+.rating-breakdown-grid--container {
   display: grid;
   grid-template-columns: max-content auto;
   grid-template-areas:
@@ -92,7 +66,7 @@
     "strength rating2";
 }
 
-.rating-breakdown--grid-container-item {
+.rating-breakdown-grid--container-item {
   display: flex;
   margin: auto;
 }

@@ -1,8 +1,10 @@
 import { gql } from "@apollo/client";
 
-export const USER_LOGGED_IN = gql`
-  query userLoggedIn {
-    userLoggedIn @client
+export const LOGGED_IN = gql`
+  query LoggedIn {
+    currentUser {
+      id
+    }
   }
 `;
 
@@ -13,19 +15,24 @@ export const CURRENT_USER = gql`
       displayName
       email
       country
+      avatar
     }
   }
 `;
 
 export const CONTENT = gql`
   query Content($contentId: ID!) {
-    content(contentId: $contentId) {
+    content(id: $contentId) {
+      id
       url
       overallScore
+      updatedAt
       author
       searchCount
       title
       imageUrl
+      imageModerationScore
+      isBookmarked
       ratingSet {
         id
         createdAt
@@ -48,6 +55,24 @@ export const CONTENT = gql`
         score2
         score3
         justification
+        createdAt
+        upvoteCount
+        downvoteCount
+      }
+    }
+  }
+`;
+
+export const BOOKMARKS_LIST = gql`
+  query BookmarksList {
+    currentUser {
+      id
+      bookmarks {
+        id
+        url
+        imageUrl
+        title
+        overallScore
       }
     }
   }

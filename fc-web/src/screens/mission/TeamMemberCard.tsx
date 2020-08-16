@@ -1,9 +1,11 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
+import { useTheme } from "@material-ui/core/styles";
 import { Grid, Card, CardMedia, CardContent, Typography, Button } from "@material-ui/core";
 import LinkIcon from "@material-ui/icons/Link";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
+import InstagramIcon from "@material-ui/icons/Instagram";
 import "../../styles/smooth-scroll.css";
 
 function parseMemberImgPath(_: TemplateStringsArray, sub: string) {
@@ -12,11 +14,12 @@ function parseMemberImgPath(_: TemplateStringsArray, sub: string) {
 }
 
 const TeamMemberAction = ({ member }) => {
-  const { website, linkedin, github } = member;
+  const { website, linkedin, github, instagram } = member;
   const sites = [
-    [website, "mission.team.action.website.name", LinkIcon],
-    [linkedin, "mission.team.action.linkedin.name", LinkedInIcon],
-    [github, "mission.team.action.github.name", GitHubIcon],
+    [website, "mission.team.action.website", LinkIcon],
+    [linkedin, "mission.team.action.linkedin", LinkedInIcon],
+    [github, "mission.team.action.github", GitHubIcon],
+    [instagram, "mission.team.action.instagram", InstagramIcon],
   ];
   return (
     <>
@@ -26,7 +29,6 @@ const TeamMemberAction = ({ member }) => {
           url.trim() && (
             <div key={id}>
               <Button
-                className="textual-icon-button"
                 startIcon={<Icon />}
                 href={url}
                 target="_blank"
@@ -44,9 +46,10 @@ const TeamMemberAction = ({ member }) => {
 };
 
 const TeamMemberCard = ({ member }) => {
+  const theme = useTheme();
   return (
     <Grid key={member.name} item>
-      <Card style={{ padding: 24 }}>
+      <Card style={{ padding: theme.spacing(3) }}>
         <CardMedia title={member.name} image={parseMemberImgPath`${member.name}`} style={{ width: 240, height: 240 }} />
         <CardContent>
           <Typography gutterBottom style={{ textAlign: "center" }}>

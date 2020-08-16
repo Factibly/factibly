@@ -1,14 +1,10 @@
 import React, { PureComponent } from "react";
 import { injectIntl, WrappedComponentProps } from "react-intl";
 import DateFnsUtils from "@date-io/date-fns";
-import enLocale from "date-fns/locale/en-CA";
-import frLocale from "date-fns/locale/fr";
-import zhCnLocale from "date-fns/locale/zh-CN";
-import zhTwLocale from "date-fns/locale/zh-TW";
-import jaLocale from "date-fns/locale/ja";
 import { DatePicker, TimePicker, DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
+import locales from "../static/locales";
 
 interface FakeCheckCalendarPickerProps extends WrappedComponentProps<"intl"> {
   Picker: typeof DatePicker | typeof TimePicker | typeof DateTimePicker;
@@ -19,19 +15,11 @@ interface FakeCheckCalendarPickerProps extends WrappedComponentProps<"intl"> {
   [x: string]: any;
 }
 
-const localeMap = {
-  en: enLocale,
-  fr: frLocale,
-  "zh-Hans": zhCnLocale,
-  "zh-Hant": zhTwLocale,
-  ja: jaLocale,
-};
-
 class FakeCheckCalendarPicker extends PureComponent<FakeCheckCalendarPickerProps> {
   render() {
-    const { Picker, label, selectedDate, onChange, helperText, intl, ...props } = this.props;
+    const { Picker, label, selectedDate, onChange, helperText, intl, ...otherProps } = this.props;
     return (
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[intl.locale]}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locales[intl.locale].date}>
         <Picker
           variant="inline"
           inputVariant="outlined"
@@ -44,7 +32,7 @@ class FakeCheckCalendarPicker extends PureComponent<FakeCheckCalendarPickerProps
             transformOrigin: { horizontal: "left", vertical: "center" },
           }}
           helperText={helperText}
-          {...props}
+          {...otherProps}
         />
       </MuiPickersUtilsProvider>
     );

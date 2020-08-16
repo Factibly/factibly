@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       color: theme.palette.common.black,
     },
+    ped: {
+      "& > div": {
+        paddingBottom: theme.spacing(2),
+      },
+    },
   })
 );
 
@@ -24,10 +29,12 @@ const Mission = () => {
   const [, setActiveWindowWidth] = useState<number>(window.innerWidth);
 
   useLayoutEffect(() => {
-    window.addEventListener("resize", () => {
-      setActiveWindowWidth(window.innerWidth);
-      window.location.reload(false);
-    });
+    if (isBrowser) {
+      window.addEventListener("resize", () => {
+        setActiveWindowWidth(window.innerWidth);
+        window.location.reload(false);
+      });
+    }
   });
 
   useEffect(() => {
@@ -45,7 +52,7 @@ const Mission = () => {
   return (
     <div className={classes.root}>
       <Helmet>
-        <title> {intl.formatMessage({ id: "nav.drawer.aboutUs.name" })} </title>
+        <title> {intl.formatMessage({ id: "nav.drawer.item.mission" })} </title>
       </Helmet>
       <section id="trigger1">
         <CompanyIntroduction />
@@ -53,7 +60,7 @@ const Mission = () => {
       <section id="trigger2">
         <CompanyTeam />
       </section>
-      <section id="trigger3" className="paragraphed-container">
+      <section id="trigger3" className={classes.ped}>
         <CompanyTechStack />
       </section>
     </div>

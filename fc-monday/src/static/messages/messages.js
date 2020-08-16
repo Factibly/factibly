@@ -1,0 +1,23 @@
+export default {
+  "en-US": {
+    "monday.board.id": "Board ID",
+    "monday.board.name": "Board Name",
+    "monday.board.item.id": "Item ID",
+    "monday.board.item.name": "Item Name",
+    "factCheck.id": "Fact Check ID",
+    "factCheck.title": "Fact Check",
+    "factCheck.action.fakeCheck.open": "Open FakeCheck Website",
+    "factCheck.action.fakeCheck.open.aria": "open fakecheck website in a new page",
+    "factCheck.action.info": "Close",
+    "factCheck.action.info.aria": "show some information of the corresponding monday.com item",
+    "factCheck.action.modal.close": "Close",
+    "factCheck.action.modal.close.aria": "close this modal",
+    "factCheck.action.monday.open": "Open Monday.com Item",
+    "factCheck.action.monday.open.aria": "open monday.com item in a new page",
+    "factCheck.overview.author.unknown": "Unknown",
+    "factCheck.overview.rating.none": "No Ratings Yet",
+    "factCheck.overview.rating.count": "Number of Ratings",
+    "factCheck.overview.source.author": "Author/Publisher",
+    "factCheck.overview.source.type": "Type",
+  },
+};

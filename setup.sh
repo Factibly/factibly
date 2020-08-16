@@ -56,7 +56,7 @@ do
     u) REMOTE_BRANCH=$OPTARG;;
     w) WEB_DIR=$OPTARG;;
     a) API_DIR=$OPTARG;;
-    \?) echo "ERROR: One or more of the flags is not recognized by this script"; display_help; ERR_NUM=1;;
+    \?) echo "ERROR: One or more flags are not recognized by this script"; display_help; ERR_NUM=1;;
   esac
 done
 wait

@@ -2,15 +2,17 @@
 
 ## Local Set-up
 
-The set-up instructions for each of our apps are available in their respective READMEs. **You'll need to configure the environment variables in order to run our apps.** You can issue a request for these variables from [Jadon](mailto:jdsare@gmail.com).
+The set-up instructions for each of our apps are available in their respective READMEs. You can _either_ follow those instructions (recommended) _or_ run our custom bash [script](./run.sh).
+
+**Regardless of which set-up method you employ, you'll need to configure the environment variables in order to run our apps.** You can issue a request for these variables via an email to Jadon at [jdsare@gmail.com](mailto:jdsare@gmail.com) .
 
 ## Applications
 
 | App  | Directory | URL     |
 | ---------- | ---------- | ---------- |
-| Main Website  | [fc-web](./fc-web) |  https://fake-news-b45e37.netlify.app/ |
-| Monday Marketplace App | [fc-monday](./fc-monday) | _Coming Soon_ |
-| Back-end | [fc-api](./fc-api) | _Not Applicable_ |
+| Main Website  | [fc-web](./fc-web/) |  https://fake-news-b45e37.netlify.app/ |
+| Monday Marketplace App | [fc-monday](./fc-monday/) | _Coming Soon_ |
+| Back-end | [fc-api](./fc-api/) | _Not Applicable_ |
 
 ## Resources 
 

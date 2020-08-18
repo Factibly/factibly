@@ -1,2 +1,11 @@
 .DS_Store
-FE/node_modules/
+./fc-web/node_modules/
+**/codeclimate.yml
+**/env
+**/env.local
+**/env.development
+**/env.development.local
+**/env.test
+**/env.test.local
+**/env.production
+**/env.production.local

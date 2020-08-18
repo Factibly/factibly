@@ -4,31 +4,29 @@
 
 # FakeCheck Front-end (Web)
 
-## Onboarding Procedures
+## Setup Procedures
 
-1. Clone this repo and go to the corresponding project directory on your local machine
-2. Install a dependency manager called yarn
+1. Open [MingGW-64](https://sourceforge.net/projects/mingw-w64/) (Windows) or Terminal (macOS/Linux), or any equivalent command line interface
+2. Clone or download this repository
+3. Go to the root directory for this repository on your machine
+4. Install the yarn dependency manager _if you haven't done so already_
    - Windows: download and run the [yarn installer](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
    - macOS/Linux: install [Homebrew](https://brew.sh/) and run `brew install yarn` on the command line interface
-3. Run `yarn install` on the command line interface to install the [project dependencies](package.json)
-4. Run `yarn start` on the command line interface to start your local server
-5. Follow the onboarding procedures in the [back-end repository](https://github.com/Sapphire-Labs/Hackathon/blob/master/BE/README.md)
-6. Go to [`http://localhost:3000`](http://localhost:3000) on your browser to access the development build
+5. Run `yarn install` on the command line interface to install the [project dependencies](package.json)
+6. Run `yarn start` on the command line interface to start your local server
+7. Complete the setup procedures for the [fc-api](https://github.com/Sapphire-Labs/Hackathon/blob/master/fc-api/README.md) subproject
+8. Go to [`http://localhost:3000`](http://localhost:3000) in your browser to access the development build
 
 ## GraphQL
 
+IMPORTANT: The following instructions are only required for development, not for setup
+
 In order to auto-generate the types for our GraphQL queries and mutations,
 
-1. Install apollo globally if you haven't done so already
-```zsh
-yarn global add apollo --prefix /usr/local
-```
-2. Run the Apollo Client codegen script on the command line interface
-```zsh
-yarn gen:types
-```
+1. Run `yarn global add apollo --prefix /usr/local` to install apollo globally _if you haven't done so already_
+2. Run `yarn gen:types` to trigger the Apollo Client codegen script
 
-The type definitions are located in the [`src/gql/__generated__`](src/gql/__generated__) folder. You should _not_ manually change them.
+The type definitions are located in the [__generated__](./__generated__/) and [src/gql/__generated__](./src/gql/__generated__/) folders. You should _not_ manually change them.
 
 ## Compatibility
 

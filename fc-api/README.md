@@ -9,11 +9,11 @@
 2. Clone or download this repository
 3. Go to the root directory for this repository on your machine
 4. Download [Docker Desktop](https://www.docker.com/products/docker-desktop) and start it
-5. Run `docker-compose up` to start the postgres DB instance\*
+5. Run `docker-compose up` to start the postgres DB instance
 6. Repeat steps 1 and 2 in a new tab/window of your command line interface
-7. Run `python3 --version` and check that [Python 3.7](https://www.python.org/downloads/) is installed on your machine; if not, install it.\*
+7. Run `python3 --version` and check that [Python 3.7](https://www.python.org/downloads/) is installed on your machine; if not, install it.
 8. Run `export PIPENV_VENV_IN_PROJECT="enabled"`
-9.  Run `pipenv install` to install the [project dependencies](Pipfile)
+9. Run `pipenv install` to install the [project dependencies](Pipfile)\*
 10. Run `pipenv shell` to open the virtual environment\*\*
 11. Run `./manage.py runserver` to start the server
 
@@ -62,14 +62,14 @@ This project utilizes [Pylint](https://pypi.org/project/pylint/), along with its
 
 You should also comply with the following naming rules:
 
-| Usage       | Rule       | Examples                             |
-| ----------- | ---------- | ------------------------------------ |
-| variables   | snake_case | `chandler_score: int = 5`            |
-| enum consts | SSC        | `class QianMood(Enum): HAPPY_OPT`    |
-| functions   | snake_case | `def rate_chandler -> int : pass`    |
-| classes     | PascalCase | `class ChandlerLei(UWStudent): pass` |
-| files       | snake_case | `chandler_info.py`                   |
-| folders     | snake_case | `fact_check` folder                  |
+| Usage        | Rule                 | Examples                             |
+| ------------ | -------------------- | ------------------------------------ |
+| variables    | snake_case           | `chandler_score: int = 5`            |
+| functions    | snake_case           | `def rate_chandler -> int : pass`    |
+| classes      | PascalCase           | `class ChandlerLei(UWStudent): pass` |
+| enum members | SCREAMING_SNAKE_CASE | `class QianMood(Enum): HAPPY_OPT`    |
+| files        | snake_case           | `chandler_info.py`                   |
+| folders      | snake_case           | `fact_check` folder                  |
 
 The ternary operator (`<expression> if <condition> else <expression>`) is arguably also "unpythonic" and, in this project, should be avoided _unless_ the condition and expressions are short and simple.
 

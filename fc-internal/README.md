@@ -5,13 +5,13 @@
 | Script/Program         | Description                                                                               |
 | ---------------------- | ----------------------------------------------------------------------------------------- |
 | [setup.sh](./setup.sh) | installs most dependencies and starts the local servers for fc-web and fc-api subprojects |
-| [i18n.cpp](./i18n.cpp) | converts localized messages (*-messages.\[jt\]) between a JSON and CSV file               |
+| [i18n.cpp](./i18n.cpp) | converts localized messages (\*-messages.\[jt\]) between a JSON and CSV file              |
 
 ## Usage Instructions
 
 For further assistance on any particular script/program, you can specify the \[-h\] flag when running it in order to display a relevant and useful help text on the console.
 
-FILENAME_WITH_EXTENSION    --> replace with the filename in question and _include_ the file extension \
+FILENAME_WITH_EXTENSION --> replace with the filename in question and _include_ the file extension \
 FILENAME_WITHOUT_EXTENSION --> replace with the filename in question and _exclude_ the file extension
 
 ### Bash
@@ -22,7 +22,7 @@ For files with a .sh extension,
 2. Clone or download this repository
 3. Run `chmod +x FILENAME_WITH_EXTENSION` to make the file executable
 4. Run `./FILENAME_WITH_EXTENSION` with any available flags \
-   Example: `./setup.sh -p -w "./fc-web"  -a "./fc-api"`
+   Example: `./setup.sh -p -w "./fc-web" -a "./fc-api"`
 
 ### C++
 
@@ -36,4 +36,23 @@ For files with a .cpp extension,
    - macOS/Linux: install [Homebrew](https://brew.sh/) and run `brew install gcc`
 5. Run `make` to compile the C++ files
 6. Run `./FILENAME_WITHOUT_EXTENSION` with any available flags \
-   Example: `./i18n -i messages.json -i messages.csv`
+   Example: `./i18n -i messages.json -o messages.csv`
+
+## Code Styles
+
+This project follows Google's C++ [Style Guide](https://google.github.io/styleguide/cppguide.html) as well as the following naming conventions:
+
+| Usage        | Rule                 | Examples                                 |
+| ------------ | -------------------- | ---------------------------------------- |
+| macros       | SCREAMING_SNAKE_CASE | `#define PI_THREE_SIG_FIGS 3.14`         |
+| globals      | SCREAMING_SNAKE_CASE | `const float PI_THREE_SIG_FIGS = 3.14`   |
+| variables    | snake_case           | `std::string jadon_fan = "Jadon";`       |
+| functions    | snake_case           | `void find_jadon() { }`                  |
+| structures   | snake_case           | `struct jadon_fan { a: 21, b: 22 }`      |
+| unions       | snake_case           | `union jadon_fan { c: 23, d: 24 }`       |
+| classes      | PascalCase           | `class JadonFan: public WaterlooStudent` |
+| enum types   | PascalCase           | `enum struct JadonMood { HAPPY, SAD }`   |
+| enum members | SCREAMING_SNAKE_CASE | `enum class JadonMood { HA_OP, SA_PE };` |
+| namespaces   | PascalCase           | `namespace FakeCheck { }`                |
+| files        | snake_case           | `fake_check.hpp`                         |
+| folders      | snake_case           | `fact_check` folder                      |

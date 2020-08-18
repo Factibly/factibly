@@ -2,7 +2,7 @@
 
 ## Setup Procedures
 
-1. Complete the setup procedures for the [fc-web]((https://github.com/Sapphire-Labs/Hackathon/blob/master/FE/README.md)) and the [fc-api]((https://github.com/Sapphire-Labs/Hackathon/blob/master/BE/README.md)) subprojects
+1. Complete the setup procedures for the [fc-web](https://github.com/Sapphire-Labs/Hackathon/blob/master/FE/README.md) and the [fc-api](https://github.com/Sapphire-Labs/Hackathon/blob/master/BE/README.md) subprojects
 2. Open [MingGW-64](https://sourceforge.net/projects/mingw-w64/) (Windows) or Terminal (macOS/Linux), or any equivalent command line interface
 3. Clone or download this repository
 4. Go to the root directory for this repository on your machine
@@ -17,7 +17,7 @@
 13. Click the "Boards" button and choose one of the boards with some data in it
 14. Click the "Preview" button
 
-\*ngrok exposes the local web server to the internet
+\* ngrok exposes the local web server to the internet
 
 ## Monday SDK
 
@@ -39,7 +39,7 @@ of the following UI guidelines:
 
 - Use, for most components, sizes and spacings &mdash; including the width, height, margin and padding properties
   &mdash; in increments of 4dp (4px on web) for tighter or smaller components, and of 8dp (8px on web) otherwise
-- Use dialogs sparingly, and only when they contain critical information or tasks for the users, and consider    the use of
+- Use dialogs sparingly, and only when they contain critical information or tasks for the users, and consider the use of
   a snackbar, toast, tooltip or popover instead as dialogs are purposefully interruptive
 
 ## Code Styles
@@ -50,15 +50,13 @@ This project utilizes [Prettier](https://prettier.io/) to enforce certain
 You should also comply with the following naming rules:
 | Usage                         | Rule                           | Examples                                  |
 |-------------------------------|--------------------------------|-------------------------------------------|
+| globals                       | SCREAMING_SNAKE_CASE           | `const PI_MATHS = 3.14`                   |
 | variables                     | camelCase                      | `var jadonFan = "Hello, World!";`         |
-| functions                     | PascalCase                     | `function getSomeNum() { return 21; }`    |
+| functions                     | camelCase                      | `function getSomeNum() { return 21; }`    |
 | classes                       | PascalCase                     | `class JadonFan extends UWaterlooStudent` |
 | React components              | PascalCase                     | `<TeamMemberCard />`                      |
-| Redux actions and reducers    | camelCase                      | `supportReducers`                         |
-| Redux action types            | SCREAMING_SNAKE_CASE           | `CHANGE_WEBSITE_LANGUAGE`                 |
-| GraphQL mutations and queries | SCREAMING_SNAKE_CASE           | `LOGIN`                                   |
-| JSX files                     | PascalCase                     | `TeamMemberCard.jsx`                      |
-| non-JSX files                 | kebab-case                     | `awesome-jadon.js`, `awesome-jadon.jpg`   |
+| JSX files                     | PascalCase                     | `TeamMemberCard.tsx`                      |
+| non-JSX files                 | kebab-case                     | `awesome-jadon.ts`, `awesome-jadon.jpg`   |
 | folders                       | kebab-case                     | `fact-check` folder                       |
 
 ## Tests

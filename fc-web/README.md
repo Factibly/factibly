@@ -155,17 +155,15 @@ possible, and should be careful with assignments to the `null` and `undefined` t
 You should also comply with the following naming rules:
 | Usage                         | Rule                           | Examples                                  |
 |-------------------------------|--------------------------------|-------------------------------------------|
+| globals                       | SCREAMING_SNAKE_CASE           | `const PI_MATHS = 3.14`                   |
 | variables                     | camelCase                      | `var jadonFan = "Hello, World!";`         |
-| global constants              | SCREAMING_SNAKE_CASE           | `const PI = 3.14`                         |
-| enumerated constants          | SCREAMING_SNAKE_CASE           | `enum JadonMood { HAPPY_OPT, SAD_PES }`   |
-| functions                     | PascalCase                     | `function getSomeNum() { return 21; }`    |
+| functions                     | camelCase                      | `function getSomeNum() { return 21; }`    |
 | classes                       | PascalCase                     | `class JadonFan extends UWaterlooStudent` |
 | interfaces                    | PascalCase                     | `interface CardProps extends PaperProps`  |
-| enumeration types             | PascalCase                     | `enum JadonMood { }`                      |
+| type definitions              | PascalCase                     | `type JadonFan = string & int`            |
+| enum types                    | PascalCase                     | `enum JadonMood { }`                      |
+| enum members                  | SCREAMING_SNAKE_CASE           | `enum JadonMood { HAPPY_OPT, SAD_PES }`   |
 | React components              | PascalCase                     | `<TeamMemberCard />`                      |
-| Redux actions and reducers    | camelCase                      | `supportReducers`                         |
-| Redux action types            | SCREAMING_SNAKE_CASE           | `CHANGE_WEBSITE_LANGUAGE`                 |
-| GraphQL mutations and queries | SCREAMING_SNAKE_CASE           | `LOGIN`                                   |
 | JSX files                     | PascalCase                     | `TeamMemberCard.tsx`                      |
 | non-JSX files                 | kebab-case                     | `awesome-jadon.ts`, `awesome-jadon.jpg`   |
 | folders                       | kebab-case                     | `fact-check` folder                       |
@@ -229,11 +227,15 @@ you should keep in mind the following SEO guidelines:
 - Use `meta` tags (see [index.html](public/index.html)) with extra care as many of them either get ignored by modern
   search engines or _deoptimizes_ SEO capabilities
 - Specify a canoncial link (`rel=canonical`) &mdash; generally the one that directs to the most important webpage &mdash; 	among **similar** webpages so that search engines show the most important content
+<<<<<<< HEAD
 - Specify a no-follow link (`rel=nofollow`) when you have a component that links to a
   third-party document (e.g., a fact-checked news article); the `noreferrer` and `nooppener` behaviours
   [do _not_ directly improve SEO](https://twitter.com/JohnMu/status/903510290024857600) but may be necessary for
   [security](#Security) purposes when the `target` attribute is set to `_blank`
 - Do _not_ set the author of a linked webpage (`rel=author`) without first discussing it with Jason as many modern search 	engines only reference the first instance of `rel=author` and ignore the remaining ones
+=======
+- Do _not_ set the author of a linked webpage (`rel=author`) without first discussing it with Jadon as many modern search 	engines only reference the first instance of `rel=author` and ignore the remaining ones
+>>>>>>> Create legal templates
 
 Any positive exposure is good exposure, other than when some Instagram influencer wants to buy your product but is too
 cheap to pay for it with real money and instead offers to

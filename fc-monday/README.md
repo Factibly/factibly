@@ -1,19 +1,21 @@
 # FakeCheck (Monday App)
 
-## Onboarding Procedures
+## Setup Procedures
 
-1. Complete the onboarding procedures for the [main website]((https://github.com/Sapphire-Labs/Hackathon/blob/master/FE/README.md)) and the [back-end]((https://github.com/Sapphire-Labs/Hackathon/blob/master/BE/README.md))
-2. Clone this repo and go to the corresponding project directory on your local machine
-3. Install a dependency manager called npm
-4. Run `npm install` on the command line interface to install the [project dependencies](package.json)
-5. Run `npm run start` on the command line interface
-6. Open monday.com and login to your account
-7. Select your avatar on the left navigation bar, open the "Developers" section and select the "FakeCheck" app
-8. Open the "Features" section and select the "Fact Check Analyzer" feature
-9. Visit http://localhost:4040/status and under "command_line section" find the URL (this is the public URL of the app\*).
-10. Open the "View setup" tab and paste the URL into the "Custom URL" field
-11. Click the "Boards" button and choose one of the boards with some data in it
-12. Click the "Preview" button
+1. Complete the setup procedures for the [fc-web]((https://github.com/Sapphire-Labs/Hackathon/blob/master/FE/README.md)) and the [fc-api]((https://github.com/Sapphire-Labs/Hackathon/blob/master/BE/README.md)) subprojects
+2. Open [MingGW-64](https://sourceforge.net/projects/mingw-w64/) (Windows) or Terminal (macOS/Linux), or any equivalent command line interface
+3. Clone or download this repository
+4. Go to the root directory for this repository on your machine
+5. Install the npm dependency manager
+6. Run `npm install` to install the [project dependencies](package.json)
+7. Run `npm run start`
+8. Open monday.com and login to your account
+9. Select your avatar on the left navigation bar, open the "Developers" section and select the "FakeCheck" app
+10. Open the "Features" section and select the "Fact Check Analyzer" feature
+11. Go to the [ngrok dashboard](http://localhost:4040/status) in your browser and under "command_line section" find the URL (this is the public URL of the app\*).
+12. Open the "View setup" tab back in monday.com and paste the URL into the "Custom URL" field
+13. Click the "Boards" button and choose one of the boards with some data in it
+14. Click the "Preview" button
 
 \*ngrok exposes the local web server to the internet
 

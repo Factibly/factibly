@@ -1,31 +1,43 @@
 #ifndef FAKE_CHECK_HPP
 #define FAKE_CHECK_HPP
 
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <getopt.h>
 #include <string>
+// #include <sstream>
+#include <unordered_set>
 #include <map> // use over std::unordered_map to maintain consistent CSV structure
+#include <vector>
 
 namespace fakecheck {
-  std::string getFriendlyCppStandard() {
-    std::string cppStandard;
+  /* constexpr */ inline const std::string get_friendly_cpp_standard() { // C++20 and its constexpr on std::string...
+    std::string cpp_standard = "";
 
-    if (__cplusplus == 201703L) cppStandard = "C++17";
-    else if (__cplusplus == 201402L) cppStandard = "C++14";
-    else if (__cplusplus == 201103L) cppStandard = "C++11";
-    else if (__cplusplus == 199711L) cppStandard = "C++98";
-    else cppStandard = "pre-standard C++"; 
+    if (__cplusplus == 202002L) cpp_standard = "C++20";
+    else if (__cplusplus == 201703L) cpp_standard = "C++17";
+    else if (__cplusplus == 201402L) cpp_standard = "C++14";
+    else if (__cplusplus == 201103L) cpp_standard = "C++11";
+    else if (__cplusplus == 199711L) cpp_standard = "C++98";
+    else cpp_standard = "pre-standard C++";
 
-    return cppStandard;
+    return cpp_standard;
   }
 
   namespace i18n {
-    using locale = std::string;
-    using message_id = std::string;
-    using message_text = std::string;
-    using locale_map = std::map<locale, message_text>;
-    using message_map = std::map<message_id, locale_map>;
+    using fc_locale_name = std::string;
+    using fc_message_id = std::string;
+    using fc_message_text = std::string;
+    using fc_locale_name_set = std::unordered_set<fc_locale_name>;
+    using fc_locale_map = std::map<fc_locale_name, fc_message_text>;
+    using fc_message_map = std::map<fc_message_id, fc_locale_map>;
 
-    void message_csv_to_json(std::string, std::string);
-    void message_json_to_csv(std::string, std::string);
+    extern const std::string program_help_text;
+
+    void messages_csv_to_json(std::string, std::string);
+    void messages_json_to_csv(std::string, std::string);
+    const bool inspect_locale_messages(fc_message_map, fc_locale_name_set); 
   }
 }
 

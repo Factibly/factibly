@@ -34,18 +34,12 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "http://localhost:8301",
-    "http://127.0.0.1:8301",
-    "https://62d884adeb35.ngrok.io",
     "https://fake-news-b45e37.netlify.app"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "http://localhost:8301",
-    "http://127.0.0.1:8301",
-    "https://62d884adeb35.ngrok.io",
     "https://fake-news-b45e37.netlify.app"
 ]
 

@@ -4,29 +4,27 @@
 
 # FakeCheck Front-end (Web)
 
-## Onboarding Procedures
+## Setup Procedures
 
-1. Clone this repo and go to the corresponding project directory on your local machine
-2. Install a dependency manager called yarn
+1. Open [MingGW-64](https://sourceforge.net/projects/mingw-w64/) (Windows) or Terminal (macOS/Linux), or any equivalent command line interface
+2. Clone or download this repository
+3. Go to the root directory for this repository on your machine
+4. Install the yarn dependency manager _if you haven't done so already_
    - Windows: download and run the [yarn installer](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
    - macOS/Linux: install [Homebrew](https://brew.sh/) and run `brew install yarn` on the command line interface
-3. Run `yarn install` on the command line interface to install the [project dependencies](package.json)
-4. Run `yarn start` on the command line interface to start your local server
-5. Complete the onboarding procedures for the [back-end](https://github.com/Sapphire-Labs/Hackathon/blob/master/BE/README.md)
-6. Go to [`http://localhost:3000`](http://localhost:3000) on your browser to access the development build
+5. Run `yarn install` on the command line interface to install the [project dependencies](package.json)
+6. Run `yarn start` on the command line interface to start your local server
+7. Complete the setup procedures for the [fc-api](https://github.com/Sapphire-Labs/Hackathon/blob/master/fc-api/README.md) subproject
+8. Go to [`http://localhost:3000`](http://localhost:3000) in your browser to access the development build
 
 ## GraphQL
 
+IMPORTANT: The following instructions are only required for development, not for setup
+
 In order to auto-generate the types for our GraphQL queries and mutations,
 
-1. Install apollo globally if you haven't done so already
-```zsh
-yarn global add apollo --prefix /usr/local
-```
-2. Run the Apollo Client codegen script on the command line interface
-```zsh
-yarn gen:types
-```
+1. Run `yarn global add apollo --prefix /usr/local` to install apollo globally _if you haven't done so already_
+2. Run `yarn gen:types` to trigger the Apollo Client codegen script
 
 The type definitions are located in the [__generated__](./__generated__/) and [src/gql/__generated__](./src/gql/__generated__/) folders. You should _not_ manually change them.
 
@@ -42,23 +40,17 @@ The website supports the following browsers:
 
 ## Infrastructure
 
-There is a publically accessible [infrastructure diagram](https://app.diagrams.net/#G1tL5VqGfF9K73nWqdyFTNIqNhhN7EQQF9) in the FakeCheck folder on Google Drive.
+There is a publicly accessible [infrastructure diagram](https://app.diagrams.net/#G1tL5VqGfF9K73nWqdyFTNIqNhhN7EQQF9) in the FakeCheck folder on Google Drive.
 
 | Name                          | Usages                         | Person Responsible                        |
 |-------------------------------|--------------------------------|-------------------------------------------|
-| [Asana](https://app.asana.com/) | task tracking, release tracking | Jason   |
 | [AWS](https://aws.amazon.com/)  | file storage, CDN hosting                 | Jadon              |
 | [Cloud Console](https://console.cloud.google.com/home/dashboard) | Google API & service configurations | Jadon |
-| [Code Climate](https://codeclimate.com/dashboard) | code maintainability tracking, test coverage tracking | Jadon |
 | [EmailJS](https://www.emailjs.com/) | client-side email sender | Jadon |
-| [Figma](https://www.figma.com/) | wireframing | Kent |
 | [Firebase](https://console.firebase.google.com/) | website analytics, third-party SSO | Jadon         |
-| [GitHub](https://app.netlify.com/) | version control, continuous integration | Chandler   |
-| [Miro](https://miro.com/app/dashboard/) | brainstorming | Chandler |
 | [Netlify](https://app.netlify.com/) | website hosting, continuous deployment | Jadon   |
 | [reCAPTCHA Admin](https://www.google.com/recaptcha/admin) | reCAPTCHA configurations, reCAPTCHA analytics | Jadon |
 | [Rollbar](https://rollbar.com/) | error tracking (production only)  | Jadon   |
-| [Search Console](https://search.google.com/search-console) | SEO analytics | Jadon |
 
 ## Environment Variables
 
@@ -80,10 +72,10 @@ whenever you need to make changes to either `.env` or `.env.production` before t
 
 ## Project Structure
 
-This project is structured under the following directory tree. However, for brevity, it only provides a high-level overview, so some parts &mdash; as marked with an ellipsis (...) &mdash; of the actual tree are not shown.
+This project is structured under the following directory tree. However, for brevity, it only provides a high-level overview, so some parts &mdash; as marked with ellipses (...) &mdash; of the actual tree are not shown.
 
 ```bash
-├── .github             # github workflow and action configurations
+├── .github              # github workflow and action configurations
 │   └── ...
 ├── .vscode
 │   ├── extensions.json  # recommended extensions from the VSCode Marketplace
@@ -98,25 +90,31 @@ This project is structured under the following directory tree. However, for brev
 │   └── robots.txt       # search engine crawler configurations
 ├── src
 │   ├── common           # more generic and (mostly) presentational React components
+│   │   └── ...
+│   ├── extensions       # component wrappers for app extensions
+│   │   └── ...
 │   ├── gql              # Apollo client configurations, and GraphQL mutations and queries
+│   │   └── ...
 │   ├── hooks            # global hooks
-│   ├── iframe           # iframe-sque component wrapper
+│   │   └── ...
 │   ├── libs             # third-party library configurations
+│   │   └── ...
 │   ├── screens          # presentational and container React components
+│   │   └── ...
 │   ├── static
 │   │   ├── data         # general static data
 │   │   │   └── ...
-│   │   ├── keys         # constant key names
+│   │   ├── keys         # key names
 │   │   │   └── ...
-│   │   ├── messages     # constant localized messages
+│   │   ├── messages     # localized messages
 │   │   │   └── ...
 │   │   │── enums.ts     # global TypeScript enums
 │   │   │── locales.ts   # locale configurations and data
 │   │   │── mui-base.ts  # default Material-UI translations
-│   │   └──  paths.ts    # internal URL pathnames
+│   │   └── paths.ts     # internal URL pathnames
 │   ├── store            # Redux store with actions and reducers
 │   │   └── ...
-│   ├── styles           # CSS files and global colours
+│   ├── styles           # CSS files, global colours and themes
 │   │   └── ...
 │   ├── utils            # general utility functions
 │   │   └── ...
@@ -124,16 +122,25 @@ This project is structured under the following directory tree. However, for brev
 └── ...
 ```
 
-
 ## User Interface (UI) Design
 
-This project uses a [material design](https://material.io/design/foundation-overview/). You should be particularly aware
-of the following UI guidelines:
+The website uses [material design](https://material.io/design/foundation-overview/) as its design language. Many of the material-theme components come from the [Material-UI](https://material-ui.com/) library.
+
+You should be particularly aware of the following UI guidelines:
 
 - Use, for most components, sizes and spacings &mdash; including the width, height, margin and padding properties
   &mdash; in increments of 4dp (4px on web) for tighter or smaller components, and of 8dp (8px on web) otherwise
 - Use dialogs sparingly, and only when they contain critical information or tasks for the users, and consider the use of
   a snackbar, toast, tooltip or popover instead as dialogs are purposefully interruptive
+- Avoid hardcoding spacings, colours and screen width breakpoints and use the Material-UI utility functions (e.g.,
+  `theme.spacing(...)`, `theme.palette.primary.main`, `theme.breakpoints...`) instead
+- Prefer font sizes in `rem` over `px`; use `theme.typography.pxToRem(...)` for conversions
+- Prefer the use of Material-UI [styling solution](https://material-ui.com/styles/basics/) &mdash; which utilizes JSS     syntax &mdash; over standard CSS
+- Prefer the use of the Material-UI [colour palette](https://material-ui.com/customization/color/) over a hardcoded colour code
+
+The default Material-UI theme configurations &mdash; including any global styles &mdash; can be found in the [theme.js](./src/styles/theme.ts) file. The default Material-UI spacing interval (8px) and font size (1rem = 14px) are used. The limited standard CSS styles can be found in the [styles](./src/styles/) folder, where the [universal.css](./src/styles/universal.css) file contains all the universal CSS styles.
+
+As an aside, you may recall that most browsers default a native HTML button to `type="submit"`. However, Material-UI automatically defaults its Button component (`<Button {...props} />`) to `type="button"`.
 
 ## Code Styles
 
@@ -149,6 +156,7 @@ You should also comply with the following naming rules:
 | Usage                         | Rule                           | Examples                                  |
 |-------------------------------|--------------------------------|-------------------------------------------|
 | variables                     | camelCase                      | `var jadonFan = "Hello, World!";`         |
+| global constants              | SCREAMING_SNAKE_CASE           | `const PI = 3.14`                         |
 | enumerated constants          | SCREAMING_SNAKE_CASE           | `enum JadonMood { HAPPY_OPT, SAD_PES }`   |
 | functions                     | PascalCase                     | `function getSomeNum() { return 21; }`    |
 | classes                       | PascalCase                     | `class JadonFan extends UWaterlooStudent` |
@@ -162,8 +170,9 @@ You should also comply with the following naming rules:
 | non-JSX files                 | kebab-case                     | `awesome-jadon.ts`, `awesome-jadon.jpg`   |
 | folders                       | kebab-case                     | `fact-check` folder                       |
 
-As an aside, although not really a styling rule, it's important that you remember the difference between
-[`Array.prototype.forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) and [`Array.prototype.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) in JavaScript when you want to render a bunch of repeated React components. The `forEach()` method does _not_ return anything whereas the `map()` method returns whatever you want it to return. If you are knowledgeable in Java 8 or above, you may recall that its [`Stream`](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html) API contains the `forEach()` and `map()` methods, which have similar behaviours. If you need to iterate over an iterable, such as `Array` or `Object`, to render multiple React components, you should be calling `map()`!
+## Error Handling
+
+You can use a `try...catch...finally...` block to handle errors sent by the back-end. The custom `useAlert()` hook can be used to pass the corresponding error message as an alert to the user. Within a particular error message, you can likely find its ID between the `#@` and `@` symbols; if such symbols do exist, you can call the `parseGqlErrorMsg(errorMsg: string)` on the error message to retrieve its ID and then pass on that ID to the `intl.formatMessage()` function to obtain a localized and user-friendly version of the error message.
 
 ## Optimizations
 
@@ -172,6 +181,8 @@ You should attempt to include the following optimizations where possible (**not 
 - Use [`<React.Fragment> ... </React.Fragment>`](https://reactjs.org/docs/fragments.html) (alternatively, if you don't 			need to pass in any keys or attributes, `<> ... </>`), which does not create an extra DOM node, whenever you _only_ need to wrap multiple child components under one parent component
 - Use [`React.PureComponent`](https://reactjs.org/docs/react-api.html#reactcomponent) over `React.Component` for class
   components whenever the `render()` function renders the same result given the same props and state
+- Wrap expensive calculations around a `React.useMemo` hook when they need only be computed when specific dependencies have changed
+- Apply [code-splitting](https://reactjs.org/docs/code-splitting.html) techniques where approriate in order to reduce the bundle size
 
 ## Tests
 
@@ -197,21 +208,14 @@ following accessibility rules:
 - Use HTML landmark elements (e.g., `main`, `aside`, `article`, `section`) where appropriate
 - Apply [WAI-ARIA roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) on the relevant
   components **if the corresponding HTML landmark elements are not available**; landmark elements are preferred over
-  `div` elements with WAI-ARIA roles
+  elements with direct WAI-ARIA role assignments
 
-## Internationalization (i18n)
+## Internationalization (i18n) and Localization (l10n)
 
 The website aims to support the fight against the infodemic in a wide range of countries and cultures around the world.
-This project utilizes [react-intl](https://formatjs.io/docs/react-intl), which is a part of
-[Format.JS](https://formatjs.io/), to simplify the localization process of the website so that the website
-becomes more easily scalable.
+This project utilizes [react-intl](https://formatjs.io/docs/react-intl) to simplify the localization process of the website so that the website is more easily scalable.
 
-You should never hardcode static text strings unless the text is a name of a person or organization, or guaranteed to not change across languages (e.g., the website name "FakeCheck", emojis). Instead, you should store the text strings in the
-[messages.ts](/src/text/messages.ts) file under the corresponding language; the object key ("id") of the text string
-should have an unique and relevant name. Then, you can use either the `FormattedMessage` component or, in functional
-components, the `useIntl().formatMessage()` function (note that extra steps may be required), and pass in the id. If you
-want to add a translation for the text string in a different language, copy the id of the text string, paste it under
-the corresponding language and modify the content of the text string accordingly. Otherwise, you can choose to set a `default` value.
+You should never hardcode static text strings unless the text is guaranteed to not change across different locales (e.g., the website name "FakeCheck", emojis). Instead, you should store the text strings in the [messages.ts](/src/text/messages.ts) file under the corresponding locale; the object key ("id") of the text string should have an unique and relevant name. Then, you can use either the `FormattedMessage` component or the `intl.formatMessage()` function, and pass in the id. If you want to add a translation for the text string in a different locale, copy the id of the text string, paste it under the corresponding locale and modify the content of the text string accordingly.
 
 You should also use react-intl to localize numbers, dates, times, relative times and plurals.
 
@@ -225,13 +229,17 @@ you should keep in mind the following SEO guidelines:
 - Use `meta` tags (see [index.html](public/index.html)) with extra care as many of them either get ignored by modern
   search engines or _deoptimizes_ SEO capabilities
 - Specify a canoncial link (`rel=canonical`) &mdash; generally the one that directs to the most important webpage &mdash; 	among **similar** webpages so that search engines show the most important content
-- Do _not_ set the author of a linked webpage (`rel=author`) without first discussing it with Jadon as many modern search 	engines only reference the first instance of `rel=author` and ignore the remaining ones
+- Specify a no-follow link (`rel=nofollow`) when you have a component that links to a
+  third-party document (e.g., a fact-checked news article); the `noreferrer` and `nooppener` behaviours
+  [do _not_ directly improve SEO](https://twitter.com/JohnMu/status/903510290024857600) but may be necessary for
+  [security](#Security) purposes when the `target` attribute is set to `_blank`
+- Do _not_ set the author of a linked webpage (`rel=author`) without first discussing it with Jason as many modern search 	engines only reference the first instance of `rel=author` and ignore the remaining ones
 
 Any positive exposure is good exposure, other than when some Instagram influencer wants to buy your product but is too
 cheap to pay for it with real money and instead offers to
 [pay with exposure](https://www.reddit.com/r/ChoosingBeggars/).
 
- You can use [Google Webmasters](https://www.google.ca/webmasters/#?modal_active=none) to track the website's search performance through the Search Console and to learn more about the different SEO techniques.
+You can use [Google Webmasters](https://www.google.ca/webmasters/#?modal_active=none) to track the website's search performance through the Search Console and to learn more about the different SEO techniques.
 
 The website should predominantly display the fact check ratings of popular and trending topics.
 

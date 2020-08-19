@@ -1,5 +1,6 @@
 .DS_Store
 ./fc-web/node_modules/
+./fc-internal/dependencies/
 **/codeclimate.yml
 **/env
 **/env.local

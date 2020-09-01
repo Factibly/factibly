@@ -19,40 +19,7 @@ class App extends Component {
       settings: {},
       name: "",
       context: {},
-      boardData: [
-        {
-          boardId: 1,
-          boardItemId: 1,
-          url:
-            "https://www.nytimes.com/2020/08/05/world/coronavirus-covid-19.html?action=click&module=Top%20Stories&pgtype=Homepage",
-        },
-        {
-          boardId: 1,
-          boardItemId: 2,
-          url: "https://www.cnn.com/2020/08/02/politics/anthony-tata-nominee-pentagon/index.html",
-        },
-        {
-          boardId: 1,
-          boardItemId: 3,
-          url: "https://vator.tv/news/2015-08-14-how-does-github-make-money",
-        },
-        {
-          boardId: 1,
-          boardItemId: 4,
-          url:
-            "https://www.theguardian.com/politics/2020/jul/21/boris-johnson-was-asleep-on-the-job-and-since-when-was-idleness-a-crime-",
-        },
-        {
-          boardId: 1,
-          boardItemId: 5,
-          url: "www.chandlerlei.dev",
-        },
-        {
-          boardId: 1,
-          boardItemId: 6,
-          url: "www.jadonfan.com",
-        },
-      ],
+      boardData: [],
     };
   }
 

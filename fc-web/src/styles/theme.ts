@@ -1,16 +1,17 @@
-import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core/styles";
-import { grey, red } from "@material-ui/core/colors";
+import { unstable_createMuiStrictModeTheme, createMuiTheme } from "@material-ui/core/styles";
+import { blue, red, grey } from "@material-ui/core/colors";
 import locales from "../static/locales";
+
+const createTheme = process.env.NODE_ENV === "production" ? createMuiTheme : unstable_createMuiStrictModeTheme;
 
 export default function (locale: string = "en-US", prefersDarkMode: boolean = false) {
   const webkitAutofillProperty = prefersDarkMode ? "" : "0 0 0 30px transparent inset !important";
-  return createMuiTheme(
+  return createTheme(
     {
       palette: {
         type: prefersDarkMode ? "dark" : "light",
         primary: {
-          main: prefersDarkMode ? "#757DE8" : "#0D47A1",
-          contrastText: "#FFF",
+          main: prefersDarkMode ? "#206EC2" : blue[900],
         },
         secondary: {
           main: red[700],
@@ -22,14 +23,6 @@ export default function (locale: string = "en-US", prefersDarkMode: boolean = fa
       overrides: {
         MuiCssBaseline: {
           "@global": {
-            html: {
-              height: "100%",
-              fontVariantLigatures: "none",
-              WebkitFontVariantLigatures: "none",
-            },
-            body: {
-              height: "100%",
-            },
             main: {
               minHeight: "100vh",
               height: "100%",
@@ -38,7 +31,7 @@ export default function (locale: string = "en-US", prefersDarkMode: boolean = fa
               display: "inline-block",
               boxSizing: "border-box",
               width: "100%",
-              padding: 32,
+              padding: "32px 10%",
             },
             input: {
               "&:-webkit-autofill": webkitAutofillProperty,
@@ -70,6 +63,45 @@ export default function (locale: string = "en-US", prefersDarkMode: boolean = fa
               lineHeight: 1,
               padding: "2px 4px",
               whiteSpace: "nowrap",
+            },
+            "@media screen and (prefers-reduced-motion: reduce), (update: slow)": {
+              "*": {
+                animationDuration: "0.001ms !important",
+                animationIterationCount: "1 !important",
+                transitionDuration: "0.001ms !important",
+              },
+            },
+            "@keyframes blink": {
+              "78%": {
+                color: "inherit",
+                textShadow: "inherit",
+              },
+              "79%": {
+                color: "#333",
+              },
+              "80%": {
+                textShadow: "none",
+              },
+              "81%": {
+                color: "inherit",
+                textShadow: "inherit",
+              },
+              "82%": {
+                color: "#333",
+                textShadow: "none",
+              },
+              "83%": {
+                color: "inherit",
+                textShadow: "inherit",
+              },
+              "92%": {
+                color: "#333",
+                textShadow: "none",
+              },
+              "92.5%": {
+                color: "inherit",
+                textShadow: "inherit",
+              },
             },
           },
         },

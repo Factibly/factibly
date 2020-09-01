@@ -1,13 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { InputBase, InputAdornment, IconButton } from "@material-ui/core";
+import { InputBase, InputAdornment, IconButton, Tooltip } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import Search from "@material-ui/icons/Search";
 import Clear from "@material-ui/icons/Clear";
 
 interface SearchBarProps {
   classes?: any;
+  autoComplete?: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: any;
@@ -17,7 +18,7 @@ interface SearchBarProps {
   adornmentPaddingTopBottom?: number;
   useContrastingColor?: boolean;
   hideSearchButtonOnTiny?: boolean;
-  style?: any;
+  style?: React.CSSProperties;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,6 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchBar = ({
   classes: extensionClasses,
+  autoComplete,
   value,
   onChange,
   onSubmit,
@@ -94,20 +96,26 @@ const SearchBar = ({
               </IconButton>
             </InputAdornment>
           )}
-          <InputAdornment
-            className={classes.searchInputAdornment}
-            variant="filled"
-            position="end"
-            role="button"
-            tabIndex={0}
-            onClick={onSubmit}
-            aria-label={intl.formatMessage({ id: "general.action.search.submit.aria" })}
-          >
-            <Search />
-          </InputAdornment>
+          <Tooltip title={intl.formatMessage({ id: "general.action.search" })}>
+            <InputAdornment
+              className={classes.searchInputAdornment}
+              variant="filled"
+              position="end"
+              role="button"
+              tabIndex={0}
+              onClick={onSubmit}
+              aria-label={intl.formatMessage({ id: "general.action.search.submit.aria" })}
+            >
+              <Search />
+            </InputAdornment>
+          </Tooltip>
         </>
       }
-      inputProps={{ role: "searchbox", "aria-label": intl.formatMessage({ id: "home.search.prompt" }) }}
+      inputProps={{
+        autoComplete,
+        role: "searchbox",
+        "aria-label": intl.formatMessage({ id: "home.search.prompt" }),
+      }}
       aria-label={intl.formatMessage({ id: "general.action.search.aria" })}
       style={{ ...style }}
     />

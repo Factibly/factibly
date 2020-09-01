@@ -14,6 +14,7 @@ interface FactCheckOverviewMobileProps {
   content: any;
   userLoggedIn: boolean;
   onOpenShareMenu: any;
+  onOpenCitationGenerator: any;
   onCreateBookmark: any;
 }
 
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     accordionTop: {
-      color: theme.palette.common.white,
+      color: theme.palette.common.black,
     },
     overviewListPadding: {
       padding: 0,
@@ -137,14 +138,14 @@ const FactCheckOverviewMobile = ({
       <Grid item>
         <Accordion expanded={expandedAccordion === "panel1"} onChange={handleAccordionChange("panel1")}>
           <AccordionSummary
-            id={`panel1bh-header-${content?.id}`}
+            id={`overview-panel1bh-header-${content?.id}`}
             className={classes.accordionTop}
             expandIcon={<ExpandMore className={classes.accordionTop} />}
-            aria-controls={`panel1bh-content-${content?.id}`}
+            aria-controls={`overview-panel1bh-content-${content?.id}`}
           >
-            <Typography>{intl.formatMessage({ id: "factCheck.overview.title" })}</Typography>
+            <Typography>{intl.formatMessage({ id: "factCheck.overview" })}</Typography>
           </AccordionSummary>
-          <List id={`panel1bh-content-${content?.id}`} classes={{ padding: classes.overviewListPadding }}>
+          <List id={`overview-panel1bh-content-${content?.id}`} classes={{ padding: classes.overviewListPadding }}>
             {[
               {
                 labelId: "factCheck.overview.lastUpdated.alt1",

@@ -4,14 +4,15 @@ import Box from "@material-ui/core/Box";
 interface TabPanelProps {
   id?: string;
   dir?: string;
-  index: any;
   value: any;
+  index: any;
+  p?: number;
   children?: React.ReactNode;
 }
 
 class TabPanel extends PureComponent<TabPanelProps> {
   render() {
-    const { id, value, index, children, ...otherProps } = this.props;
+    const { id, value, index, p = 0, children, ...otherProps } = this.props;
     return (
       <div
         role="tabpanel"
@@ -20,7 +21,7 @@ class TabPanel extends PureComponent<TabPanelProps> {
         aria-labelledby={id ?? `full-width-tab-${index}`}
         {...otherProps}
       >
-        {value === index && <Box p={3}> {children} </Box>}
+        {value === index && <Box p={p}>{children}</Box>}
       </div>
     );
   }

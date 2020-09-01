@@ -4,7 +4,7 @@ import { RootState } from "../../store/rootReducer";
 import { useIntl } from "react-intl";
 import { Helmet } from "react-helmet";
 import PageContainer from "../../common/PageContainer";
-import FakeCheckFlatPaper from "../../common/FakeCheckFlatPaper";
+import FlatPaper from "../../common/FlatPaper";
 import BookmarkIntroductoryPanel from "./BookmarkIntroductoryPanel";
 import BookmarkHeader from "./BookmarkHeader";
 import BookmarkCard from "./BookmarkCard";
@@ -21,9 +21,10 @@ import { useCustomQuery } from "../../hooks/gql";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
-      paddingTop: theme.spacing(2),
-      paddingLeft: theme.spacing(10),
-      paddingRight: theme.spacing(10),
+      padding: theme.spacing(3, 5),
+      [theme.breakpoints.down("sm")]: {
+        padding: theme.spacing(3, 2),
+      },
     },
   })
 );
@@ -36,8 +37,8 @@ const Bookmarks = () => {
 
   const [, setAlert] = useAlert();
 
-  const { data, loading } = useCustomQuery<BookmarksList>(BOOKMARKS_LIST);
-  const [bookmarks, setBookmarks] = useState(data?.currentUser?.bookmarks);
+  const { loading: bookmarkLoading, data: bookmarkData } = useCustomQuery<BookmarksList>(BOOKMARKS_LIST);
+  const [bookmarks, setBookmarks] = useState(bookmarkData?.currentUser?.bookmarks);
   const bookmarkCount = bookmarks?.length ?? 0;
 
   const [removeBookmark] = useMutation<RemoveBookmark, RemoveBookmarkVariables>(REMOVE_BOOKMARK);
@@ -76,25 +77,25 @@ const Bookmarks = () => {
   };
 
   useEffect(() => {
-    if (data?.currentUser?.bookmarks) {
-      let b = [...data?.currentUser?.bookmarks];
+    if (bookmarkData?.currentUser?.bookmarks) {
+      let b = [...bookmarkData?.currentUser?.bookmarks];
       b.sort(sortMode.comparator);
       if (searchQuery.trim() !== "") {
         b = b.filter(v => v?.title?.toLowerCase().includes(searchQuery));
       }
       setBookmarks(b);
     }
-  }, [data, searchQuery, sortMode]);
+  }, [bookmarkData, searchQuery, sortMode]);
 
-  if (loading) return <div />;
+  if (bookmarkLoading) return <div />;
 
   return (
     <PageContainer>
       <Helmet>
         <title> {intl.formatMessage({ id: "nav.drawer.item.bookmark" })} </title>
       </Helmet>
-      {data?.currentUser?.bookmarks?.length ? (
-        <FakeCheckFlatPaper className={classes.paper} elevation={0} prefersDarkMode={prefersDarkMode}>
+      {bookmarkData?.currentUser?.bookmarks?.length ? (
+        <FlatPaper className={classes.paper} elevation={0} prefersDarkMode={prefersDarkMode}>
           <BookmarkHeader
             total={bookmarkCount}
             onSubmitSearch={handleSearchSubmit}
@@ -109,9 +110,9 @@ const Bookmarks = () => {
               hideLine={bookmarkCount === 1 || idx === bookmarkCount - 1}
             />
           ))}
-        </FakeCheckFlatPaper>
+        </FlatPaper>
       ) : (
-        <BookmarkIntroductoryPanel userLoggedIn={!!data?.currentUser} />
+        <BookmarkIntroductoryPanel userLoggedIn={!!bookmarkData?.currentUser} />
       )}
     </PageContainer>
   );

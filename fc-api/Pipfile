@@ -9,14 +9,11 @@ pylint-django = "*"
 autopep8 = "*"
 
 [packages]
-django = "~=3.0.7"
+django = "3.1"
 psycopg2 = "2.6.1"
-graphene-django = "~=2.10.1"
-django-graphql-jwt = "~=0.3.1"
-django-cors-headers = "~=3.3.0"
-requests = "~=2.24.0"
-django-extensions = "~=3.0.2"
-django-fsm = "~=1.6.0"
+graphene-django = "3.0.0b6"
+django-cors-headers = "*"
+requests = "*"
 newspaper3k = "*"
 django-dotenv = "*"
 gunicorn = "*"
@@ -26,6 +23,11 @@ boto3 = "*"
 django-storages = "*"
 graphene-file-upload = "*"
 psycopg2-binary = "*"
+django-graphql-jwt = {git = "https://github.com/flavors/django-graphql-jwt"}
+django-csp = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true

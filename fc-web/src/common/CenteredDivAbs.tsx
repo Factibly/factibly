@@ -1,8 +1,8 @@
 import React from "react";
 
 interface CenteredDivProps {
+  style?: React.CSSProperties;
   children?: React.ReactNode;
-  style?: any;
   [x: string]: any;
 }
 

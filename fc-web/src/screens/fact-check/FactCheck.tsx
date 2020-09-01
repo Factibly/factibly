@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       marginTop: theme.spacing(2),
-      borderRadius: 24,
+      borderRadius: theme.spacing(3),
     },
     fab: {
       position: "fixed",
@@ -109,7 +109,7 @@ const FactCheck = () => {
           imageModerationScore={content?.imageModerationScore ?? "A_0"}
         />
         <Grid item className={classes.content}>
-          <section id="overview" aria-label={intl.formatMessage({ id: "factCheck.overview.title" })}>
+          <section id="overview" aria-label={intl.formatMessage({ id: "factCheck.overview" })}>
             <FactCheckOverview content={content} userLoggedIn={userLoggedIn} />
           </section>
           <Grid container item direction="column" spacing={2}>
@@ -125,8 +125,7 @@ const FactCheck = () => {
                     justification={selfRating.justification ?? ""}
                     upvoteCount={selfRating.upvoteCount}
                     downvoteCount={selfRating.downvoteCount}
-                    elevation={3}
-                    inheritBackground
+                    elevation={5}
                     origin={RatingOrigin.YOURS}
                     action={RatingAction.EDIT}
                     onRatingEditorOpen={handleOpenRatingEditor}
@@ -135,7 +134,7 @@ const FactCheck = () => {
                   <Button
                     className={classes.button}
                     variant="contained"
-                    color="secondary"
+                    color="primary"
                     onClick={handleOpenRatingEditor}
                     disableElevation
                   >
@@ -161,12 +160,12 @@ const FactCheck = () => {
           <Grid container item direction="column" spacing={3}>
             <FactCheckRatingsChart
               ratings={content?.ratingSet ?? []}
-              aria-label={intl.formatMessage({ id: "factCheck.trends.rating.title" })}
+              aria-label={intl.formatMessage({ id: "factCheck.trends.rating" })}
             />
             <Grid item>
               <section
                 id="user-ratings"
-                aria-label={intl.formatMessage({ id: "factCheck.userRatings.title" })}
+                aria-label={intl.formatMessage({ id: "factCheck.userRatings" })}
                 aria-live="polite"
               >
                 <FactCheckRatings contentId={contentId} content={content} />

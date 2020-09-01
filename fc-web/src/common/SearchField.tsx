@@ -5,19 +5,19 @@ import Search from "@material-ui/icons/Search";
 interface SearchFieldProps {
   name: string;
   label?: string;
-  searchText: string;
-  onSearchTextChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
+  searchQuery: string;
+  onSearchChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
 }
 
-const SearchField = ({ name, label, searchText, onSearchTextChange }: SearchFieldProps) => {
+const SearchField = ({ name, label, searchQuery, onSearchChange }: SearchFieldProps) => {
   return (
     <TextField
       variant="outlined"
       id={`${name}-search`}
       label={label}
       margin="dense"
-      value={searchText}
-      onChange={onSearchTextChange}
+      value={searchQuery}
+      onChange={onSearchChange}
       InputProps={{
         type: "search",
         startAdornment: (

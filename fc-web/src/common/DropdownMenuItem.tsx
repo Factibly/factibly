@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
 interface DropdownMenuItemProps {
-  primary: string | React.ReactNode;
+  primary: React.ReactNode;
   icon?: React.ReactNode;
   selected?: boolean;
   onClick?: (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => void;
@@ -15,7 +15,7 @@ class DropdownMenuItem extends PureComponent<DropdownMenuItemProps> {
     const { primary, icon, selected, onClick, children, ...otherProps } = this.props;
     return (
       <MenuItem onClick={onClick} selected={selected} {...otherProps}>
-        {icon && <ListItemIcon> {icon} </ListItemIcon>}
+        {icon && <ListItemIcon>{icon}</ListItemIcon>}
         <ListItemText primary={primary} />
         {children}
       </MenuItem>

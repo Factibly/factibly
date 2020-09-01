@@ -1,22 +1,5 @@
-.container--center-focus {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
 .grecaptcha-badge {
   visibility: hidden;
-}
-
-.five-lines-capped-text {
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  -ms-box-orient: vertical;
-  -moz-box-orient: vertical;
-  text-overflow: "ellipsis";
 }
 
 .circle-sm {
@@ -35,64 +18,16 @@
   padding-right: 8px;
 }
 
-.faq a {
+.clamped-text--five-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  -ms-box-orient: vertical;
+  -moz-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.simple-text a {
   color: inherit;
 }
-
-/* TODO: well, this is annoying... perhaps use SCSS in the future? */
-.simple-link, .simple-text a  {
-  color: inherit;
-}
-.simple-link:link, .simple-text a:link {
-  text-decoration: none;
-}
-.simple-link:visited, .simple-text a:visited {
-  text-decoration: none;
-}
-.simple-link:hover, .simple-text a:hover {
-  text-decoration: underline;
-}
-.simple-link:active, .simple-text a:active{
-  text-decoration: underline;
-}
-
-/* RATINGS BREAKDOWN */
-.rating-breakdown-grid--container {
-  display: grid;
-  grid-template-columns: max-content auto;
-  grid-template-areas:
-    "accuracy rating0"
-    "expertise rating1"
-    "strength rating2";
-}
-
-.rating-breakdown-grid--container-item {
-  display: flex;
-  margin: auto;
-}
-
-.rating-breakdown-grid--field0 {
-  grid-area: accuracy;
-}
-
-.rating-breakdown-grid--rating0 {
-  grid-area: rating0;
-}
-
-.rating-breakdown-grid--field1 {
-  grid-area: expertise;
-}
-
-.rating-breakdown-grid--rating1 {
-  grid-area: rating1;
-}
-
-.rating-breakdown-grid--field2 {
-  grid-area: strength;
-}
-
-.rating-breakdown-grid--rating2 {
-  grid-area: rating2;
-}
-/* ------------------ */
 

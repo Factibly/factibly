@@ -2,7 +2,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ca151bfd1f418205b16f/test_coverage)](https://codeclimate.com/repos/5efd1564422ade0162000fb2/test_coverage)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/bc6e158d-0a46-4bd6-ac6c-f3812dac4920/deploy-status)](https://app.netlify.com/sites/nostalgic-hawking-b45e37/deploys)
 
-# FakeCheck Front-end (Web)
+# Factibly Web
 
 ## Setup Procedures
 
@@ -26,7 +26,7 @@ In order to auto-generate the types for our GraphQL queries and mutations,
 1. Run `yarn global add apollo --prefix /usr/local` to install apollo globally _if you haven't done so already_
 2. Run `yarn gen:types` to trigger the Apollo Client codegen script
 
-The type definitions are located in the [__generated__](./__generated__/) and [src/gql/__generated__](./src/gql/__generated__/) folders. You should _not_ manually change them.
+The type definitions are located in the [\_\_generated__](./__generated__/) and [src/gql/\_\_generated__](./src/gql/__generated__/) folders. You should _not_ manually change them.
 
 ## Compatibility
 
@@ -40,7 +40,7 @@ The website supports the following browsers:
 
 ## Infrastructure
 
-There is a publicly accessible [infrastructure diagram](https://app.diagrams.net/#G1tL5VqGfF9K73nWqdyFTNIqNhhN7EQQF9) in the FakeCheck folder on Google Drive.
+There is a publicly accessible [infrastructure diagram](https://app.diagrams.net/#G1tL5VqGfF9K73nWqdyFTNIqNhhN7EQQF9) in the Factibly folder on Google Drive.
 
 | Name                          | Usages                         | Person Responsible                        |
 |-------------------------------|--------------------------------|-------------------------------------------|
@@ -193,12 +193,9 @@ The website is rendered on the client-side, but is dynamically pre-rendered by p
 
 ## Accessibility (a11y)
 
-The website should follow the
-[W3C Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/TR/2008/REC-WCAG20-20081211/#normativedef)
+The website should follow the W3C Web Content Accessibility Guidelines, [WCAG 2.1 AA](https://www.w3.org/TR/WCAG21/),
 because each and every person &mdash; regardless of their physical and mental abilities &mdash; is vulnerable to the
-infodemic. To this end, you should consult the
-[MDN Accessibility Tutorials](https://developer.mozilla.org/en-US/docs/Web/Accessibility) and keep in the mind the
-following accessibility rules:
+infodemic. To this end, you should consult the [MDN Accessibility Tutorials](https://developer.mozilla.org/en-US/docs/Web/Accessibility) and keep in the mind the following accessibility rules:
 
 - Include concise but descriptive `alt` texts for all images
 - Apply noticeable colour contrasts between different UI components
@@ -207,13 +204,18 @@ following accessibility rules:
 - Apply [WAI-ARIA roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) on the relevant
   components **if the corresponding HTML landmark elements are not available**; landmark elements are preferred over
   elements with direct WAI-ARIA role assignments
+- Avoid the use of GIFs where possible, and use embedded YouTube videos for short clips instead
+- Do not enable autoplay for any audio and video materials
+- Wrap any 'non-instantaneous' animation in a prefers-reduced-motion CSS media query
+
+You can use the Accessibility and Rendering tabs in the Chrome DevTools to simulate and monitor accessibility features.
 
 ## Internationalization (i18n) and Localization (l10n)
 
 The website aims to support the fight against the infodemic in a wide range of countries and cultures around the world.
 This project utilizes [react-intl](https://formatjs.io/docs/react-intl) to simplify the localization process of the website so that the website is more easily scalable.
 
-You should never hardcode static text strings unless the text is guaranteed to not change across different locales (e.g., the website name "FakeCheck", emojis). Instead, you should store the text strings in the [messages.ts](/src/text/messages.ts) file under the corresponding locale; the object key ("id") of the text string should have an unique and relevant name. Then, you can use either the `FormattedMessage` component or the `intl.formatMessage()` function, and pass in the id. If you want to add a translation for the text string in a different locale, copy the id of the text string, paste it under the corresponding locale and modify the content of the text string accordingly.
+You should never hardcode static text strings unless the text is guaranteed to not change across different locales (e.g., the website name "Factibly", emojis). Instead, you should store the text strings in the [messages.ts](/src/static/messages/messages.ts) file under the corresponding locale; the object key ("id") of the text string should have an unique and relevant name. Then, you can use either the `FormattedMessage` component or the `intl.formatMessage()` function, and pass in the id. If you want to add a translation for the text string in a different locale, copy the id of the text string, paste it under the corresponding locale and modify the content of the text string accordingly.
 
 You should also use react-intl to localize numbers, dates, times, relative times and plurals.
 
@@ -223,23 +225,13 @@ The website, which relies primarily on crowd-sourced data, is ultimately only ef
 aquedate amount of users who are willing to post their own reviews and comment on other people's reviews. To this end,
 you should keep in mind the following SEO guidelines:
 
-- Use the [Open Graph (OG)](https://ogp.me/) protocol to represent fact check ratings on OG-supported social media and   test the website against Facebook's [Sharing Debugger](https://developers.facebook.com/tools/debug/) and Twitter's [Card Validator](https://cards-dev.twitter.com/validator)
-- Use `meta` tags (see [index.html](public/index.html)) with extra care as many of them either get ignored by modern
-  search engines or _deoptimizes_ SEO capabilities
-- Specify a canoncial link (`rel=canonical`) &mdash; generally the one that directs to the most important webpage &mdash; 	among **similar** webpages so that search engines show the most important content
-<<<<<<< HEAD
-- Specify a no-follow link (`rel=nofollow`) when you have a component that links to a
-  third-party document (e.g., a fact-checked news article); the `noreferrer` and `nooppener` behaviours
-  [do _not_ directly improve SEO](https://twitter.com/JohnMu/status/903510290024857600) but may be necessary for
-  [security](#Security) purposes when the `target` attribute is set to `_blank`
-- Do _not_ set the author of a linked webpage (`rel=author`) without first discussing it with Jason as many modern search 	engines only reference the first instance of `rel=author` and ignore the remaining ones
-=======
-- Do _not_ set the author of a linked webpage (`rel=author`) without first discussing it with Jadon as many modern search 	engines only reference the first instance of `rel=author` and ignore the remaining ones
->>>>>>> Create legal templates
+- Use the [Open Graph (OG)](https://ogp.me/) protocol to represent fact check ratings on OG-supported social media and test the website against Facebook's [Sharing Debugger](https://developers.facebook.com/tools/debug/) and Twitter's [Card Validator](https://cards-dev.twitter.com/validator)
+- Use `meta` tags (see [index.html](public/index.html)) with extra care as many of them either get ignored by modern search engines or _deoptimizes_ SEO capabilities
+- Specify a canoncial link (`rel=canonical`) &mdash; generally the one that directs to the most important webpage &mdash; among **similar** webpages so that search engines show the most important content
+- Do _not_ set the author of a linked webpage (`rel=author`) without first discussing it with Jason as many modern search engines only reference the first instance of `rel=author` and ignore the remaining ones
 
 Any positive exposure is good exposure, other than when some Instagram influencer wants to buy your product but is too
-cheap to pay for it with real money and instead offers to
-[pay with exposure](https://www.reddit.com/r/ChoosingBeggars/).
+cheap to pay for it with real money and instead offers to [pay with exposure](https://www.reddit.com/r/ChoosingBeggars/).
 
 You can use [Google Webmasters](https://www.google.ca/webmasters/#?modal_active=none) to track the website's search performance through the Search Console and to learn more about the different SEO techniques.
 
@@ -251,12 +243,9 @@ The website should be
 [secured against malicious users](https://imgflip.com/memetemplate/160235259/Alright-then-keep-your-secrets). To this
 end, you should keep in mind the following security guidelines:
 
-- Do _not_ store private API keys in environment variables as users can retrieve them by inspecting the app files
-  bundled with the build
-- Set the `rel` attribute to `noreferrer` and `nooppener` whenever the `target` attribute is set to `_blank`; otherwise,
-  other pages may be able to redirect the user to a malicious site
-- Store transitive private data, such as a JWT, in a cookie with a `HttpOnly` flag, which prevents XSS attacks, and with
-  protection against CSRF attacks through, for example, a CSRF token
+- Do _not_ store private API keys in environment variables as users can retrieve them by inspecting the app files bundled with the build
+- Set the `rel` attribute to `noreferrer` and `nooppener` whenever the `target` attribute is set to `_blank`; otherwise, other pages may be able to redirect the user to a malicious site
+- Store transitive private data, such as a JWT, in a cookie with a `HttpOnly` flag, which prevents XSS attacks, and with protection against CSRF attacks through, for example, a CSRF token
 - Do _not_ store sensitive user information, such as their account password, in `sessionStorage` or `localStorage` as 		 	 other sites can access `sessionStorage` and `localStorage` data through a XSS attack
 
 ## Gender-Inclusive Language

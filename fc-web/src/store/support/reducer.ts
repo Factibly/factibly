@@ -1,5 +1,7 @@
+import { Reducer } from "redux";
 import {
   SupportReduxState,
+  SupportReduxAction,
   SET_SUPPORT_TAB,
   SHOW_TICKET_SUBMISSION_SUCCESS,
   SHOW_TICKET_SUBMISSION_FAIL,
@@ -10,12 +12,13 @@ const initState: SupportReduxState = {
   tabIndex: parseInt(sessionStorage.getItem(SUPPORT_TAB_INDEX_KEY) ?? "0"),
   ticketSubmitStatus: {
     submitted: false,
+    success: false,
+    ticketId: null,
     messageId: "",
-    backgroundColor: "inherit",
   },
 };
 
-const supportReducers = (state = initState, action: any): SupportReduxState => {
+const supportReducers: Reducer<SupportReduxState, SupportReduxAction> = (state = initState, action) => {
   switch (action.type) {
     case SET_SUPPORT_TAB:
       return {
@@ -28,8 +31,9 @@ const supportReducers = (state = initState, action: any): SupportReduxState => {
         ...state,
         ticketSubmitStatus: {
           submitted: true,
-          messageId: action.payload.messageId,
-          backgroundColor: action.payload.backgroundColor,
+          success: action.payload.success,
+          ticketId: action.payload.ticketId,
+          messageId: `support.banner.msg.${action.payload.success ? "success" : "fail"}`,
         },
       };
     default:

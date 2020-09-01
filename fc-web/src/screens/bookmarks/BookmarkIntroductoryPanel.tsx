@@ -13,35 +13,31 @@ const BookmarkIntroductoryPanel = ({ userLoggedIn }: BookmarkIntroductoryPanelPr
   const location = useLocation();
   const intl = useIntl();
 
+  const handleLogInClick = () =>
+    history.replace({
+      pathname: ACCOUNT_SIGN_IN_PATH,
+      state: { from: location.pathname },
+    });
+
   return (
     <>
-      <Typography component="h1" variant="h5">
+      <Typography component="h2" variant="h5">
         {userLoggedIn ? (
-          <b> {intl.formatMessage({ id: "bookmarks.intro.header.noBookmarks" })} </b>
+          <b>{intl.formatMessage({ id: "bookmarks.intro.header.noBookmarks" })}</b>
         ) : (
-          <b> {intl.formatMessage({ id: "bookmarks.intro.header.signinRequired" })} </b>
+          <b>{intl.formatMessage({ id: "bookmarks.intro.header.signinRequired" })}</b>
         )}
       </Typography>
       <Typography component="div" variant="body1" paragraph>
-        {intl.formatMessage({ id: "bookmarks.intro.benefits.title" })}
+        {intl.formatMessage({ id: "bookmarks.intro.benefits" })}
         <Typography component="ul" variant="body1">
-          {Array.apply(null, Array(3)).map((v, i) => (
+          {Array.apply(null, Array(3)).map((_, i) => (
             <li key={`bookmark-benefit-${i}`}>{intl.formatMessage({ id: `bookmarks.intro.benefits.${i + 1}` })}</li>
           ))}
         </Typography>
       </Typography>
       {!userLoggedIn && (
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          onClick={() =>
-            history.replace({
-              pathname: ACCOUNT_SIGN_IN_PATH,
-              state: { from: location.pathname },
-            })
-          }
-        >
+        <Button variant="contained" color="primary" size="large" onClick={handleLogInClick}>
           {intl.formatMessage({ id: "user.action.login" })}
         </Button>
       )}

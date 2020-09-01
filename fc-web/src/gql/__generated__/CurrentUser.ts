@@ -10,7 +10,7 @@
 export interface CurrentUser_currentUser {
   __typename: "UserType";
   /**
-   * The ID of the object.
+   * The ID of the object
    */
   id: string;
   displayName: string;

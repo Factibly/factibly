@@ -1,5 +1,5 @@
 import React, { useState, cloneElement } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps, Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { isBrowser } from "react-device-detect";
 import Flex from "../../common/Flex";
@@ -7,7 +7,7 @@ import SearchBar from "../../common/SearchBar";
 import HeavyDivider from "../../common/HeavyDivider";
 import NavigationDropdown from "./NavigationDropdown";
 import NavigationDrawer from "./NavigationDrawer";
-import NavigationLogo from "./NavigationLogo";
+import NavigationTitle from "./NavigationTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles, createStyles, Theme, useTheme, fade } from "@material-ui/core/styles";
 import { Toolbar, AppBar, Slide, Button, IconButton, Tooltip } from "@material-ui/core";
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     toolbar: {
       backgroundColor: NAVIGATION_BLACK,
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.common.white,
     },
     menuButton: {
       marginRight: 0,
@@ -186,13 +186,14 @@ const NavigationBar = ({ location }: NavigationBarProps) => {
             >
               {searchExpanded ? <ArrowBack /> : <MenuIcon />}
             </IconButton>
-            <NavigationLogo isClickable />
+            <NavigationTitle />
             {location.pathname === "/" ? (
               <Flex style={{ flex: 1 }} />
             ) : (
               <form role="search" className={classes.search} onSubmit={submitSearch}>
                 <SearchBar
                   classes={{ root: classes.inputRoot }}
+                  autoComplete="url"
                   value={searchQuery}
                   onChange={handleSearchInput}
                   onSubmit={submitSearch}
@@ -217,7 +218,12 @@ const NavigationBar = ({ location }: NavigationBarProps) => {
                   );
                 } else {
                   return (
-                    <Button key={`nav-item-${nameId}`} className={classes.linkButton} href={pathname}>
+                    <Button
+                      key={`nav-item-${nameId}`}
+                      className={classes.linkButton}
+                      component={RouterLink}
+                      to={pathname}
+                    >
                       {intl.formatMessage({ id: nameId })}
                     </Button>
                   );

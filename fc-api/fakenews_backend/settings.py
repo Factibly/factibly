@@ -34,13 +34,17 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://fake-news-b45e37.netlify.app"
+    "https://fake-news-b45e37.netlify.app",
+    "https://www.factibly.com",
+    "https://factibly.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://fake-news-b45e37.netlify.app"
+    "https://fake-news-b45e37.netlify.app",
+    "https://www.factibly.com",
+    "https://factibly.com",
 ]
 
 # Application definition
@@ -56,7 +60,6 @@ INSTALLED_APPS = [
     'fakenews_backend.apps.users',
     'fakenews_backend.apps.core',
     'corsheaders',
-    'django_extensions',
     'storages',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
 ]
@@ -70,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'csp.middleware.CSPMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
@@ -162,6 +166,7 @@ GRAPHQL_JWT = {
     'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
     'JWT_EXPIRATION_DELTA': timedelta(minutes=30),
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=30),
+    'JWT_COOKIE_SAMESITE': 'Lax' if DEBUG else 'None'
 }
 
 # Custom Auth User Model
@@ -189,7 +194,16 @@ AWS_S3_ADDRESSING_STYLE = 'virtual'
 ROLLBAR = {
     'access_token': os.environ['ROLLBAR_ACCESS_TOKEN'],
     'environment': 'development' if DEBUG else 'production',
+    'enabled': not DEBUG,
     'root': BASE_DIR,
 }
 if not DEBUG:
     rollbar.init(**ROLLBAR)
+
+# Content Security Policy
+
+CSP_DEFAULT_SRC = ("'none'",)
+CSP_STYLE_SRC = ("'self'", 'fonts.googleapis.com')
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_FONT_SRC = ("'self'", 'fonts.gstatic.com')
+CSP_IMG_SRC = ("'self'",)

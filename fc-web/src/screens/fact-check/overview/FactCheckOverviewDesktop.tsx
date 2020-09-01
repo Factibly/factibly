@@ -1,19 +1,21 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import Flex from "../../../common/Flex";
+import IconicText from "../../../common/IconicText";
 import FactCheckScoreBar from "./FactCheckScoreBar";
 import FactCheckHighlightCard from "./FactCheckHighlightCard";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Grid, Typography, Button, Link } from "@material-ui/core";
 import BookIcon from "@material-ui/icons/Book";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt, faShare } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt, faShare, faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import ReactCountryFlag from "react-country-flag";
 import { BOOKMARKS_PATH } from "../../../static/paths";
 interface FactCheckOverviewDesktopProps {
   content: any;
   userLoggedIn: boolean;
   onOpenShareMenu: any;
+  onOpenCitationGenerator: any;
   onCreateBookmark: any;
 }
 
@@ -36,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: theme.typography.pxToRem(48),
       },
     },
-    borderedCut: ({ prefersDarkMode }: any) => ({
+    borderedCut: {
       position: "relative",
       "&::after": {
         position: "absolute",
@@ -45,12 +47,15 @@ const useStyles = makeStyles((theme: Theme) =>
         right: "10%",
         width: "85%",
         height: 1.5,
-        background: prefersDarkMode ? "white" : "black",
+        background: theme.palette.text.primary,
         content: "''",
       },
-    }),
+    },
     highlights: {
       padding: theme.spacing(2, 0),
+    },
+    highlightCard: {
+      height: "100%",
     },
     bottomRow: {
       padding: theme.spacing(0, 2),
@@ -62,8 +67,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     button: {
+      color: theme.palette.text.primary,
       textTransform: "none",
-      borderRadius: 24,
+      borderRadius: theme.spacing(3),
     },
   })
 );
@@ -72,6 +78,7 @@ const FactCheckOverviewDesktop = ({
   content,
   userLoggedIn,
   onOpenShareMenu,
+  onOpenCitationGenerator,
   onCreateBookmark,
 }: FactCheckOverviewDesktopProps) => {
   const classes = useStyles();
@@ -84,6 +91,7 @@ const FactCheckOverviewDesktop = ({
       .map(({ user, createdAt, score1, score2, score3, justification, upvoteCount, downvoteCount }, i: number) => (
         <Grid item key={`fact-checkout-overview-highlight-${i}`} xs={widthDistribution}>
           <FactCheckHighlightCard
+            className={classes.highlightCard}
             displayName={user.displayName}
             createdAt={createdAt}
             scores={[score1, score2, score3]}
@@ -147,9 +155,12 @@ const FactCheckOverviewDesktop = ({
           </Typography>
         </Grid>
         <Grid item>
-          <Typography style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", fontSize: "large" }}>
-            <BookIcon />
-            &nbsp;&nbsp;Articled Media
+          <Typography component="div" style={{ fontSize: "large" }}>
+            <IconicText
+              text="Articled Media"
+              icon={<BookIcon />}
+              style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}
+            />
           </Typography>
         </Grid>
       </Grid>
@@ -175,6 +186,14 @@ const FactCheckOverviewDesktop = ({
             onClick={onOpenShareMenu}
           >
             {intl.formatMessage({ id: "general.action.share" })}
+          </Button>
+          <Button
+            className={classes.button}
+            variant="outlined"
+            startIcon={<FontAwesomeIcon icon={faQuoteLeft} />}
+            onClick={onOpenCitationGenerator}
+          >
+            Cite
           </Button>
         </div>
         {userLoggedIn && (

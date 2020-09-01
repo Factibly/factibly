@@ -4,18 +4,19 @@ import { SupportReduxState, SHOW_TICKET_SUBMISSION_SUCCESS, SHOW_TICKET_SUBMISSI
 describe("Support Reducers", () => {
   it("show status of successfully submitted ticket", () => {
     const testAction = {
-      type: SHOW_TICKET_SUBMISSION_SUCCESS,
+      type: SHOW_TICKET_SUBMISSION_SUCCESS as typeof SHOW_TICKET_SUBMISSION_SUCCESS,
       payload: {
-        msgId: "support.banner.msg.success",
-        backgroundColor: "green",
+        ticketId: "30197",
+        success: true,
       },
     };
     const expectedState: SupportReduxState = {
       tabIndex: 0,
       ticketSubmitStatus: {
+        ticketId: "30197",
+        success: true,
         submitted: true,
         messageId: "support.banner.msg.success",
-        backgroundColor: "green",
       },
     };
     expect(supportReducers(undefined, testAction)).toEqual(expectedState);
@@ -23,18 +24,19 @@ describe("Support Reducers", () => {
 
   it("show status of unsuccessfully submitted ticket", () => {
     const testAction = {
-      type: SHOW_TICKET_SUBMISSION_FAIL,
+      type: SHOW_TICKET_SUBMISSION_FAIL as typeof SHOW_TICKET_SUBMISSION_FAIL,
       payload: {
-        messageId: "support.banner.msg.fail",
-        backgroundColor: "red",
+        ticketId: null,
+        success: false,
       },
     };
     const expectedState: SupportReduxState = {
       tabIndex: 0,
       ticketSubmitStatus: {
+        ticketId: null,
         submitted: true,
+        success: false,
         messageId: "support.banner.msg.fail",
-        backgroundColor: "red",
       },
     };
     expect(supportReducers(undefined, testAction)).toEqual(expectedState);

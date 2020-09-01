@@ -120,7 +120,7 @@ const FactCheckWidget = ({ originUrl, content, maxRatings, width, height }: Fact
         {maxSteps > 0 && (
           <Box component="div" className={classes.subbody} border={1}>
             <Paper square className={classes.ratingHeader} elevation={0}>
-              <strong> {intl.formatMessage({ id: "factCheck.widget.ratings.title" })} </strong> <br />
+              <strong> {intl.formatMessage({ id: "factCheck.widget.ratings" })} </strong> <br />
               {rating?.user?.displayName} &mdash;&nbsp;
               {formatAsDaysAgo(
                 rating?.createdAt,

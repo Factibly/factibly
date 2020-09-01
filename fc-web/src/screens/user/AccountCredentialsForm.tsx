@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { Form, Field, FormikErrors } from "formik";
 import FormGroupCompact from "../../common/FormGroupCompact";
-import FakeCheckInput from "../../common/FakeCheckInput";
-import FormButtonBox from "../../common/FormButtonBox";
+import FcInput from "../../common/FcInput";
+import FormButtons from "../../common/FormButtons";
 import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Popover } from "@material-ui/core";
@@ -47,7 +47,7 @@ const AccountCredentialsForm = ({ values, errors, onNext }: UserCredentialsFormP
     <Form onSubmit={onNext}>
       <FormGroupCompact>
         <Field
-          as={FakeCheckInput}
+          as={FcInput}
           name="email"
           autoComplete="email"
           label={intl.formatMessage({ id: "user.registration.form.field.email" })}
@@ -56,7 +56,7 @@ const AccountCredentialsForm = ({ values, errors, onNext }: UserCredentialsFormP
           aria-required="true"
         />
         <Field
-          as={FakeCheckInput}
+          as={FcInput}
           name="password"
           type="password"
           label={intl.formatMessage({ id: "user.registration.form.field.password" })}
@@ -89,14 +89,14 @@ const AccountCredentialsForm = ({ values, errors, onNext }: UserCredentialsFormP
           <PasswordStrengthIndicator password={values.password} />
         </Popover>
         <Field
-          as={FakeCheckInput}
+          as={FcInput}
           name="passwordConfirmation"
           type="password"
           label={intl.formatMessage({ id: "user.registration.form.field.passwordConfirmation" })}
           errorMsg={errors.passwordConfirmation}
         />
       </FormGroupCompact>
-      <FormButtonBox primaryText={intl.formatMessage({ id: "general.action.next" })} />
+      <FormButtons primaryText={intl.formatMessage({ id: "general.action.next" })} />
     </Form>
   );
 };

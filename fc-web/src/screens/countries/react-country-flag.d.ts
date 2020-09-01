@@ -3,7 +3,7 @@ declare module "react-country-flag" {
   export interface ReactCountryFlagProps {
     countryCode: string;
     svg: boolean;
-    style?: any;
+    style?: React.CSSProperties;
   }
   export default class ReactCountryFlag extends React.Component<ReactCountryFlagProps, any> {}
 }

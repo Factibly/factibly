@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import FakeCheckFlatPaper from "../../../common/FakeCheckFlatPaper";
+import FlatPaper from "../../../common/FlatPaper";
 import FactCheckRatingHeader from "../user-rating/FactCheckRatingHeader";
 import FactCheckRatingBreakdown from "../user-rating/FactCheckRatingBreakdown";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: theme.spacing(1, 1, 3),
-      borderRadius: 16,
+      borderRadius: theme.spacing(2),
       borderWidth: 2,
     },
     content: {
@@ -53,7 +53,7 @@ const FactCheckHighlightCard = ({
   const intl = useIntl();
 
   return (
-    <FakeCheckFlatPaper
+    <FlatPaper
       rootComponent={Card}
       className={clsx(classes.root, className)}
       variant="outlined"
@@ -69,7 +69,7 @@ const FactCheckHighlightCard = ({
           readOnly
           aria-label={intl.formatMessage({ id: "factCheck.userRatings.rating.aria" })}
         />
-        <div> {justification} </div>
+        <div>{justification}</div>
         <div>
           <FactCheckRatingBreakdown
             displayName={displayName}
@@ -90,7 +90,7 @@ const FactCheckHighlightCard = ({
           </div>
         </div>
       </CardContent>
-    </FakeCheckFlatPaper>
+    </FlatPaper>
   );
 };
 

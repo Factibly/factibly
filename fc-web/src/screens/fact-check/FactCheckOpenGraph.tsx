@@ -19,7 +19,7 @@ class FactCheckOpenGraph extends Component<FactCheckOpenGraphProps> {
         <meta property="og:locale" content={this.props.intl.locale} />
         <meta property="og:locale:alternate" content={this.props.intl.defaultLocale} />
         <meta property="og:locale:alternate" content="en_US" />
-        <meta property="og:site_name" content="FakeCheck" />
+        <meta property="og:site_name" content="Factibly" />
       </Helmet>
     );
   }

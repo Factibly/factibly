@@ -23,10 +23,10 @@ class LanguageMenu extends PureComponent<LanguageMenuProps> {
           icon={<ChevronLeftIcon />}
           onClick={this.props.onMenuBack}
         />
-        {Object.values(locales).map(({ bcp }) => (
+        {Object.values(locales).map(({ display, bcp }) => (
           <DropdownMenuItem
             key={bcp}
-            primary={this.props.intl.formatMessage({ id: `app.locale.${bcp}` })}
+            primary={display}
             selected={bcp === this.props.locale}
             onClick={() => {
               this.props.changeWebsiteLanguage(bcp);

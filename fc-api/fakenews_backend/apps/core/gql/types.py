@@ -1,6 +1,7 @@
 from graphene_django import DjangoObjectType
-from graphene import relay, Field, Float, Boolean, List
+from graphene import relay, Field, Float, Boolean, String, List
 from ..models import Rating, Content
+from ..bibliography_creator.reference_creator import CitationType, ReferenceCreator
 
 
 class RatingType(DjangoObjectType):
@@ -17,6 +18,8 @@ class ContentType(DjangoObjectType):
     user_rating = Field(RatingType)
     overall_score = Float()
     is_bookmarked = Boolean()
+
+    reference_set = List(CitationType)
 
     rating_set = List(RatingType)
 
@@ -40,6 +43,9 @@ class ContentType(DjangoObjectType):
             return False
 
         return self in user.bookmarks.all()
+
+    def resolve_reference_set(self, info):
+        return ReferenceCreator(self).create_citations()
 
     def resolve_rating_set(self, info):
         return self.rating_set.all()

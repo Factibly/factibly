@@ -12,7 +12,7 @@ import { CreateUserInput } from "./../../../__generated__/globalTypes";
 export interface CreateUser_createUser_user {
   __typename: "UserType";
   /**
-   * The ID of the object.
+   * The ID of the object
    */
   id: string;
   email: string;

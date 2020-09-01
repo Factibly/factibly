@@ -10,7 +10,7 @@
 export interface BookmarksList_currentUser_bookmarks {
   __typename: "ContentType";
   /**
-   * The ID of the object.
+   * The ID of the object
    */
   id: string;
   url: string;
@@ -22,7 +22,7 @@ export interface BookmarksList_currentUser_bookmarks {
 export interface BookmarksList_currentUser {
   __typename: "UserType";
   /**
-   * The ID of the object.
+   * The ID of the object
    */
   id: string;
   bookmarks: (BookmarksList_currentUser_bookmarks | null)[] | null;

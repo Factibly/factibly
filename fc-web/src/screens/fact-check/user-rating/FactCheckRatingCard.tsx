@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/rootReducer";
 import { useIntl } from "react-intl";
-import FakeCheckFlatPaper from "../../../common/FakeCheckFlatPaper";
+import FlatPaper from "../../../common/FlatPaper";
 import FactCheckRatingHeader from "./FactCheckRatingHeader";
 import FactCheckRatingBreakdown from "./FactCheckRatingBreakdown";
 import FactCheckRatingActions from "./FactCheckRatingActions";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Typography, Card, CardContent, CardActions, Link, Popover } from "@material-ui/core";
+import { Typography, Card, CardContent, CardActions, Popover } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import { RatingOrigin, RatingAction } from "../../../static/enums";
 import { findMean } from "../../../utils/number-utils";
@@ -25,7 +25,6 @@ interface FactCheckRatingCardProps {
   upvoteCount?: number;
   downvoteCount?: number;
   elevation?: number;
-  inheritBackground?: boolean;
   disableAvatar?: boolean;
   origin: RatingOrigin;
   action: RatingAction;
@@ -38,8 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "left",
     },
     content: {
-      paddingTop: 0,
-      paddingBottom: 0,
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
     },
     actions: {
       textTransform: "none",
@@ -56,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
     countryFlag: {
       fontSize: theme.typography.pxToRem(32),
     },
+    readMoreButton: {
+      fontWeight: "bold",
+    },
   })
 );
 
@@ -71,7 +73,6 @@ const FactCheckRatingCard = ({
   upvoteCount = 0,
   downvoteCount = 0,
   elevation,
-  inheritBackground,
   disableAvatar = false,
   origin,
   action,
@@ -84,23 +85,19 @@ const FactCheckRatingCard = ({
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const openPopover = Boolean(anchorEl);
-
+  const popoverId = openPopover ? "rating-breakdown-popover" : undefined;
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (event.currentTarget != null) {
       setAnchorEl(event.currentTarget);
     }
   };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
+  const handlePopoverClose = () => setAnchorEl(null);
 
   return (
-    <FakeCheckFlatPaper
+    <FlatPaper
       rootComponent={Card}
       className={clsx(classes.root, className)}
       elevation={elevation}
-      inheritBackground={inheritBackground}
       prefersDarkMode={prefersDarkMode}
       square
     >
@@ -114,7 +111,7 @@ const FactCheckRatingCard = ({
         <div
           onMouseOver={handlePopoverOpen}
           onMouseOut={handlePopoverClose}
-          aria-owns={openPopover ? "rating-breakdown-popover" : undefined}
+          aria-owns={popoverId}
           aria-haspopup="true"
           style={{ width: "fit-content" }}
         >
@@ -127,7 +124,7 @@ const FactCheckRatingCard = ({
           />
         </div>
         <Popover
-          id="rating-breakdown-popover"
+          id={popoverId}
           className={classes.popover}
           classes={{ paper: classes.paper }}
           open={openPopover}
@@ -143,10 +140,12 @@ const FactCheckRatingCard = ({
         >
           <FactCheckRatingBreakdown displayName={displayName} origin={origin} scores={scores} />
         </Popover>
-        <Typography className="five-lines-capped-text" component="p" variant="body2" style={{ overflow: "hidden" }}>
+        <Typography className="clamped-text--five-lines" component="p" variant="body2" style={{ overflow: "hidden" }}>
           {justification}
         </Typography>
-        <Link href="#"> {intl.formatMessage({ id: "factCheck.userRatings.action.readMore" })} </Link>
+        <span className={classes.readMoreButton}>
+          {intl.formatMessage({ id: "factCheck.userRatings.action.readMore" })}
+        </span>
       </CardContent>
       <CardActions className={classes.actions} disableSpacing>
         <FactCheckRatingActions
@@ -158,7 +157,7 @@ const FactCheckRatingCard = ({
           onRatingEditorOpen={onRatingEditorOpen}
         />
       </CardActions>
-    </FakeCheckFlatPaper>
+    </FlatPaper>
   );
 };
 

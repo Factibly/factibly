@@ -101,7 +101,7 @@ const FactCheckWidgetEditor = ({ open, onClose }: FactCheckWidgetEditorProps) =>
       <DialogContent id="widget-editor-form-description">
         <DialogContentText>
           Use this editor to adjust the iframe based on your specifications. Then, copy the URL to your computer's
-          clipboard (click the "Copy" button
+          clipboard (click the "COPY" button
           {(isWindows || isMacOs) && (
             <>
               , or select the URL and press {isWindows && <kbd>Ctrl</kbd>} {isMacOs && <kbd>Cmd</kbd>}&nbsp;+&nbsp;
@@ -117,7 +117,7 @@ const FactCheckWidgetEditor = ({ open, onClose }: FactCheckWidgetEditorProps) =>
         <TextActionBar
           value={iframeUrl}
           actionName={intl.formatMessage({ id: "general.action.copy" })}
-          onClick={handleCopyIframeUrl}
+          onActionClick={handleCopyIframeUrl}
           aria-label="iframe url"
         />
         <form noValidate>
@@ -136,7 +136,6 @@ const FactCheckWidgetEditor = ({ open, onClose }: FactCheckWidgetEditorProps) =>
                     control={
                       <Checkbox
                         name={`checked-fact-check-widget-${property}`}
-                        color="primary"
                         checked={useDefaults[property]}
                         onChange={() => handleUseDefaultsChange(property)}
                         inputProps={{
@@ -167,9 +166,7 @@ const FactCheckWidgetEditor = ({ open, onClose }: FactCheckWidgetEditorProps) =>
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">
-          {intl.formatMessage({ id: "general.action.exit" })}
-        </Button>
+        <Button onClick={onClose}>{intl.formatMessage({ id: "general.action.exit" })}</Button>
       </DialogActions>
     </Dialog>
   );

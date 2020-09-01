@@ -1,5 +1,5 @@
-export const dataUrltoFile = function dataUrltoFile(dataurl: string, filename: string) {
-  var arr = dataurl.split(","),
+export const dataUrlToFile = function dataUrlToFile(dataUrl: string, filename: string) {
+  var arr = dataUrl.split(","),
     mime = (arr[0].match(/:(.*?);/) ?? ["image/*", "image/*"])[1],
     bstr = atob(arr[1]),
     n = bstr.length,

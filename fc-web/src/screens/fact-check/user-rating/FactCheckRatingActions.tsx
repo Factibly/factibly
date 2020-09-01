@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Typography, Button } from "@material-ui/core";
+import { Typography, Button, Tooltip } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbDownAltIcon from "@material-ui/icons/ThumbDownAlt";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -50,12 +50,24 @@ const FactCheckRatingActions = ({
   if (action === RatingAction.VOTE) {
     CardActionButtons = (
       <>
-        <Button startIcon={<ThumbUpAltIcon />} onClick={() => upvoteMutation()} aria-label="upvote">
-          {intl.formatNumber(upvoteCount)}
-        </Button>
-        <Button startIcon={<ThumbDownAltIcon />} onClick={() => downvoteMutation()} aria-label="downvote">
-          {intl.formatNumber(downvoteCount)}
-        </Button>
+        <Tooltip title={intl.formatMessage({ id: "factCheck.userRatings.action.approval.upvote" })}>
+          <Button
+            startIcon={<ThumbUpAltIcon />}
+            onClick={() => upvoteMutation()}
+            aria-label={intl.formatMessage({ id: "factCheck.userRatings.action.approval.upvote.aria" })}
+          >
+            {intl.formatNumber(upvoteCount)}
+          </Button>
+        </Tooltip>
+        <Tooltip title={intl.formatMessage({ id: "factCheck.userRatings.action.approval.downvote" })}>
+          <Button
+            startIcon={<ThumbDownAltIcon />}
+            onClick={() => downvoteMutation()}
+            aria-label={intl.formatMessage({ id: "factCheck.userRatings.action.approval.downvote.aria" })}
+          >
+            {intl.formatNumber(Math.abs(downvoteCount))}
+          </Button>
+        </Tooltip>
       </>
     );
   } else if (action === RatingAction.EDIT) {
@@ -69,10 +81,10 @@ const FactCheckRatingActions = ({
             { id: "factCheck.userRatings.upvoteCount" },
             { upvoteCount: intl.formatNumber(upvoteCount) }
           )}
-          &nbsp;&middot;&nbsp;
+          &nbsp;&#9679;&nbsp;
           {intl.formatMessage(
             { id: "factCheck.userRatings.downvoteCount" },
-            { downvoteCount: intl.formatNumber(downvoteCount) }
+            { downvoteCount: intl.formatNumber(Math.abs(downvoteCount)) }
           )}
         </Typography>
       </>

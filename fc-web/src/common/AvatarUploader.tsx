@@ -66,14 +66,14 @@ const AvatarUploader = ({ avatarEditorRef }: AvatarUploaderProps) => {
         </>
       );
     } else if (isDragActive) {
-      Zone = <p> {intl.formatMessage({ id: "user.avatar.prompt.dropImage" })}&hellip; </p>;
+      Zone = <p>{intl.formatMessage({ id: "user.avatar.prompt.dropImage" })}&hellip;</p>;
     } else if (isDragReject) {
-      Zone = <p> {intl.formatMessage({ id: "user.avatar.prompt.mime.notSupported" })} </p>;
+      Zone = <p>{intl.formatMessage({ id: "user.avatar.prompt.mime.notSupported" })}</p>;
     } else {
       Zone = (
         <p>
           {intl.formatMessage({ id: "user.avatar.prompt.dragDropClick" })} <br />
-          <em> {intl.formatMessage({ id: "user.avatar.prompt.mime.onlyAccept" })} </em>
+          <em>{intl.formatMessage({ id: "user.avatar.prompt.mime.onlyAccept" })}</em>
         </p>
       );
     }
@@ -83,7 +83,7 @@ const AvatarUploader = ({ avatarEditorRef }: AvatarUploaderProps) => {
   return (
     <RootRef rootRef={ref}>
       <Box border={1} {...rootProps} style={{ width: "100%", padding: theme.spacing(3) }}>
-        <Typography variant="h5"> {intl.formatMessage({ id: "user.avatar" })} </Typography>
+        <Typography variant="h5">{intl.formatMessage({ id: "user.avatar" })}</Typography>
         <input {...getInputProps()} />
         {showUploader(isDragActive, isDragReject)}
       </Box>

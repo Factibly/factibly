@@ -12,7 +12,7 @@ import { RateContentInput } from "./../../../__generated__/globalTypes";
 export interface RateContent_rateContent_rating {
   __typename: "RatingType";
   /**
-   * The ID of the object.
+   * The ID of the object
    */
   id: string;
   score1: number;

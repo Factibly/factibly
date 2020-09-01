@@ -3,7 +3,7 @@ import Divider from "@material-ui/core/Divider";
 import grey from "@material-ui/core/colors/grey";
 
 interface HeavyDividerProps {
-  className: string | undefined;
+  className?: string;
   orientation?: "horizontal" | "vertical";
 }
 

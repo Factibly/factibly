@@ -1,6 +1,7 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
-import NavigationLogo from "./NavigationLogo";
+import NavigationTitle from "./NavigationTitle";
 import NotificationsBell from "../notifications/NotificationBell";
 import CountrySelector from "../countries/CountrySelector";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 256,
       },
     },
-    logo: {
+    title: {
       padding: theme.spacing(2),
       backgroundColor: NAVIGATION_BLACK,
       color: theme.palette.primary.contrastText,
@@ -101,7 +102,7 @@ const DrawerMenuList = () => {
           return null;
         }
         return (
-          <ListItem key={`nav-item-${nameId}`} component="a" button href={pathname}>
+          <ListItem key={`nav-item-${nameId}`} component={RouterLink} button to={pathname}>
             <ListItemIcon>
               <PageIcon />
             </ListItemIcon>
@@ -135,7 +136,7 @@ const NavigationDrawer = (props: NavigationDrawerProps) => {
         onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}
       >
-        <NavigationLogo className={classes.logo} showAlways isClickable />
+        <NavigationTitle className={classes.title} showAlways />
         <Divider />
         <nav>
           <List disablePadding>

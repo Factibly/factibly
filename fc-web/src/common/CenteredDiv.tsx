@@ -2,8 +2,8 @@ import React from "react";
 import Flex from "./Flex";
 
 interface CenteredDivProps {
+  style?: React.CSSProperties;
   children?: React.ReactNode;
-  style?: any;
   [x: string]: any;
 }
 

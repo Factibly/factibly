@@ -1,7 +1,7 @@
 from graphene import Field, String
 from ..types import ContentType
 from ...models import Content
-from ...scrape import scrape_article
+from ...scraper.scrape import scrape_article
 from graphql import GraphQLError
 from ....base_mutation import BaseMutation
 import requests
@@ -15,7 +15,7 @@ class SearchContent(BaseMutation):
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, url):
-        invalid_url_msg = "Invalid URL #@home.search.alert.msg.invalidUrl.name@"
+        invalid_url_msg = "Invalid URL #@home.search.alert.msg.invalidUrl@"
         try:
             if not url.startswith("http://") and not url.startswith("https://"):
                 url = "https://" + url

@@ -59,7 +59,7 @@ const FactCheckCard = SortableElement(({ boardId, boardItemId, url, showImage })
     retrieveFactCheckPromise().then(res => setContentId(res?.data?.searchContent?.content?.id));
   }, [searchMutation, url]);
 
-  const unknown = <em> {intl.formatMessage({ id: "factCheck.overview.author.unknown" })} </em>;
+  const UnknownProperty = <em> {intl.formatMessage({ id: "factCheck.overview.author.unknown" })} </em>;
 
   return (
     <>
@@ -68,31 +68,39 @@ const FactCheckCard = SortableElement(({ boardId, boardItemId, url, showImage })
           className="factCheckCardCard"
           onClick={handleOpenFactCheckModal}
           style={{ height: showImage ? cardHeight : cardHeight - coverImageHeight, cursor: "pointer" }}
+          aria-describedby={contentLoading ? "fact-check-card-progress" : undefined}
+          aria-busy={contentLoading.toString()}
         >
           {contentLoading ? (
             <div className={classes.progressWrapper}>
-              <CircularProgress />
+              <CircularProgress id="fact-check-card-progress" />
             </div>
           ) : (
             <>
               {showImage && <CardMedia image={imageUrl} title={title} style={{ height: coverImageHeight }} />}
               <CardContent>
-                <Typography className={classes.title} variant="subtitle1" component="h2" gutterBottom>
+                <Typography className={classes.title} component="h2" variant="subtitle1" gutterBottom>
                   {title}
                 </Typography>
                 {overallScore ? (
-                  <Rating value={overallScore} precision={0.1} size="large" readOnly aria-label="fact check rating" />
+                  <Rating
+                    value={overallScore}
+                    precision={0.1}
+                    size="large"
+                    readOnly
+                    aria-label={intl.formatMessage({ id: "factCheck.overview.rating.aria" })}
+                  />
                 ) : (
-                  <Typography variant="subtitle1" component="p">
+                  <Typography component="p" variant="subtitle1">
                     {intl.formatMessage({ id: "factCheck.overview.rating.none" })}
                   </Typography>
                 )}
-                <Typography className={classes.overview} variant="body2" color="textSecondary" component="p">
+                <Typography className={classes.overview} component="p" variant="body2" color="textSecondary">
                   {intl.formatMessage({ id: "factCheck.overview.rating.count" })}: {intl.formatNumber(ratingCount)}
                   <br />
-                  {intl.formatMessage({ id: "factCheck.overview.source.author" })}: {author || unknown}
+                  {intl.formatMessage({ id: "factCheck.overview.source.author" })}: {author || UnknownProperty}
                   <br />
-                  {intl.formatMessage({ id: "factCheck.overview.source.type" })}: {type || unknown}
+                  {intl.formatMessage({ id: "factCheck.overview.source.type" })}: {type || UnknownProperty}
                 </Typography>
               </CardContent>
             </>

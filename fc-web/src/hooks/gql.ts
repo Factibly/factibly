@@ -1,12 +1,14 @@
 import {
   useMutation,
   useQuery,
+  useLazyQuery,
   MutationHookOptions,
   MutationFunctionOptions,
   QueryHookOptions,
   FetchResult,
   QueryResult,
   OperationVariables,
+  QueryTuple,
 } from "@apollo/client";
 import { DocumentNode } from "graphql";
 import { RefreshToken } from "../gql/__generated__/RefreshToken";
@@ -60,4 +62,11 @@ export function useCustomQuery<TData = any, TVariables = OperationVariables>(
   // refresh();
 
   return useQuery(query, options);
+}
+
+export function useCustomLazyQuery<TData = any, TVariables = OperationVariables>(
+  query: DocumentNode,
+  options?: QueryHookOptions<TData, TVariables>
+): QueryTuple<TData, TVariables> {
+  return useLazyQuery(query, options);
 }

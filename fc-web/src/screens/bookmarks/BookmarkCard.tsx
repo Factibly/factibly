@@ -1,9 +1,10 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
 import Flex from "../../common/Flex";
 import ContrastingDivider from "../../common/ContrastingDivider";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { IconButton, Tooltip, Typography } from "@material-ui/core";
+import { Button, Tooltip, Typography } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import LaunchIcon from "@material-ui/icons/Launch";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -19,13 +20,19 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     flex: {
       flexDirection: "row",
+      flexWrap: "wrap",
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(2),
     },
-    innerFlex: {
+    innerFlex1: {
       flex: 3,
       flexDirection: "column",
       paddingLeft: theme.spacing(4),
+    },
+    innerFlex2: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "flex-end",
     },
     coverImage: {
       flex: 1,
@@ -33,6 +40,9 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
       backgroundPosition: "center",
+    },
+    button: {
+      borderRadius: 0,
     },
   })
 );
@@ -45,7 +55,7 @@ const BookmarkCard = ({ content, onRemoveBookmark, hideLine }: BookmarkCardProps
     <>
       <Flex className={classes.flex}>
         <Flex className={classes.coverImage} style={{ backgroundImage: `url(${content.imageUrl})` }} />
-        <Flex className={classes.innerFlex}>
+        <Flex className={classes.innerFlex1}>
           <Typography variant="h6"> {content.title || content.url} </Typography>
           {content?.overallScore ? (
             <Rating
@@ -58,23 +68,34 @@ const BookmarkCard = ({ content, onRemoveBookmark, hideLine }: BookmarkCardProps
             intl.formatMessage({ id: "factCheck.overview.rating.none" })
           )}
         </Flex>
-        <Flex style={{ flex: 1, alignItems: "center", justifyContent: "flex-end" }}>
+        <Flex className={classes.innerFlex2}>
           <Tooltip title={intl.formatMessage({ id: "bookmarks.bookmark.action.view.factCheck" })}>
-            <IconButton
-              href={FACT_CHECK_PATH.replace(":contentId", content.id)}
+            <Button
+              className={classes.button}
+              variant="contained"
+              component={RouterLink}
+              to={FACT_CHECK_PATH.replace(":contentId", content.id)}
+              color="primary"
+              size="large"
+              disableElevation
               aria-label={intl.formatMessage({ id: "bookmarks.bookmark.action.view.factCheck.aria" })}
             >
-              <LaunchIcon color="primary" fontSize="large" />
-            </IconButton>
+              <LaunchIcon />
+            </Button>
           </Tooltip>
           {/* <FontAwesomeIcon className={classes.icon} size="2x" icon={faShare} /> */}
           <Tooltip title={intl.formatMessage({ id: "general.action.delete" })}>
-            <IconButton
+            <Button
+              className={classes.button}
+              variant="contained"
               onClick={() => onRemoveBookmark(content.id)}
+              color="secondary"
+              size="large"
+              disableElevation
               aria-label={intl.formatMessage({ id: "general.action.delete.aria" })}
             >
-              <DeleteIcon color="secondary" fontSize="large" />
-            </IconButton>
+              <DeleteIcon />
+            </Button>
           </Tooltip>
         </Flex>
       </Flex>

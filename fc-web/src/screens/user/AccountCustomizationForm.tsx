@@ -4,9 +4,9 @@ import { Form, Field, FormikErrors, useFormikContext, useField } from "formik";
 import Recaptcha2 from "react-google-recaptcha";
 import AvatarUploader from "../../common/AvatarUploader";
 import FormGroupCompact from "../../common/FormGroupCompact";
-import FormButtonBox from "../../common/FormButtonBox";
-import FakeCheckInput from "../../common/FakeCheckInput";
-import FakeCheckErrorMessage from "../../common/FakeCheckErrorMessage";
+import FormButtons from "../../common/FormButtons";
+import FcInput from "../../common/FcInput";
+import FcErrorMessage from "../../common/FcErrorMessage";
 import { RegistrationFormValues } from "../../utils/forms/registration-form-helper";
 
 interface UserPersonalFormProps {
@@ -38,7 +38,7 @@ const AccountCustomizationForm = ({
       <FormGroupCompact>
         <AvatarUploader avatarEditorRef={avatarEditorRef} />
         <Field
-          as={FakeCheckInput}
+          as={FcInput}
           name="displayName"
           label={intl.formatMessage({ id: "user.registration.form.field.displayName" })}
           errorMsg={errors.displayName}
@@ -53,8 +53,8 @@ const AccountCustomizationForm = ({
         onChange={handleReCaptchaChange}
         aria-required="true"
       />
-      {errors.recaptchaToken && <FakeCheckErrorMessage id="recaptcha" msg={errors.recaptchaToken} />}
-      <FormButtonBox
+      {errors.recaptchaToken && <FcErrorMessage id="recaptcha" msg={errors.recaptchaToken} />}
+      <FormButtons
         primaryText={intl.formatMessage({ id: "user.action.createAccount" })}
         secondaryText={intl.formatMessage({ id: "general.action.back" })}
         onSecondaryClick={onBack}

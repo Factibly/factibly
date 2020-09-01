@@ -3,6 +3,7 @@ import bookmarksMessages from "./bookmarks-messages";
 import factCheckMessages from "./fact-check-messages";
 import generalMessages from "./general-messages";
 import homeMessages from "./home-messages";
+import legalMessages from "./legal-messages";
 import missionMessages from "./mission-messages";
 import navigationMessages from "./navigation-messages";
 import supportMessages from "./support-messages";
@@ -15,10 +16,23 @@ export default {
     ...factCheckMessages["en-US"],
     ...generalMessages["en-US"],
     ...homeMessages["en-US"],
+    ...legalMessages["en-US"],
     ...missionMessages["en-US"],
     ...navigationMessages["en-US"],
     ...supportMessages["en-US"],
     ...userMessages["en-US"],
+  },
+  "en-GB": {
+    ...appMessages["en-GB"],
+    ...bookmarksMessages["en-GB"],
+    ...factCheckMessages["en-GB"],
+    ...generalMessages["en-GB"],
+    ...homeMessages["en-GB"],
+    ...legalMessages["en-GB"],
+    ...missionMessages["en-GB"],
+    ...navigationMessages["en-GB"],
+    ...supportMessages["en-GB"],
+    ...userMessages["en-GB"],
   },
   "fr-FR": {
     ...appMessages["fr-FR"],
@@ -26,6 +40,7 @@ export default {
     ...factCheckMessages["fr-FR"],
     ...generalMessages["fr-FR"],
     ...homeMessages["fr-FR"],
+    ...legalMessages["fr-FR"],
     ...missionMessages["fr-FR"],
     ...navigationMessages["fr-FR"],
     ...supportMessages["fr-FR"],
@@ -37,6 +52,7 @@ export default {
     ...factCheckMessages["zh-CN"],
     ...generalMessages["zh-CN"],
     ...homeMessages["zh-CN"],
+    ...legalMessages["zh-CN"],
     ...missionMessages["zh-CN"],
     ...navigationMessages["zh-CN"],
     ...supportMessages["zh-CN"],
@@ -48,6 +64,7 @@ export default {
     ...factCheckMessages["zh-TW"],
     ...generalMessages["zh-TW"],
     ...homeMessages["zh-TW"],
+    ...legalMessages["zh-TW"],
     ...missionMessages["zh-TW"],
     ...navigationMessages["zh-TW"],
     ...supportMessages["zh-TW"],
@@ -59,6 +76,7 @@ export default {
     ...factCheckMessages["ja-JP"],
     ...generalMessages["ja-JP"],
     ...homeMessages["ja-JP"],
+    ...legalMessages["ja-JP"],
     ...missionMessages["ja-JP"],
     ...navigationMessages["ja-JP"],
     ...supportMessages["ja-JP"],

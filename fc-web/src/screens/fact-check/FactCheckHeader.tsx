@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
     tag: {
       alignSelf: "flex-start",
       padding: theme.spacing(0.5, 1),
-      color: theme.palette.secondary.main,
-      border: `thin solid ${theme.palette.secondary.main}`,
-      borderRadius: 16,
+      color: theme.palette.primary.light,
+      border: `thin solid ${theme.palette.primary.light}`,
+      borderRadius: theme.spacing(2),
     },
     title: {
       textAlign: "left",
@@ -36,7 +36,7 @@ const FactCheckHeader = ({ sourceTitle, author }: FactCheckHeaderProps) => {
       <Typography className={classes.tag} gutterBottom>
         {intl.formatMessage({ id: "factCheck.factCheckCertified.tag" })}
       </Typography>
-      <Typography className={classes.title} variant="h3" gutterBottom>
+      <Typography className={classes.title} component="h2" variant="h3" gutterBottom>
         {sourceTitle}
       </Typography>
       <Typography gutterBottom style={{ fontSize: "large" }}>

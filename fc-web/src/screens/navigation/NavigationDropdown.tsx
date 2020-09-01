@@ -9,6 +9,8 @@ import { NAVIGATION_HOVER_GREY } from "../../styles/colours";
 import { CURRENT_USER } from "../../gql/queries";
 import { CurrentUser } from "../../gql/__generated__/CurrentUser";
 import { useCustomQuery } from "../../hooks/gql";
+import { useAlert } from "../../hooks/useAlert";
+import { logoutUser } from "../../hooks/state";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,9 +55,20 @@ const NavigationDropdown = () => {
   const classes = useStyles();
   const intl = useIntl();
 
+  const [, setAlert] = useAlert();
+
   const { data: userData } = useCustomQuery<CurrentUser>(CURRENT_USER);
   const userLoggedIn = !!userData?.currentUser;
   const displayName = userData?.currentUser?.displayName;
+
+  const handleLogout = async () => {
+    await logoutUser();
+
+    setAlert({
+      severity: "success",
+      message: intl.formatMessage({ id: "user.alert.msg.logoutSuccess" }),
+    });
+  };
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const handleOpenMenu = (event: any) => setAnchorEl(event.currentTarget);
@@ -115,6 +128,7 @@ const NavigationDropdown = () => {
             default: (
               <AccountNavigationMenu
                 userLoggedIn={userLoggedIn}
+                handleLogout={handleLogout}
                 onSwitchMenu={handleSwitchMenu}
                 onMenuBack={handleMenuBack}
               />

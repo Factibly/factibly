@@ -5,7 +5,7 @@ import { OutlinedInput, InputAdornment, Button } from "@material-ui/core";
 interface TextActionBarProps {
   value: string;
   actionName: string;
-  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onActionClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   "aria-label"?: string;
 }
 
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const TextActionBar = (props: TextActionBarProps) => {
-  const { value, actionName, onClick } = props;
+  const { value, actionName, onActionClick } = props;
 
   const classes = useStyles();
 
@@ -39,9 +39,7 @@ const TextActionBar = (props: TextActionBarProps) => {
       value={value}
       endAdornment={
         <InputAdornment className={classes.inputAdornment} variant="standard" position="end">
-          <Button color="primary" onClick={onClick}>
-            {actionName}
-          </Button>
+          <Button onClick={onActionClick}>{actionName}</Button>
         </InputAdornment>
       }
       inputProps={{ "aria-label": props["aria-label"] }}

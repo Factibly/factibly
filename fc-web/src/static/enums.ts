@@ -1,5 +1,5 @@
 export enum ImageModerationScore {
-  SAFE = "A_0", // yeah, I know that TS starts enums at 0 by default...
+  SAFE = "A_0",
   WARNING = "A_1",
   NO_SHOW = "A_2",
 }

@@ -10,7 +10,7 @@
 /**
  * An enumeration.
  */
-export enum ContentImageModerationScore {
+export enum CoreContentImageModerationScoreChoices {
   A_0 = "A_0",
   A_1 = "A_1",
   A_2 = "A_2",

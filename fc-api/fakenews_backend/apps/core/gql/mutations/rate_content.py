@@ -3,7 +3,7 @@ from ..types import RatingType, ContentType
 from ...models import Rating
 from ....base_mutation import BaseMutation
 
-from fakenews_backend.common.utils.recaptcha_validation import validate_recaptcha_v3
+from fakenews_backend.common.validations.recaptcha_validation import validate_recaptcha_v3
 from graphql_jwt.decorators import login_required
 
 
@@ -35,6 +35,8 @@ class RateContent(BaseMutation):
             rating.score2 = score2
             rating.score3 = score3
             rating.justification = justification
+            rating.upvote_count = 0
+            rating.downvote_count = 0
         else:
             rating = Rating(content=content, user=user,
                             justification=justification, country=user.country, score1=score1, score2=score2, score3=score3)

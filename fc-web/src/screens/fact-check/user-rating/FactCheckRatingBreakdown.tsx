@@ -9,13 +9,40 @@ interface FactCheckRatingBreakdownProps {
   displayName: string;
   scores: number[];
   origin: RatingOrigin;
-  style?: any;
+  style?: React.CSSProperties;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     firstColumnItem: {
       paddingRight: theme.spacing(1),
+    },
+    gridContainer: {
+      display: "grid",
+      gridTemplateColumns: "max-content auto",
+      gridTemplateAreas: "'accuracy rating0' 'expertise rating1' 'strength rating2'",
+    },
+    gridItem: {
+      display: "flex",
+      margin: "auto",
+    },
+    criterionField0: {
+      gridArea: "accuracy",
+    },
+    criterionRating0: {
+      gridArea: "rating0",
+    },
+    criterionField1: {
+      gridArea: "expertise",
+    },
+    criterionRating1: {
+      gridArea: "rating1",
+    },
+    criterionField2: {
+      gridArea: "strength",
+    },
+    criterionRating2: {
+      gridArea: "rating2",
     },
   })
 );
@@ -25,22 +52,16 @@ const FactCheckRatingBreakdown = ({ displayName, scores, origin, style }: FactCh
   const intl = useIntl();
 
   return (
-    <div className="rating-breakdown-grid--container" style={style}>
+    <div className={classes.gridContainer} style={style}>
       {Array.apply(null, Array(3)).map((_, i) => {
-        const criterionName = intl.formatMessage({ id: `factCheck.userRatings.criterion${i + 1}.title` });
+        const criterionName = intl.formatMessage({ id: `factCheck.userRatings.criterion${i + 1}` });
         return (
           <React.Fragment key={`fact-check-rating-criterion-${criterionName}`}>
-            <span
-              className={clsx(
-                classes.firstColumnItem,
-                "rating-breakdown-grid--container-item",
-                `rating-breakdown-grid--field${i}`
-              )}
-            >
+            <span className={clsx(classes.firstColumnItem, classes.gridItem, classes[`criterionField${i}`])}>
               {criterionName}
             </span>
             <Rating
-              className={`rating-breakdown-grid--container-item rating-breakdown-grid--rating${i}`}
+              className={clsx(classes.gridItem, classes[`criterionRating${i}`])}
               value={scores[i]}
               precision={0.1}
               readOnly

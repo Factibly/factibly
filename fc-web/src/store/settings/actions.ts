@@ -1,10 +1,10 @@
-import { CHANGE_WEBSITE_LANGUAGE, CHANGE_DARK_MODE } from "./types";
+import { CHANGE_WEBSITE_LOCALE, CHANGE_PREFERS_DARK_MODE } from "./types";
 import { SITE_LOCALE_KEY, PREFERS_DARK_MODE_KEY } from "../../static/keys/local-storage-keys";
 
 export const changeWebsiteLanguage = (locale: string) => (dispatch: any) => {
   localStorage.setItem(SITE_LOCALE_KEY, locale);
   dispatch({
-    type: CHANGE_WEBSITE_LANGUAGE,
+    type: CHANGE_WEBSITE_LOCALE,
     payload: { locale },
   });
 };
@@ -12,7 +12,7 @@ export const changeWebsiteLanguage = (locale: string) => (dispatch: any) => {
 export const changeDarkMode = (prefersDarkMode: boolean) => (dispatch: any) => {
   localStorage.setItem(PREFERS_DARK_MODE_KEY, prefersDarkMode.toString());
   dispatch({
-    type: CHANGE_DARK_MODE,
+    type: CHANGE_PREFERS_DARK_MODE,
     payload: { prefersDarkMode },
   });
 };

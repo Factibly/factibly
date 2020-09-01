@@ -52,9 +52,10 @@ const FactCheckRatings = ({ contentId, content }: FactCheckRatingsProps) => {
     <>
       {ratings?.length > 0 && (
         <Sorter
-          variant="outlined"
           className={classes.ratingSorter}
+          variant="outlined"
           name="fact-check-rating"
+          label={intl.formatMessage({ id: "general.action.sortBy" })}
           sortCategoryIndex={sortMode.value}
           sortCategories={factCheckSortCategories}
           onSortingChange={handleSortingChange}

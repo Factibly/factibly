@@ -59,7 +59,7 @@ const FactCheckRatingsChart = ({ ratings }: FactCheckRatingsChartProps) => {
       return intl.formatDate(date, { year: "2-digit", month: "short" });
     }),
     datasets: Array.apply(null, Array(4)).map((_, i) => ({
-      label: intl.formatMessage({ id: `factCheck.userRatings.criterion${i + 1}.title` }),
+      label: intl.formatMessage({ id: `factCheck.userRatings.criterion${i + 1}` }),
       fill: false,
       borderColor: colours[i],
       backgroundColor: colours[i],
@@ -75,7 +75,7 @@ const FactCheckRatingsChart = ({ ratings }: FactCheckRatingsChartProps) => {
         maintainAspectRatio: !isMobileOnly,
         title: {
           display: true,
-          text: intl.formatMessage({ id: "factCheck.trends.rating.title" }),
+          text: intl.formatMessage({ id: "factCheck.trends.rating" }),
           fontSize: 16,
         },
         legend: { display: true, position: mdUpWidth ? "right" : "bottom" },

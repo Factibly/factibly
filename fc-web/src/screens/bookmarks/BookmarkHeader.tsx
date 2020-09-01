@@ -7,7 +7,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
 import bookmarkSortCategories from "../../static/data/bookmark-sort-categories";
-
+import clsx from "clsx";
 interface BookmarkHeaderProps {
   total: number;
   onSubmitSearch: Function;
@@ -17,10 +17,23 @@ interface BookmarkHeaderProps {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    sortRow: {
-      marginBottom: theme.spacing(4),
+    flex: {
+      flexWrap: "wrap",
+    },
+    innerFlex: {
+      flexWrap: "wrap",
+      marginBottom: theme.spacing(2),
       "& > *": {
-        marginRight: theme.spacing(2),
+        margin: theme.spacing(0, 2),
+      },
+    },
+    innerFlex1: {
+      flex: 2,
+    },
+    innerFlex2: {
+      flex: 1,
+      [theme.breakpoints.up("sm")]: {
+        justifyContent: "flex-end",
       },
     },
   })
@@ -30,22 +43,23 @@ const BookmarkHeader = ({ total, onSubmitSearch, sortCategoryIndex = -1, onSorti
   const classes = useStyles();
   const intl = useIntl();
 
-  const [searchText, setSearchText] = useState<string>("");
-  const handleSearchTextChange = (event: any) => setSearchText(event.target.value);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const handleSearchChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+    setSearchQuery(event.target.value);
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmitSearch(searchText);
+    onSubmitSearch(searchQuery);
   };
 
   return (
-    <Flex>
-      <Flex className={classes.sortRow} style={{ flex: 2 }}>
+    <Flex className={classes.flex}>
+      <Flex className={clsx(classes.innerFlex, classes.innerFlex1)}>
         <form role="search" onSubmit={handleSearchSubmit} noValidate>
           <SearchField
             name="bookmark"
             label={intl.formatMessage({ id: "general.action.search" })}
-            searchText={searchText}
-            onSearchTextChange={handleSearchTextChange}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
           />
         </form>
         <Sorter
@@ -59,7 +73,7 @@ const BookmarkHeader = ({ total, onSubmitSearch, sortCategoryIndex = -1, onSorti
           startIcon={<SortIcon />}
         />
       </Flex>
-      <Flex className={classes.sortRow} style={{ flex: 1, justifyContent: "flex-end" }}>
+      <Flex className={clsx(classes.innerFlex, classes.innerFlex2)}>
         <Typography variant="h5" style={{ whiteSpace: "nowrap" }}>
           {intl.formatMessage({ id: "bookmarks.bookmark.count" }, { bookmarkCount: intl.formatNumber(total) })}
         </Typography>

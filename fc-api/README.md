@@ -10,7 +10,7 @@
 3. Go to the root directory for this repository on your machine
 4. Download [Docker Desktop](https://www.docker.com/products/docker-desktop) and start it
 5. Run `docker-compose up` to start the postgres DB instance
-6. Repeat steps 1 and 2 in a new tab/window of your command line interface
+6. Repeat step 3 in a new tab/window of your command line interface
 7. Run `python3 --version` and check that [Python 3.7](https://www.python.org/downloads/) is installed on your machine; if not, install it.
 8. Run `export PIPENV_VENV_IN_PROJECT="enabled"`
 9. Run `pipenv install` to install the [project dependencies](Pipfile)\*
@@ -85,7 +85,6 @@ This project utilizes the following frameworks and packages:
 - django-graphql-jwt &ndash; authenticates user sessions via JSON Web Tokens
 - django-cors-headers &ndash; injects CORS headers to responses
 - Django Extensions &ndash; provides, amongst other extensions, some useful tools in the `manage.py` script
-- django-fsm &ndash; builds finite state machines
 - newspaper3k &ndash; scraps website metadata and content
 - boto3 &ndash; provides the AWS SDK
 - django-storages &ndash; handles uploads and retrievals of files from Amazon S3 buckets

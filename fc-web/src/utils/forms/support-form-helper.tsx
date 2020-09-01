@@ -26,9 +26,7 @@ export class SupportFormValidation extends BaseFormValidation<SupportFormValues>
   validate = () => {
     if (!this.values.title) this.errors.title = this.requiredFieldMsg;
 
-    if (!this.values.email) {
-      this.errors.email = this.requiredFieldMsg;
-    } else if (!validateEmailAddressFormat(this.values.email)) {
+    if (this.values.email && !validateEmailAddressFormat(this.values.email)) {
       this.errors.email = this.#emailFormatErrorMsg;
     }
 

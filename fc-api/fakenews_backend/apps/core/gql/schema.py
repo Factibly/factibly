@@ -1,5 +1,5 @@
 from .mutations import SearchContent, RateContent, BookmarkContent, RemoveBookmark, UpvoteRating, DownvoteRating
-from graphene import ObjectType, relay, ID
+from graphene import ObjectType, relay, ID, Field
 from .types import ContentType
 
 
@@ -13,4 +13,11 @@ class Mutation(ObjectType):
 
 
 class Query(ObjectType):
-    content = relay.Node.Field(ContentType, content_id=ID(required=True))
+    content = Field(ContentType, id=ID(required=True))
+
+    def resolve_content(self, info, id):
+        content = relay.Node.get_node_from_global_id(info, id)
+        content.search_count += 1
+        content.save()
+
+        return content

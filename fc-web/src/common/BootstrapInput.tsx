@@ -9,7 +9,7 @@ const BootstrapInput = withStyles((theme: Theme) =>
       },
     },
     input: {
-      borderRadius: 4,
+      borderRadius: theme.spacing(0.5),
       position: "relative",
       backgroundColor: theme.palette.background.paper,
       border: "1px solid #CED4DA",
@@ -17,7 +17,7 @@ const BootstrapInput = withStyles((theme: Theme) =>
       padding: "10px 26px 10px 12px",
       transition: theme.transitions.create(["border-color", "box-shadow"]),
       "&:focus": {
-        borderRadius: 4,
+        borderRadius: theme.spacing(0.5),
         borderColor: "#80BDFF",
         boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)",
       },

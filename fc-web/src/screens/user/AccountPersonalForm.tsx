@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { Form, Field, FormikErrors, useFormikContext, useField } from "formik";
 import FormGroupCompact from "../../common/FormGroupCompact";
-import FakeCheckInput from "../../common/FakeCheckInput";
-import FakeCheckCalendarPicker from "../../common/FakeCheckCalendarPicker";
-import FakeCheckErrorMessage from "../../common/FakeCheckErrorMessage";
-import FormButtonBox from "../../common/FormButtonBox";
+import FcInput from "../../common/FcInput";
+import FcCalendarPicker from "../../common/FcCalendarPicker";
+import FcErrorMessage from "../../common/FcErrorMessage";
+import FormButtons from "../../common/FormButtons";
 import { FormControl, InputLabel, Select } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
@@ -29,15 +29,15 @@ const AccountPersonalForm = ({ errors, onBack, onNext }: UserPersonalFormProps) 
   const [sortedCountryNames, setSortedCountryNames] = useState<string[]>([]);
   useEffect(() => {
     const sortedCountries = getSortedCountries(code => intl.formatDisplayName(code, { type: "region" }) ?? "");
-    setSortedCountryNames(sortedCountries.names);
     countryNameCodeMap = { ...sortedCountries.codeMap };
+    setSortedCountryNames(sortedCountries.names);
   }, [intl]);
 
   return (
     <Form onSubmit={onNext}>
       <FormGroupCompact>
         <Field
-          as={FakeCheckInput}
+          as={FcInput}
           name="firstName"
           label={intl.formatMessage({ id: "user.registration.form.field.firstName" })}
           errorMsg={errors.firstName}
@@ -45,7 +45,7 @@ const AccountPersonalForm = ({ errors, onBack, onNext }: UserPersonalFormProps) 
           aria-required="true"
         />
         <Field
-          as={FakeCheckInput}
+          as={FcInput}
           name="lastName"
           label={intl.formatMessage({ id: "user.registration.form.field.lastName" })}
           errorMsg={errors.lastName}
@@ -73,17 +73,18 @@ const AccountPersonalForm = ({ errors, onBack, onNext }: UserPersonalFormProps) 
               </option>
             ))}
           </Field>
-          {errors.country && <FakeCheckErrorMessage id="country-error-message" msg={errors.country} />}
+          {errors.country && <FcErrorMessage id="country-error-message" msg={errors.country} />}
         </FormControl>
-        <FakeCheckCalendarPicker
+        <FcCalendarPicker
           {...dateOfBirthField}
           Picker={DatePicker}
           autoOk
+          autoComplete="bday"
           openTo="year"
           format="dd/MM/yyyy"
           maxDate={retrieveMinimumRequiredAge()}
           maxDateMessage={
-            <FakeCheckErrorMessage
+            <FcErrorMessage
               id={intl.formatMessage({ id: "user.registration.form.field.dateOfBirth" })}
               msg={intl.formatMessage({ id: "user.registration.form.msg.age.minimum" })}
             />
@@ -95,7 +96,7 @@ const AccountPersonalForm = ({ errors, onBack, onNext }: UserPersonalFormProps) 
           aria-required="true"
         />
       </FormGroupCompact>
-      <FormButtonBox
+      <FormButtons
         primaryText={intl.formatMessage({ id: "general.action.next" })}
         secondaryText={intl.formatMessage({ id: "general.action.back" })}
         onSecondaryClick={onBack}

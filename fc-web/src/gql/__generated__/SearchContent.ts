@@ -12,7 +12,7 @@ import { SearchContentInput } from "./../../../__generated__/globalTypes";
 export interface SearchContent_searchContent_content {
   __typename: "ContentType";
   /**
-   * The ID of the object.
+   * The ID of the object
    */
   id: string;
   url: string;

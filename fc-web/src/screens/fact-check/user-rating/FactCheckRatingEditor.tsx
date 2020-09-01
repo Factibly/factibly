@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Prompt } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { isMobileOnly } from "react-device-detect";
-import FakeCheckInput from "../../../common/FakeCheckInput";
+import FcInput from "../../../common/FcInput";
 import Draggable from "react-draggable";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
@@ -147,7 +147,7 @@ const FactCheckRatingEditor = ({
           <form autoComplete="off">
             <Box component="fieldset" pt={0} px={0} borderColor="transparent">
               {Array.apply(null, Array(3)).map((_, i) => {
-                const criterionName = intl.formatMessage({ id: `factCheck.userRatings.criterion${i + 1}.title` });
+                const criterionName = intl.formatMessage({ id: `factCheck.userRatings.criterion${i + 1}` });
                 return (
                   <DialogContentText key={`rating-question-${i}`} component="div" color="inherit">
                     <Typography component="div" id={`rating-criterion-${criterionName}-edit`}>
@@ -172,7 +172,7 @@ const FactCheckRatingEditor = ({
                 );
               })}
             </Box>
-            <FakeCheckInput
+            <FcInput
               name="justification"
               label={intl.formatMessage({ id: "factCheck.userRatings.justification" })}
               value={justification}

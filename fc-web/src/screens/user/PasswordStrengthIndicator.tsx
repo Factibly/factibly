@@ -13,7 +13,7 @@ class PasswordStrengthIndicator extends PureComponent<PasswordStrengthIndicatorP
   }
 
   render() {
-    const score = zxcvbn(this.props.password, ["fact", "fake", "fakecheck"])?.score;
+    const score = zxcvbn(this.props.password, ["fact", "fake", "factibly"])?.score;
     return (
       <div style={{ fontSize: "small", textAlign: "left" }}>
         <meter

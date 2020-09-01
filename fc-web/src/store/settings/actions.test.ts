@@ -1,7 +1,7 @@
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import * as screenActions from "./actions";
-import { CHANGE_WEBSITE_LANGUAGE, CHANGE_DARK_MODE } from "./types";
+import { CHANGE_WEBSITE_LOCALE, CHANGE_PREFERS_DARK_MODE } from "./types";
 import { SITE_LOCALE_KEY, PREFERS_DARK_MODE_KEY } from "../../static/keys/local-storage-keys";
 
 const mockStore = configureMockStore([thunk]);
@@ -9,7 +9,7 @@ let store: any;
 
 const locale = "en-US";
 
-describe("Support Actions", () => {
+describe("Settings Actions", () => {
   beforeEach(() => {
     store = mockStore({});
   });
@@ -21,7 +21,7 @@ describe("Support Actions", () => {
   it("dispatch change website language", () => {
     const expectedActions = [
       {
-        type: CHANGE_WEBSITE_LANGUAGE,
+        type: CHANGE_WEBSITE_LOCALE,
         payload: {
           locale,
         },
@@ -39,7 +39,7 @@ describe("Support Actions", () => {
   it("dispatch change dark mode", () => {
     const expectedActions = [
       {
-        type: CHANGE_DARK_MODE,
+        type: CHANGE_PREFERS_DARK_MODE,
         payload: {
           prefersDarkMode: false,
         },

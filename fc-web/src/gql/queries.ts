@@ -63,6 +63,18 @@ export const CONTENT = gql`
   }
 `;
 
+export const CONTENT_REFERENCES_LIST = gql`
+  query ContentReferencesList($contentId: ID!) {
+    content(id: $contentId) {
+      id
+      referenceSet {
+        style
+        reference
+      }
+    }
+  }
+`;
+
 export const BOOKMARKS_LIST = gql`
   query BookmarksList {
     currentUser {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { IntlProvider } from "react-intl";
 import monday from "./libs/monday";
-import FactChecks from "./components/FactChecks";
+import Factibly from "./components/Factibly";
 import { ThemeProvider, CssBaseline, responsiveFontSizes } from "@material-ui/core";
 import { BOARDS } from "./gql/monday";
 import messages from "./static/messages/messages";
@@ -131,7 +131,7 @@ class App extends Component {
         <ThemeProvider theme={App.theme || this.setTheme()}>
           <CssBaseline />
           <main className="App">
-            <FactChecks
+            <Factibly
               axis="xy"
               boardData={this.state.boardData}
               showImage={this.state.settings.showImage}

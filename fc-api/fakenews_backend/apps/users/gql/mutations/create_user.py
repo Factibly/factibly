@@ -5,8 +5,8 @@ from ....base_mutation import BaseMutation
 from graphene_file_upload.scalars import Upload
 
 from django.contrib.auth.password_validation import validate_password, MinimumLengthValidator
-from fakenews_backend.common.utils.password_validation import UpperCaseValidator, NumericalValidator
-from fakenews_backend.common.utils.recaptcha_validation import validate_recaptcha_v2
+from fakenews_backend.common.validations.password_validation import UpperCaseValidator, NumericalValidator
+from fakenews_backend.common.validations.recaptcha_validation import validate_recaptcha_v2
 import re
 
 
@@ -29,7 +29,8 @@ class CreateUser(BaseMutation):
         validate_recaptcha_v2(recaptcha_token)
 
         if avatar is not None and not re.search(r'^.*\.(jpg|jpeg|png)$', str(avatar), re.IGNORECASE):
-            raise Exception('Invalid image format')
+            raise Exception(
+                'Invalid image format #@user.avatar.alert.msg.invalidExt@')
 
         user = User(
             email=email,

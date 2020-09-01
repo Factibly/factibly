@@ -76,13 +76,12 @@ const FactCheckShareMenu = ({ anchorEl, onCloseShareMenu }: FactCheckShareMenuPr
               <TextActionBar
                 value={window.location.href}
                 actionName={intl.formatMessage({ id: "general.action.copy" })}
-                onClick={handleCopyFactCheckUrl}
+                onActionClick={handleCopyFactCheckUrl}
                 aria-label={intl.formatMessage({ id: "factCheck.overview.action.share.factCheckUrl.aria" })}
               />
             </>
           }
           disableRipple
-          disableFocusRipple
           disableTouchRipple
         />
         <DropdownMenuItem

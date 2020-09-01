@@ -20,12 +20,12 @@ describe("Support Actions", () => {
       {
         type: SHOW_TICKET_SUBMISSION_SUCCESS,
         payload: {
-          msgId: "support.banner.msg.success",
-          backgroundColor: "green",
+          ticketId: "14802",
+          success: true,
         },
       },
     ];
-    store.dispatch(supportActions.showTicketSubmissionSuccess());
+    store.dispatch(supportActions.showTicketSubmissionSuccess("14802"));
     expect(store.getActions()).toEqual(expectedActions);
   });
 
@@ -38,8 +38,8 @@ describe("Support Actions", () => {
       {
         type: SHOW_TICKET_SUBMISSION_FAIL,
         payload: {
-          msgId: "support.banner.msg.fail",
-          backgroundColor: "red",
+          ticketId: null,
+          success: false,
         },
       },
     ];

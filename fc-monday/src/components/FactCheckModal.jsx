@@ -46,7 +46,7 @@ const FactCheckModal = ({ contentId, boardId, boardItemId, open, onClose }) => {
   const intl = useIntl();
 
   const handleOpenMondayItem = () => monday.execute("openItemCard", { itemId: boardItemId });
-  const factCheckUrl = `${process.env.REACT_APP_FAKECHECK_BASE_URL}/content/${contentId}`;
+  const factCheckUrl = `${process.env.REACT_APP_FACTIBLY_BASE_URL}/content/${contentId}`;
 
   const [anchorElInfoPopover, setAnchorElInfoPopover] = useState(null);
   const handleOpenInfoPopover = event => setAnchorElInfoPopover(event.currentTarget);
@@ -98,13 +98,13 @@ const FactCheckModal = ({ contentId, boardId, boardItemId, open, onClose }) => {
                   <AssignmentIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip title={intl.formatMessage({ id: "factCheck.action.fakeCheck.open" })}>
+              <Tooltip title={intl.formatMessage({ id: "factCheck.action.factibly.open" })}>
                 <IconButton
                   color="primary"
                   href={factCheckUrl}
                   target="_blank"
                   rel="noopener"
-                  aria-label={intl.formatMessage({ id: "factCheck.action.fakeCheck.open.aria" })}
+                  aria-label={intl.formatMessage({ id: "factCheck.action.factibly.open.aria" })}
                 >
                   <LaunchIcon />
                 </IconButton>

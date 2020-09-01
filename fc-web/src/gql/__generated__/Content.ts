@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ContentImageModerationScore } from "./../../../__generated__/globalTypes";
+import { CoreContentImageModerationScoreChoices } from "./../../../__generated__/globalTypes";
 
 // ====================================================
 // GraphQL query operation: Content
@@ -12,7 +12,7 @@ import { ContentImageModerationScore } from "./../../../__generated__/globalType
 export interface Content_content_ratingSet_user {
   __typename: "UserType";
   /**
-   * The ID of the object.
+   * The ID of the object
    */
   id: string;
   displayName: string;
@@ -22,7 +22,7 @@ export interface Content_content_ratingSet_user {
 export interface Content_content_ratingSet {
   __typename: "RatingType";
   /**
-   * The ID of the object.
+   * The ID of the object
    */
   id: string;
   createdAt: any | null;
@@ -39,7 +39,7 @@ export interface Content_content_ratingSet {
 export interface Content_content_userRating {
   __typename: "RatingType";
   /**
-   * The ID of the object.
+   * The ID of the object
    */
   id: string;
   score1: number;
@@ -54,7 +54,7 @@ export interface Content_content_userRating {
 export interface Content_content {
   __typename: "ContentType";
   /**
-   * The ID of the object.
+   * The ID of the object
    */
   id: string;
   url: string;
@@ -64,16 +64,13 @@ export interface Content_content {
   searchCount: number;
   title: string | null;
   imageUrl: string | null;
-  imageModerationScore: ContentImageModerationScore;
+  imageModerationScore: CoreContentImageModerationScoreChoices;
   isBookmarked: boolean | null;
   ratingSet: (Content_content_ratingSet | null)[] | null;
   userRating: Content_content_userRating | null;
 }
 
 export interface Content {
-  /**
-   * The ID of the object
-   */
   content: Content_content | null;
 }
 

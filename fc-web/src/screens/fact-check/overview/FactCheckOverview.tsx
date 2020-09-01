@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/rootReducer";
 import { useIntl } from "react-intl";
-import FakeCheckFlatPaper from "../../../common/FakeCheckFlatPaper";
+import FlatPaper from "../../../common/FlatPaper";
 import FactCheckShareMenu from "../FactCheckShareMenu";
 import FactCheckOverviewDesktop from "./FactCheckOverviewDesktop";
 import FactCheckOverviewMobile from "./FactCheckOverviewMobile";
+import ReferenceGenerator from "../ReferenceGenerator";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Hidden } from "@material-ui/core";
 import { BOOKMARK_CONTENT } from "../../../gql/mutations";
@@ -44,6 +45,10 @@ const FactCheckOverview = ({ content, userLoggedIn }: FactCheckOverviewProps) =>
   const handleOpenShareMenu = (event: any) => setAnchorEl(event.currentTarget);
   const handleCloseShareMenu = () => setAnchorEl(null);
 
+  const [openCitationGenerator, setOpenCitationGenerator] = useState<boolean>(false);
+  const handleOpenCitationGenerator = () => setOpenCitationGenerator(true);
+  const handleCloseCitationGenerator = () => setOpenCitationGenerator(false);
+
   const [bookmarkMutation] = useMutation<BookmarkContent, BookmarkContentVariables>(BOOKMARK_CONTENT, {
     variables: {
       input: {
@@ -70,19 +75,21 @@ const FactCheckOverview = ({ content, userLoggedIn }: FactCheckOverviewProps) =>
   };
 
   return (
-    <FakeCheckFlatPaper className={classes.root} elevation={0} prefersDarkMode={prefersDarkMode} square>
+    <FlatPaper className={classes.root} elevation={0} prefersDarkMode={prefersDarkMode} square>
       {overviews.map(({ type, breakpoint, Overview }) => (
         <Hidden key={`fact-check-overview-${type}`} implementation="css" {...breakpoint}>
           <Overview
             content={content}
             userLoggedIn={userLoggedIn}
             onOpenShareMenu={handleOpenShareMenu}
+            onOpenCitationGenerator={handleOpenCitationGenerator}
             onCreateBookmark={handleCreateBookmark}
           />
         </Hidden>
       ))}
       <FactCheckShareMenu anchorEl={anchorEl} onCloseShareMenu={handleCloseShareMenu} />
-    </FakeCheckFlatPaper>
+      <ReferenceGenerator contentId={content.id} open={openCitationGenerator} onClose={handleCloseCitationGenerator} />
+    </FlatPaper>
   );
 };
 

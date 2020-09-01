@@ -7,11 +7,9 @@ import { Helmet } from "react-helmet";
 import { useTheme } from "@material-ui/core/styles";
 import TabPanel from "../../common/TabPanel";
 import SupportForm from "./SupportForm";
-import Faq from "./Faq";
+import FrequentlyAskedQuestions from "./FrequentlyAskedQuestions";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
-import supports, { SupportText, isSupportText } from "../../static/data/support-prompts";
-
-const supportTexts: Readonly<SupportText[]> = Object.freeze(Object.values(supports));
+import supports, { isSupportPrompt } from "../../static/data/supports";
 
 const Support = () => {
   const dispatch = useDispatch();
@@ -25,18 +23,17 @@ const Support = () => {
   return (
     <div style={{ width: "100%" }}>
       <Helmet>
-        <title> {intl.formatMessage({ id: "nav.drawer.item.supportFeedback" })} </title>
+        <title>{intl.formatMessage({ id: "nav.drawer.item.supportFeedback" })}</title>
       </Helmet>
       <AppBar position="static" color="default">
         <Tabs
           value={tabIndex}
           onChange={handleTabChange}
           indicatorColor="primary"
-          textColor="primary"
           variant="scrollable"
           aria-label={intl.formatMessage({ id: "support.tabs.aria" })}
         >
-          {supportTexts.map(({ id, icon: CategoryIcon, nameId }) => {
+          {supports.map(({ id, icon: CategoryIcon, nameId }) => {
             return (
               <Tab
                 key={`support-tab-${id}`}
@@ -49,15 +46,16 @@ const Support = () => {
           })}
         </Tabs>
       </AppBar>
-      {supportTexts.map((supportText, index) => (
+      {supports.map((support, index) => (
         <TabPanel
-          key={`support-tab-panel-${supportText.id}`}
-          id={`tab-panel-${supportText.id}`}
+          key={`support-tab-panel-${support.id}`}
+          id={`tab-panel-${support.id}`}
           value={tabIndex}
           index={index}
+          p={3}
           dir={theme.direction}
         >
-          {isSupportText(supportText) ? <SupportForm supportText={supportText} /> : <Faq faqText={supportText} />}
+          {isSupportPrompt(support) ? <SupportForm support={support} /> : <FrequentlyAskedQuestions />}
         </TabPanel>
       ))}
     </div>

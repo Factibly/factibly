@@ -1,0 +1,40 @@
+query Content($contentId: ID!) {
+    content(id: $contentId) {
+        id
+        url
+        overallScore
+        updatedAt
+        author
+        searchCount
+        title
+        imageUrl
+        imageModerationScore
+        isBookmarked
+        ratingSet {
+            id
+            createdAt
+            updatedAt
+            score1
+            score2
+            score3
+            justification
+            upvoteCount
+            downvoteCount
+            user {
+                id
+                displayName
+                country
+            }
+        }
+        userRating {
+            id
+            score1
+            score2
+            score3
+            justification
+            createdAt
+            upvoteCount
+            downvoteCount
+        }
+    }
+}

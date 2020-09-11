@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/fact_check_primary_stars"
+        android:id="@+id/fact_check_primary_stars" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                android:id="@+id/rating_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <Space
+                android:id="@+id/fact_check_space_1"
+                android:layout_height="0dp"
+                android:layout_width="@dimen/xs_spacing"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/rating_score"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/max_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rating_out_of"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/fact_check_space_1" />
+
+            <TextView
+                android:id="@+id/rating_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintTop_toBottomOf="@id/max_score"
+                app:layout_constraintLeft_toRightOf="@id/fact_check_space_1"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/visit_source_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/xs_spacing"
+        android:layout_marginHorizontal="@dimen/md_spacing"
+        android:text="@string/visit_source"
+        app:icon="@drawable/baseline_open_in_browser_24"
+        style="@style/Widget.MaterialComponents.Button.Icon" />
+
+    <TextView
+        android:id="@+id/last_updated_on"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/xs_spacing"
+        android:layout_marginHorizontal="@dimen/md_spacing"
+        android:drawablePadding="@dimen/iconic_text_drawable_padding"
+        android:gravity="center_vertical"
+        app:drawableStartCompat="@drawable/baseline_person_24" />
+
+</LinearLayout>

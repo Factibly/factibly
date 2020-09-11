@@ -1,0 +1,27 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+target 'Factibly' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Factibly
+  ['AppBar', 'BottomNavigation', 'Snackbar'].each do |c|
+    pod "MaterialComponents/#{c}"
+  end
+  
+  pod 'Apollo'
+
+  pod 'SwiftyJSON', '~> 4.0'
+  pod 'Validator'
+
+  target 'FactiblyTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'FactiblyUITests' do
+    # Pods for testing
+  end
+
+end

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3787DE</color>
+    <color name="colorPrimaryDark">#0D47A1</color>
+    <color name="colorOnPrimary">@android:color/white</color>
+    <color name="colorAccent">#0D47A1</color>
+
+    <color name="colorAlertError">#F44336</color>
+    <color name="colorAlertWarning">#FF9800</color>
+    <color name="colorAlertInfo">#2196F3</color>
+    <color name="colorAlertSuccess">#4CAF50</color>
+</resources>

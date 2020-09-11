@@ -1,0 +1,12 @@
+query BookmarksList {
+    currentUser {
+        id
+        bookmarks {
+            id
+            url
+            imageUrl
+            title
+            overallScore
+        }
+    }
+}

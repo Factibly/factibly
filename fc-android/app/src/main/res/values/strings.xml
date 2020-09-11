@@ -1,0 +1,46 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Factibly</string>
+
+    <string name="std_float">%.2f</string>
+    <string name="action_selected_count" tools:ignore="PluralsCandidate">%d selected</string>
+
+    <string name="not_yet_rated">Not Yet Rated</string>
+    <string name="rating_out_of">out of 5.00</string>
+    <string name="visit_source">Visit Source</string>
+    <string name="user_rating">user rating</string>
+    <string name="last_updated_on">Last updated on %s</string>
+    <string name="my_account">My Account</string>
+    <string name="search">Search</string>
+    <string name="query_hint">Enter a URL</string>
+    <string name="home">Home</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="fact_check">Fact Check</string>
+
+    <string name="fact_check_search_tutorial">
+        You are currently not viewing any fact check. In order to search for the fact check of a
+        particular source, please click on the "search" button in the top navigation bar and
+        enter the URL for that source.
+    </string>
+    <string name="password">Password</string>
+    <string name="email_address">Email Address</string>
+    <string name="login">Login</string>
+    <string name="factibly_sign_in">Factibly Sign-in</string>
+    <string name="field_required">Required field</string>
+    <string name="email_invalid_format">Invalid email address</string>
+    <string name="delete_bookmarks">Delete Bookmarks</string>
+    <string name="preferences">Preferences</string>
+    <string name="register_factibly_account">Register for a Free Factibly Account</string>
+
+    <string name="home_search_alert_url_error">Invalid URL</string>
+
+    <string-array name="themes">
+        <item>System Default</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

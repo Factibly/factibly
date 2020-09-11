@@ -1,0 +1,125 @@
+package com.factibly.factibly
+
+import android.app.SearchManager
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupWithNavController
+import com.factibly.factibly.databinding.MainActivityBinding
+import com.factibly.factibly.utils.extensions.getErrorString
+import com.factibly.factibly.utils.extensions.observeOnce
+import com.factibly.factibly.viewmodels.FactCheckViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.rollbar.android.Rollbar
+import dagger.hilt.android.AndroidEntryPoint
+
+
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: MainActivityBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private var optionsMenu: Menu? = null
+
+    private val viewModelFactCheck: FactCheckViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = MainActivityBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setTitle(R.string.app_name)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.key_display) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        //  setupActionBarWithNavController(navController, appBarConfiguration)
+
+        binding.bottomNavigationView.setupWithNavController(navController)
+
+        handleIntent(intent)
+
+        if (savedInstanceState == null) {
+            val remoteConfig = Firebase.remoteConfig
+            remoteConfig.fetchAndActivate().addOnSuccessListener(this) {
+                binding.container.apply {
+                    visibility = View.VISIBLE
+                }
+            }
+
+            if (BuildConfig.FLAVOR == "production") {
+                Rollbar.init(applicationContext)
+            }
+
+            //  supportFragmentManager.beginTransaction()
+            //      .replace(R.id.key_display, HomeFragment.newInstance())
+            //      .commitNow()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_options_menu, menu)
+        optionsMenu = menu
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu?.findItem(R.id.menu_search)!!.actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            queryHint = getString(R.string.query_hint)
+            imeOptions = EditorInfo.IME_ACTION_SEARCH
+        }
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = findNavController(R.id.key_display)
+        return NavigationUI.onNavDestinationSelected(item, navController) ||
+                super.onOptionsItemSelected(item)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.key_display)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun handleIntent(intent: Intent) {
+        if (intent.action == Intent.ACTION_SEARCH) {
+            val query = intent.getStringExtra(SearchManager.QUERY)
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.key_display) as NavHostFragment
+            val navController = NavHostFragment.findNavController(navHostFragment)
+            viewModelFactCheck.searchFactCheck(query!!).observeOnce(this) {
+                if (it?.errors.isNullOrBlank()) {
+                    navController.navigate(
+                        R.id.factCheckFragment,
+                        bundleOf("content_id" to it?.content?.id)
+                    )
+                } else {
+                    val msgRes = resources.getErrorString(it?.errors!!, packageName)
+                    Snackbar.make(binding.keyDisplay, msgRes, Snackbar.LENGTH_SHORT)
+                        .setAnchorView(binding.bottomNavigationView)
+                        .setBackgroundTint(resources.getColor(R.color.colorAlertError, theme))
+                        .show()
+                }
+            }
+        }
+    }
+}

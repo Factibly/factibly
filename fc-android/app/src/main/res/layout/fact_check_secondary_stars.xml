@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fact_check_secondary_stars"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:id="@+id/fact_check_secondary_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/xs_spacing"
+        android:layout_marginHorizontal="@dimen/sm_spacing"
+        android:isIndicator="true"
+        android:max="5"
+        android:numStars="5"
+        android:progressTint="#FFEB3B"
+        android:rating="1.0"
+        android:stepSize="0.1"
+        style="@style/Widget.MaterialRatingBar.RatingBar" />
+
+</FrameLayout>

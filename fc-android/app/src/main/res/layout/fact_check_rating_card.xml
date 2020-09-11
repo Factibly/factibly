@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fact_check_rating_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/xs_spacing"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/stroke_color"
+    app:cardElevation="5dp">
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/sm_spacing">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/sm_spacing">
+
+            <ImageView
+                android:id="@+id/fact_check_rating_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/user_rating"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:srcCompat="@drawable/baseline_person_black_36dp" />
+
+            <TextView
+                android:id="@+id/fact_check_rating_display_name"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/xs_spacing"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/fact_check_rating_avatar"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/fact_check_rating_date"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/xs_spacing"
+                app:layout_constraintTop_toBottomOf="@id/fact_check_rating_display_name"
+                app:layout_constraintLeft_toRightOf="@id/fact_check_rating_avatar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            layout="@layout/fact_check_secondary_stars"
+            android:id="@+id/fact_check_secondary_stars" />
+
+        <TextView
+            android:id="@+id/fact_check_rating_justification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/sm_spacing"
+            android:minLines="1"
+            android:maxLines="5"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sm_spacing"
+            android:layout_marginBottom="@dimen/xs_spacing"
+            android:layout_marginHorizontal="@dimen/xs_spacing"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/fact_check_rating_up_vote_button"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginHorizontal="@dimen/xs_spacing"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:icon="@drawable/baseline_thumb_up_24"
+                app:iconGravity="textStart" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/fact_check_rating_down_vote_button"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginHorizontal="@dimen/xs_spacing"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:icon="@drawable/baseline_thumb_down_24"
+                app:iconGravity="textStart" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

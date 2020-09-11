@@ -1,0 +1,9 @@
+mutation SearchContent($input: SearchContentInput!) {
+    searchContent(input: $input) {
+        content {
+            id
+            url
+        }
+        errors
+    }
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fact_check_primary_stars"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/sm_spacing"
+    tools:ignore="MergeRootFrame">
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:id="@+id/fact_check_primary_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:isIndicator="true"
+        android:max="5"
+        android:numStars="5"
+        android:progressTint="#FFEB3B"
+        android:rating="1.0"
+        android:stepSize="0.1" />
+
+</FrameLayout>

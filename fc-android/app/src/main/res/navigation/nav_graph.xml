@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.factibly.factibly.ui.home.HomeFragment"
+        android:label="Factibly"
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_homeFragment_to_factCheckFragment"
+            app:destination="@id/factCheckFragment">
+            <argument
+                android:name="contentId"
+                android:defaultValue="@null"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+        <action
+            android:id="@+id/action_homeFragment_to_bookmarksFragment"
+            app:destination="@id/bookmarksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/factCheckFragment"
+        android:name="com.factibly.factibly.ui.factcheck.FactCheckFragment"
+        android:label="Fact Check"
+        tools:layout="@layout/fact_check_fragment" >
+        <argument
+            android:name="contentId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.factibly.factibly.ui.user.LoginFragment"
+        android:label="Factibly Sign-in"
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment"
+            app:popUpTo="@id/preferencesFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.factibly.factibly.ui.user.RegistrationFragment"
+        android:label="Factibly Registration"
+        tools:layout="@layout/registration_fragment"/>
+    <fragment
+        android:id="@+id/bookmarksFragment"
+        android:name="com.factibly.factibly.ui.bookmarks.BookmarksFragment"
+        android:label="Bookmarks"
+        tools:layout="@layout/bookmarks_fragment" />
+    <fragment
+        android:id="@+id/preferencesFragment"
+        android:name="com.factibly.factibly.ui.preferences.PreferencesFragment"
+        android:label="Preferences" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.factibly.factibly.MainActivity"
+        android:label="Factibly"
+        tools:layout="@layout/main_activity" />
+
+</navigation>

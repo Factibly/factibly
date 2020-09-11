@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="rating_based_on">
+        <item quantity="one">based on %d rating</item>
+        <item quantity="other">based on %d ratings</item>
+    </plurals>
+
+    <plurals name="bookmarks_count">
+        <item quantity="one">%d Bookmark</item>
+        <item quantity="other">%d Bookmarks</item>
+    </plurals>
+</resources>

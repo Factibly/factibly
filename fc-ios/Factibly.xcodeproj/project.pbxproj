@@ -1,0 +1,1345 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2858B8A4A13BE31FE8F20377 /* Pods_Factibly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FADFAD470C3A7884FC0FD684 /* Pods_Factibly.framework */; };
+		61FDC9C6BD684EBA1BEA5766 /* Pods_Factibly_FactiblyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFE891205B352072C108440 /* Pods_Factibly_FactiblyUITests.framework */; };
+		D242590B250BC9800055D171 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D242590A250BC9800055D171 /* GoogleService-Info.plist */; };
+		D24B84EB250ABCAC007CD186 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24B84EA250ABCAC007CD186 /* AppDelegate.swift */; };
+		D24B84ED250ABCAC007CD186 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24B84EC250ABCAC007CD186 /* SceneDelegate.swift */; };
+		D24B84EF250ABCAC007CD186 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24B84EE250ABCAC007CD186 /* ContentView.swift */; };
+		D24B84F1250ABCB0007CD186 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D24B84F0250ABCB0007CD186 /* Assets.xcassets */; };
+		D24B84F4250ABCB0007CD186 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D24B84F3250ABCB0007CD186 /* Preview Assets.xcassets */; };
+		D24B84F7250ABCB0007CD186 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D24B84F5250ABCB0007CD186 /* LaunchScreen.storyboard */; };
+		D24B8502250ABCB0007CD186 /* FactiblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24B8501250ABCB0007CD186 /* FactiblyTests.swift */; };
+		D24B850D250ABCB0007CD186 /* FactiblyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24B850C250ABCB0007CD186 /* FactiblyUITests.swift */; };
+		D2F0B07A250AE7E00052F741 /* BottomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F0B079250AE7E00052F741 /* BottomNavigationBar.swift */; };
+		D2F0B07C250AF6BF0052F741 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F0B07B250AF6BF0052F741 /* SearchBar.swift */; };
+		D995A4D0C332C2C99C6E0247 /* Pods_FactiblyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE4BF8FDE4D5AE6CFEF3B26 /* Pods_FactiblyTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D24B84FE250ABCB0007CD186 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D24B84DF250ABCAC007CD186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D24B84E6250ABCAC007CD186;
+			remoteInfo = Factibly;
+		};
+		D24B8509250ABCB0007CD186 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D24B84DF250ABCAC007CD186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D24B84E6250ABCAC007CD186;
+			remoteInfo = Factibly;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0339495CE169CDCE4B9940CD /* Pods-Factibly.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly.release (production).xcconfig"; path = "Target Support Files/Pods-Factibly/Pods-Factibly.release (production).xcconfig"; sourceTree = "<group>"; };
+		07EB79701593ED3A442B489F /* Pods-Factibly-FactiblyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly-FactiblyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		0A7EA4254E85EBF2E29900FD /* Pods-Factibly-FactiblyUITests.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly-FactiblyUITests.debug (production).xcconfig"; path = "Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests.debug (production).xcconfig"; sourceTree = "<group>"; };
+		0EC439207AC5E617E3790460 /* Pods-Factibly.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly.debug (staging).xcconfig"; path = "Target Support Files/Pods-Factibly/Pods-Factibly.debug (staging).xcconfig"; sourceTree = "<group>"; };
+		1893C921621D23FDB9E800FE /* Pods-FactiblyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FactiblyTests.debug.xcconfig"; path = "Target Support Files/Pods-FactiblyTests/Pods-FactiblyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		43E79A31D7267367047FE984 /* Pods-FactiblyTests.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FactiblyTests.debug (production).xcconfig"; path = "Target Support Files/Pods-FactiblyTests/Pods-FactiblyTests.debug (production).xcconfig"; sourceTree = "<group>"; };
+		441EC4B81BBEEBEF173D6166 /* Pods-FactiblyTests.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FactiblyTests.debug (staging).xcconfig"; path = "Target Support Files/Pods-FactiblyTests/Pods-FactiblyTests.debug (staging).xcconfig"; sourceTree = "<group>"; };
+		46F618F7CB00533575009B81 /* Pods-Factibly.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly.release (staging).xcconfig"; path = "Target Support Files/Pods-Factibly/Pods-Factibly.release (staging).xcconfig"; sourceTree = "<group>"; };
+		47956A02E4F72CF04FD952DD /* Pods-Factibly-FactiblyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly-FactiblyUITests.release.xcconfig"; path = "Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5563424B23BEDF96B348DF4B /* Pods-Factibly-FactiblyUITests.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly-FactiblyUITests.debug (staging).xcconfig"; path = "Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests.debug (staging).xcconfig"; sourceTree = "<group>"; };
+		5A8E9F755DBF6A78DFB76527 /* Pods-Factibly-FactiblyUITests.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly-FactiblyUITests.release (development).xcconfig"; path = "Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests.release (development).xcconfig"; sourceTree = "<group>"; };
+		5AFE891205B352072C108440 /* Pods_Factibly_FactiblyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Factibly_FactiblyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E28C65B61EA52876F8A8D12 /* Pods-Factibly-FactiblyUITests.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly-FactiblyUITests.release (production).xcconfig"; path = "Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests.release (production).xcconfig"; sourceTree = "<group>"; };
+		658AD872C7CEDBEC2CCD5265 /* Pods-Factibly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly.debug.xcconfig"; path = "Target Support Files/Pods-Factibly/Pods-Factibly.debug.xcconfig"; sourceTree = "<group>"; };
+		79CEA5DF3A9A051982B4E220 /* Pods-FactiblyTests.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FactiblyTests.release (staging).xcconfig"; path = "Target Support Files/Pods-FactiblyTests/Pods-FactiblyTests.release (staging).xcconfig"; sourceTree = "<group>"; };
+		8D9EF10B33B341808A5A5272 /* Pods-Factibly.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly.release (development).xcconfig"; path = "Target Support Files/Pods-Factibly/Pods-Factibly.release (development).xcconfig"; sourceTree = "<group>"; };
+		9BE4BF8FDE4D5AE6CFEF3B26 /* Pods_FactiblyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FactiblyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B101A73E448F3B900BA0DBEF /* Pods-Factibly-FactiblyUITests.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly-FactiblyUITests.release (staging).xcconfig"; path = "Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests.release (staging).xcconfig"; sourceTree = "<group>"; };
+		B26EB5838AA42654BFB34E55 /* Pods-Factibly.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly.debug (production).xcconfig"; path = "Target Support Files/Pods-Factibly/Pods-Factibly.debug (production).xcconfig"; sourceTree = "<group>"; };
+		C3E858ACC22542956375BF6F /* Pods-FactiblyTests.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FactiblyTests.release (development).xcconfig"; path = "Target Support Files/Pods-FactiblyTests/Pods-FactiblyTests.release (development).xcconfig"; sourceTree = "<group>"; };
+		CD8FBA4DA2CD8DC3A5D90C9E /* Pods-Factibly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly.release.xcconfig"; path = "Target Support Files/Pods-Factibly/Pods-Factibly.release.xcconfig"; sourceTree = "<group>"; };
+		D242590A250BC9800055D171 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D24B84E7250ABCAC007CD186 /* Factibly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Factibly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D24B84EA250ABCAC007CD186 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D24B84EC250ABCAC007CD186 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D24B84EE250ABCAC007CD186 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D24B84F0250ABCB0007CD186 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D24B84F3250ABCB0007CD186 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D24B84F6250ABCB0007CD186 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D24B84F8250ABCB0007CD186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D24B84FD250ABCB0007CD186 /* FactiblyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FactiblyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D24B8501250ABCB0007CD186 /* FactiblyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactiblyTests.swift; sourceTree = "<group>"; };
+		D24B8503250ABCB0007CD186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D24B8508250ABCB0007CD186 /* FactiblyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FactiblyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D24B850C250ABCB0007CD186 /* FactiblyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactiblyUITests.swift; sourceTree = "<group>"; };
+		D24B850E250ABCB0007CD186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2F0B079250AE7E00052F741 /* BottomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationBar.swift; sourceTree = "<group>"; };
+		D2F0B07B250AF6BF0052F741 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		D87A8A3F195653CFB81EF434 /* Pods-FactiblyTests.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FactiblyTests.release (production).xcconfig"; path = "Target Support Files/Pods-FactiblyTests/Pods-FactiblyTests.release (production).xcconfig"; sourceTree = "<group>"; };
+		F1AABF54568964BB6FC6141B /* Pods-Factibly-FactiblyUITests.debug (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly-FactiblyUITests.debug (development).xcconfig"; path = "Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests.debug (development).xcconfig"; sourceTree = "<group>"; };
+		F76B36F46060B3BA885FE129 /* Pods-Factibly.debug (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Factibly.debug (development).xcconfig"; path = "Target Support Files/Pods-Factibly/Pods-Factibly.debug (development).xcconfig"; sourceTree = "<group>"; };
+		F7759F9CBA730FDE0EB1B0D5 /* Pods-FactiblyTests.debug (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FactiblyTests.debug (development).xcconfig"; path = "Target Support Files/Pods-FactiblyTests/Pods-FactiblyTests.debug (development).xcconfig"; sourceTree = "<group>"; };
+		FADFAD470C3A7884FC0FD684 /* Pods_Factibly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Factibly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB41607591E11BD7A7976297 /* Pods-FactiblyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FactiblyTests.release.xcconfig"; path = "Target Support Files/Pods-FactiblyTests/Pods-FactiblyTests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D24B84E4250ABCAC007CD186 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2858B8A4A13BE31FE8F20377 /* Pods_Factibly.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D24B84FA250ABCB0007CD186 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D995A4D0C332C2C99C6E0247 /* Pods_FactiblyTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D24B8505250ABCB0007CD186 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61FDC9C6BD684EBA1BEA5766 /* Pods_Factibly_FactiblyUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		79AD786472BBE17EDC9F90FA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FADFAD470C3A7884FC0FD684 /* Pods_Factibly.framework */,
+				5AFE891205B352072C108440 /* Pods_Factibly_FactiblyUITests.framework */,
+				9BE4BF8FDE4D5AE6CFEF3B26 /* Pods_FactiblyTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D24B84DE250ABCAC007CD186 = {
+			isa = PBXGroup;
+			children = (
+				D24B84E9250ABCAC007CD186 /* Factibly */,
+				D24B8500250ABCB0007CD186 /* FactiblyTests */,
+				D24B850B250ABCB0007CD186 /* FactiblyUITests */,
+				D24B84E8250ABCAC007CD186 /* Products */,
+				F5D258EB7BABEA841FCB9DCD /* Pods */,
+				79AD786472BBE17EDC9F90FA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D24B84E8250ABCAC007CD186 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D24B84E7250ABCAC007CD186 /* Factibly.app */,
+				D24B84FD250ABCB0007CD186 /* FactiblyTests.xctest */,
+				D24B8508250ABCB0007CD186 /* FactiblyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D24B84E9250ABCAC007CD186 /* Factibly */ = {
+			isa = PBXGroup;
+			children = (
+				D242590A250BC9800055D171 /* GoogleService-Info.plist */,
+				D24B851A250ACE15007CD186 /* MaterialRepresentables */,
+				D24B84EA250ABCAC007CD186 /* AppDelegate.swift */,
+				D24B84EC250ABCAC007CD186 /* SceneDelegate.swift */,
+				D24B84EE250ABCAC007CD186 /* ContentView.swift */,
+				D24B84F0250ABCB0007CD186 /* Assets.xcassets */,
+				D24B84F5250ABCB0007CD186 /* LaunchScreen.storyboard */,
+				D24B84F8250ABCB0007CD186 /* Info.plist */,
+				D24B84F2250ABCB0007CD186 /* Preview Content */,
+			);
+			path = Factibly;
+			sourceTree = "<group>";
+		};
+		D24B84F2250ABCB0007CD186 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D24B84F3250ABCB0007CD186 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D24B8500250ABCB0007CD186 /* FactiblyTests */ = {
+			isa = PBXGroup;
+			children = (
+				D24B8501250ABCB0007CD186 /* FactiblyTests.swift */,
+				D24B8503250ABCB0007CD186 /* Info.plist */,
+			);
+			path = FactiblyTests;
+			sourceTree = "<group>";
+		};
+		D24B850B250ABCB0007CD186 /* FactiblyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D24B850C250ABCB0007CD186 /* FactiblyUITests.swift */,
+				D24B850E250ABCB0007CD186 /* Info.plist */,
+			);
+			path = FactiblyUITests;
+			sourceTree = "<group>";
+		};
+		D24B851A250ACE15007CD186 /* MaterialRepresentables */ = {
+			isa = PBXGroup;
+			children = (
+				D2F0B079250AE7E00052F741 /* BottomNavigationBar.swift */,
+				D2F0B07B250AF6BF0052F741 /* SearchBar.swift */,
+			);
+			path = MaterialRepresentables;
+			sourceTree = "<group>";
+		};
+		F5D258EB7BABEA841FCB9DCD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				658AD872C7CEDBEC2CCD5265 /* Pods-Factibly.debug.xcconfig */,
+				CD8FBA4DA2CD8DC3A5D90C9E /* Pods-Factibly.release.xcconfig */,
+				07EB79701593ED3A442B489F /* Pods-Factibly-FactiblyUITests.debug.xcconfig */,
+				47956A02E4F72CF04FD952DD /* Pods-Factibly-FactiblyUITests.release.xcconfig */,
+				1893C921621D23FDB9E800FE /* Pods-FactiblyTests.debug.xcconfig */,
+				FB41607591E11BD7A7976297 /* Pods-FactiblyTests.release.xcconfig */,
+				F76B36F46060B3BA885FE129 /* Pods-Factibly.debug (development).xcconfig */,
+				B26EB5838AA42654BFB34E55 /* Pods-Factibly.debug (production).xcconfig */,
+				0EC439207AC5E617E3790460 /* Pods-Factibly.debug (staging).xcconfig */,
+				0339495CE169CDCE4B9940CD /* Pods-Factibly.release (production).xcconfig */,
+				46F618F7CB00533575009B81 /* Pods-Factibly.release (staging).xcconfig */,
+				8D9EF10B33B341808A5A5272 /* Pods-Factibly.release (development).xcconfig */,
+				F1AABF54568964BB6FC6141B /* Pods-Factibly-FactiblyUITests.debug (development).xcconfig */,
+				0A7EA4254E85EBF2E29900FD /* Pods-Factibly-FactiblyUITests.debug (production).xcconfig */,
+				5563424B23BEDF96B348DF4B /* Pods-Factibly-FactiblyUITests.debug (staging).xcconfig */,
+				5E28C65B61EA52876F8A8D12 /* Pods-Factibly-FactiblyUITests.release (production).xcconfig */,
+				B101A73E448F3B900BA0DBEF /* Pods-Factibly-FactiblyUITests.release (staging).xcconfig */,
+				5A8E9F755DBF6A78DFB76527 /* Pods-Factibly-FactiblyUITests.release (development).xcconfig */,
+				F7759F9CBA730FDE0EB1B0D5 /* Pods-FactiblyTests.debug (development).xcconfig */,
+				43E79A31D7267367047FE984 /* Pods-FactiblyTests.debug (production).xcconfig */,
+				441EC4B81BBEEBEF173D6166 /* Pods-FactiblyTests.debug (staging).xcconfig */,
+				D87A8A3F195653CFB81EF434 /* Pods-FactiblyTests.release (production).xcconfig */,
+				79CEA5DF3A9A051982B4E220 /* Pods-FactiblyTests.release (staging).xcconfig */,
+				C3E858ACC22542956375BF6F /* Pods-FactiblyTests.release (development).xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D24B84E6250ABCAC007CD186 /* Factibly */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D24B8511250ABCB0007CD186 /* Build configuration list for PBXNativeTarget "Factibly" */;
+			buildPhases = (
+				A5E7FB5898481E4282134EB3 /* [CP] Check Pods Manifest.lock */,
+				D2F0B078250AD72B0052F741 /* Generate Apollo GraphQL Schema */,
+				D2F0B077250AD6ED0052F741 /* Generate Apollo GraphQL API */,
+				D24B84E3250ABCAC007CD186 /* Sources */,
+				D24B84E4250ABCAC007CD186 /* Frameworks */,
+				D24B84E5250ABCAC007CD186 /* Resources */,
+				C43C0359CE85E20BF3DA6C0B /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Factibly;
+			productName = Factibly;
+			productReference = D24B84E7250ABCAC007CD186 /* Factibly.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D24B84FC250ABCB0007CD186 /* FactiblyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D24B8514250ABCB0007CD186 /* Build configuration list for PBXNativeTarget "FactiblyTests" */;
+			buildPhases = (
+				C604A8313DF3411AFBEAC5A1 /* [CP] Check Pods Manifest.lock */,
+				D24B84F9250ABCB0007CD186 /* Sources */,
+				D24B84FA250ABCB0007CD186 /* Frameworks */,
+				D24B84FB250ABCB0007CD186 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D24B84FF250ABCB0007CD186 /* PBXTargetDependency */,
+			);
+			name = FactiblyTests;
+			productName = FactiblyTests;
+			productReference = D24B84FD250ABCB0007CD186 /* FactiblyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D24B8507250ABCB0007CD186 /* FactiblyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D24B8517250ABCB0007CD186 /* Build configuration list for PBXNativeTarget "FactiblyUITests" */;
+			buildPhases = (
+				EABD5A07DED53D8007CC98CE /* [CP] Check Pods Manifest.lock */,
+				D24B8504250ABCB0007CD186 /* Sources */,
+				D24B8505250ABCB0007CD186 /* Frameworks */,
+				D24B8506250ABCB0007CD186 /* Resources */,
+				12F04279BDDB08B24C2E3711 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D24B850A250ABCB0007CD186 /* PBXTargetDependency */,
+			);
+			name = FactiblyUITests;
+			productName = FactiblyUITests;
+			productReference = D24B8508250ABCB0007CD186 /* FactiblyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D24B84DF250ABCAC007CD186 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1170;
+				LastUpgradeCheck = 1170;
+				ORGANIZATIONNAME = Factibly;
+				TargetAttributes = {
+					D24B84E6250ABCAC007CD186 = {
+						CreatedOnToolsVersion = 11.7;
+					};
+					D24B84FC250ABCB0007CD186 = {
+						CreatedOnToolsVersion = 11.7;
+						TestTargetID = D24B84E6250ABCAC007CD186;
+					};
+					D24B8507250ABCB0007CD186 = {
+						CreatedOnToolsVersion = 11.7;
+						TestTargetID = D24B84E6250ABCAC007CD186;
+					};
+				};
+			};
+			buildConfigurationList = D24B84E2250ABCAC007CD186 /* Build configuration list for PBXProject "Factibly" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D24B84DE250ABCAC007CD186;
+			productRefGroup = D24B84E8250ABCAC007CD186 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D24B84E6250ABCAC007CD186 /* Factibly */,
+				D24B84FC250ABCB0007CD186 /* FactiblyTests */,
+				D24B8507250ABCB0007CD186 /* FactiblyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D24B84E5250ABCAC007CD186 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D24B84F7250ABCB0007CD186 /* LaunchScreen.storyboard in Resources */,
+				D242590B250BC9800055D171 /* GoogleService-Info.plist in Resources */,
+				D24B84F4250ABCB0007CD186 /* Preview Assets.xcassets in Resources */,
+				D24B84F1250ABCB0007CD186 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D24B84FB250ABCB0007CD186 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D24B8506250ABCB0007CD186 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		12F04279BDDB08B24C2E3711 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Factibly-FactiblyUITests/Pods-Factibly-FactiblyUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5E7FB5898481E4282134EB3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Factibly-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C43C0359CE85E20BF3DA6C0B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Factibly/Pods-Factibly-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Factibly/Pods-Factibly-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Factibly/Pods-Factibly-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C604A8313DF3411AFBEAC5A1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FactiblyTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2F0B077250AD6ED0052F741 /* Generate Apollo GraphQL API */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Apollo GraphQL API";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# SCRIPT_PATH=\"${PODS_ROOT}/Apollo/scripts\"\n# cd \"${SRCROOT}/${TARGET_NAME}\"\n# \"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n\n";
+		};
+		D2F0B078250AD72B0052F741 /* Generate Apollo GraphQL Schema */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Apollo GraphQL Schema";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nSCRIPT_PATH=\"${PODS_ROOT}/Apollo/scripts\"\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=http://localhost:8000/graphql schema.json\n";
+		};
+		EABD5A07DED53D8007CC98CE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Factibly-FactiblyUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D24B84E3250ABCAC007CD186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D24B84EB250ABCAC007CD186 /* AppDelegate.swift in Sources */,
+				D2F0B07A250AE7E00052F741 /* BottomNavigationBar.swift in Sources */,
+				D2F0B07C250AF6BF0052F741 /* SearchBar.swift in Sources */,
+				D24B84ED250ABCAC007CD186 /* SceneDelegate.swift in Sources */,
+				D24B84EF250ABCAC007CD186 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D24B84F9250ABCB0007CD186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D24B8502250ABCB0007CD186 /* FactiblyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D24B8504250ABCB0007CD186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D24B850D250ABCB0007CD186 /* FactiblyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D24B84FF250ABCB0007CD186 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D24B84E6250ABCAC007CD186 /* Factibly */;
+			targetProxy = D24B84FE250ABCB0007CD186 /* PBXContainerItemProxy */;
+		};
+		D24B850A250ABCB0007CD186 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D24B84E6250ABCAC007CD186 /* Factibly */;
+			targetProxy = D24B8509250ABCB0007CD186 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D24B84F5250ABCB0007CD186 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D24B84F6250ABCB0007CD186 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D24258FA250BB77D0055D171 /* Debug (Staging) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug (Staging)";
+		};
+		D24258FB250BB77D0055D171 /* Debug (Staging) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EC439207AC5E617E3790460 /* Pods-Factibly.debug (staging).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Factibly/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Factibly/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.Factibly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug (Staging)";
+		};
+		D24258FC250BB77D0055D171 /* Debug (Staging) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 441EC4B81BBEEBEF173D6166 /* Pods-FactiblyTests.debug (staging).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Factibly.app/Factibly";
+			};
+			name = "Debug (Staging)";
+		};
+		D24258FD250BB77D0055D171 /* Debug (Staging) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5563424B23BEDF96B348DF4B /* Pods-Factibly-FactiblyUITests.debug (staging).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Factibly;
+			};
+			name = "Debug (Staging)";
+		};
+		D24258FE250BB79A0055D171 /* Debug (Production) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug (Production)";
+		};
+		D24258FF250BB79A0055D171 /* Debug (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B26EB5838AA42654BFB34E55 /* Pods-Factibly.debug (production).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Factibly/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Factibly/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.Factibly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug (Production)";
+		};
+		D2425900250BB79A0055D171 /* Debug (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 43E79A31D7267367047FE984 /* Pods-FactiblyTests.debug (production).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Factibly.app/Factibly";
+			};
+			name = "Debug (Production)";
+		};
+		D2425901250BB79A0055D171 /* Debug (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A7EA4254E85EBF2E29900FD /* Pods-Factibly-FactiblyUITests.debug (production).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Factibly;
+			};
+			name = "Debug (Production)";
+		};
+		D2425902250BB7AE0055D171 /* Release (Development) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release (Development)";
+		};
+		D2425903250BB7AE0055D171 /* Release (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D9EF10B33B341808A5A5272 /* Pods-Factibly.release (development).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Factibly/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Factibly/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.Factibly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release (Development)";
+		};
+		D2425904250BB7AE0055D171 /* Release (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3E858ACC22542956375BF6F /* Pods-FactiblyTests.release (development).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Factibly.app/Factibly";
+			};
+			name = "Release (Development)";
+		};
+		D2425905250BB7AE0055D171 /* Release (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A8E9F755DBF6A78DFB76527 /* Pods-Factibly-FactiblyUITests.release (development).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Factibly;
+			};
+			name = "Release (Development)";
+		};
+		D2425906250BB7B50055D171 /* Release (Staging) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release (Staging)";
+		};
+		D2425907250BB7B50055D171 /* Release (Staging) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46F618F7CB00533575009B81 /* Pods-Factibly.release (staging).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Factibly/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Factibly/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.Factibly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release (Staging)";
+		};
+		D2425908250BB7B50055D171 /* Release (Staging) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79CEA5DF3A9A051982B4E220 /* Pods-FactiblyTests.release (staging).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Factibly.app/Factibly";
+			};
+			name = "Release (Staging)";
+		};
+		D2425909250BB7B50055D171 /* Release (Staging) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B101A73E448F3B900BA0DBEF /* Pods-Factibly-FactiblyUITests.release (staging).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Factibly;
+			};
+			name = "Release (Staging)";
+		};
+		D24B850F250ABCB0007CD186 /* Debug (Development) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug (Development)";
+		};
+		D24B8510250ABCB0007CD186 /* Release (Production) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release (Production)";
+		};
+		D24B8512250ABCB0007CD186 /* Debug (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F76B36F46060B3BA885FE129 /* Pods-Factibly.debug (development).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Factibly/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Factibly/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.Factibly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug (Development)";
+		};
+		D24B8513250ABCB0007CD186 /* Release (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0339495CE169CDCE4B9940CD /* Pods-Factibly.release (production).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Factibly/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Factibly/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.Factibly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release (Production)";
+		};
+		D24B8515250ABCB0007CD186 /* Debug (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7759F9CBA730FDE0EB1B0D5 /* Pods-FactiblyTests.debug (development).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Factibly.app/Factibly";
+			};
+			name = "Debug (Development)";
+		};
+		D24B8516250ABCB0007CD186 /* Release (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D87A8A3F195653CFB81EF434 /* Pods-FactiblyTests.release (production).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Factibly.app/Factibly";
+			};
+			name = "Release (Production)";
+		};
+		D24B8518250ABCB0007CD186 /* Debug (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1AABF54568964BB6FC6141B /* Pods-Factibly-FactiblyUITests.debug (development).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Factibly;
+			};
+			name = "Debug (Development)";
+		};
+		D24B8519250ABCB0007CD186 /* Release (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E28C65B61EA52876F8A8D12 /* Pods-Factibly-FactiblyUITests.release (production).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FactiblyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.factibly.FactiblyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Factibly;
+			};
+			name = "Release (Production)";
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D24B84E2250ABCAC007CD186 /* Build configuration list for PBXProject "Factibly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D24B850F250ABCB0007CD186 /* Debug (Development) */,
+				D24258FE250BB79A0055D171 /* Debug (Production) */,
+				D24258FA250BB77D0055D171 /* Debug (Staging) */,
+				D24B8510250ABCB0007CD186 /* Release (Production) */,
+				D2425906250BB7B50055D171 /* Release (Staging) */,
+				D2425902250BB7AE0055D171 /* Release (Development) */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release (Production)";
+		};
+		D24B8511250ABCB0007CD186 /* Build configuration list for PBXNativeTarget "Factibly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D24B8512250ABCB0007CD186 /* Debug (Development) */,
+				D24258FF250BB79A0055D171 /* Debug (Production) */,
+				D24258FB250BB77D0055D171 /* Debug (Staging) */,
+				D24B8513250ABCB0007CD186 /* Release (Production) */,
+				D2425907250BB7B50055D171 /* Release (Staging) */,
+				D2425903250BB7AE0055D171 /* Release (Development) */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release (Production)";
+		};
+		D24B8514250ABCB0007CD186 /* Build configuration list for PBXNativeTarget "FactiblyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D24B8515250ABCB0007CD186 /* Debug (Development) */,
+				D2425900250BB79A0055D171 /* Debug (Production) */,
+				D24258FC250BB77D0055D171 /* Debug (Staging) */,
+				D24B8516250ABCB0007CD186 /* Release (Production) */,
+				D2425908250BB7B50055D171 /* Release (Staging) */,
+				D2425904250BB7AE0055D171 /* Release (Development) */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release (Production)";
+		};
+		D24B8517250ABCB0007CD186 /* Build configuration list for PBXNativeTarget "FactiblyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D24B8518250ABCB0007CD186 /* Debug (Development) */,
+				D2425901250BB79A0055D171 /* Debug (Production) */,
+				D24258FD250BB77D0055D171 /* Debug (Staging) */,
+				D24B8519250ABCB0007CD186 /* Release (Production) */,
+				D2425909250BB7B50055D171 /* Release (Staging) */,
+				D2425905250BB7AE0055D171 /* Release (Development) */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release (Production)";
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D24B84DF250ABCAC007CD186 /* Project object */;
+}

@@ -15,6 +15,9 @@ target 'Factibly' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Validator'
 
+  pod 'Firebase/Analytics'
+  pod 'Firebase/RemoteConfig'
+
   target 'FactiblyTests' do
     inherit! :search_paths
     # Pods for testing
@@ -25,3 +28,8 @@ target 'Factibly' do
   end
 
 end
+
+#plugin 'cocoapods-keys',
+#  project: 'Factibly',
+#  target: 'Factibly',
+#  keys: ['RollbarPostClientItemAccessToken']

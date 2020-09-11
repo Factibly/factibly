@@ -16,11 +16,10 @@ import {
 
 interface SocialMedium {
   nameId: string;
-  nameDefault: string;
   icon: IconDefinition;
   starter: string;
-  urlQueryParamKey: string;
-  otherQueryParams?: string[];
+  urlSearchParamKey: string;
+  otherSearchParams?: string[];
 }
 
 interface SocialMedia {
@@ -47,106 +46,93 @@ const socialMedia = (
 ): SocialMedia => ({
   email: {
     nameId: "general.social.email",
-    nameDefault: "Email",
     icon: faEnvelope,
     starter: "mailto:",
-    urlQueryParamKey: "body",
-    otherQueryParams: [`subject=${title}`],
+    urlSearchParamKey: "body",
+    otherSearchParams: [`subject=${title}`],
   },
   facebook: {
     nameId: "general.social.facebook",
-    nameDefault: "Facebook",
     icon: faFacebook,
     starter: "https://facebook.com/sharer/sharer.php",
-    urlQueryParamKey: "u",
+    urlSearchParamKey: "u",
   },
   line: {
     nameId: "general.social.line",
-    nameDefault: "LINE",
     icon: faLine,
     starter: "https://social-plugins.line.me/lineit/share",
-    urlQueryParamKey: "url",
-    otherQueryParams: [`text=${title}`],
+    urlSearchParamKey: "url",
+    otherSearchParams: [`text=${title}`],
   },
   linkedin: {
     nameId: "general.social.linkedin",
-    nameDefault: "LinkedIn",
     icon: faLinkedin,
     starter: "https://linkedin.com/shareArticle",
-    urlQueryParamKey: "url",
-    otherQueryParams: ["mini=true", `title=${title}`, `source=${url}`],
+    urlSearchParamKey: "url",
+    otherSearchParams: ["mini=true", `title=${title}`, `source=${url}`],
   },
   pocket: {
     nameId: "general.social.pocket",
-    nameDefault: "Pocket",
     icon: faGetPocket,
     starter: "https://getpocket.com/save",
-    urlQueryParamKey: "url",
-    otherQueryParams: [`title=${title}`],
+    urlSearchParamKey: "url",
+    otherSearchParams: [`title=${title}`],
   },
   reddit: {
     nameId: "general.social.reddit",
-    nameDefault: "Reddit",
     icon: faReddit,
     starter: "https://reddit.com/submit",
-    urlQueryParamKey: "url",
-    otherQueryParams: [`title=${title}`],
+    urlSearchParamKey: "url",
+    otherSearchParams: [`title=${title}`],
   },
   telegram: {
     nameId: "general.social.telegram",
-    nameDefault: "Telegram",
     icon: faTelegram,
     starter: "https://telegram.me/share/",
-    urlQueryParamKey: "url",
-    otherQueryParams: [`text=${body}`],
+    urlSearchParamKey: "url",
+    otherSearchParams: [`text=${body}`],
   },
   tumblr: {
     nameId: "general.social.tumblr",
-    nameDefault: "Tumblr",
     icon: faTumblr,
     starter: "https://www.tumblr.com/widgets/share/tool",
-    urlQueryParamKey: "canonicalUrl",
-    otherQueryParams: [`title=${title}`, "posttype=link"],
+    urlSearchParamKey: "canonicalUrl",
+    otherSearchParams: [`title=${title}`, "posttype=link"],
   },
   twitter: {
     nameId: "general.social.twitter",
-    nameDefault: "Twitter",
     icon: faTwitter,
     starter: "https://twitter.com/intent/tweet",
-    urlQueryParamKey: "url",
-    otherQueryParams: [`text=${body}`],
+    urlSearchParamKey: "url",
+    otherSearchParams: [`text=${body}`],
   },
   viber: {
     nameId: "general.social.viber",
-    nameDefault: "Viber",
     icon: faViber,
     starter: "viber://forward",
-    urlQueryParamKey: "url",
-    otherQueryParams: [`text=${body} ${url}`],
+    urlSearchParamKey: "url",
+    otherSearchParams: [`text=${body} ${url}`],
   },
   vk: {
     nameId: "general.social.vk",
-    nameDefault: "VK",
     icon: faVk,
     starter: "https://vk.com/share.php",
-    urlQueryParamKey: "url",
-    otherQueryParams: [`title=${title}`, "no_parse=0", "no_vk_links=1"],
+    urlSearchParamKey: "url",
+    otherSearchParams: [`title=${title}`, "no_parse=0", "no_vk_links=1"],
   },
   weibo: {
     nameId: "general.social.weibo",
-    nameDefault: "Weibo",
     icon: faWeibo,
     starter: "http://service.weibo.com/share/share.php",
-    urlQueryParamKey: "url",
-    otherQueryParams: [`title=${title}`],
+    urlSearchParamKey: "url",
+    otherSearchParams: [`title=${title}`],
   },
   whatsapp: {
     nameId: "general.social.whatsapp",
-    nameDefault: "WhatsApp",
     icon: faWhatsapp,
     starter: `https://${isBrowser ? "web" : "api"}.whatsapp.com/send`,
-    urlQueryParamKey: "url",
-    otherQueryParams: [`text=${body} ${url}`],
+    urlSearchParamKey: "url",
+    otherSearchParams: [`text=${body} ${url}`],
   },
 });
 

@@ -182,15 +182,13 @@ const LegalContact = () => {
           The usage of third-party sources for Factibly services is protected as a form of fair dealing for the purpose
           of "criticism or review" under section 29.1 of the{" "}
           <cite>
-            <Link color="textPrimary" href="https://laws-lois.justice.gc.ca/eng/acts/c-42/FullText.html ">
+            <Link href="https://laws-lois.justice.gc.ca/eng/acts/c-42/FullText.html ">
               Copyright Act (R.S.C., 1985, c. C-42)
             </Link>
           </cite>{" "}
           in Canada, and as a form of fair use for the purposes of "criticism" and "comment" under section 107 of the{" "}
           <cite>
-            <Link color="textPrimary" href="https://www.copyright.gov/title17/">
-              Copyright Act of 1976 (Pub. L. No. 94-553)
-            </Link>
+            <Link href="https://www.copyright.gov/title17/">Copyright Act of 1976 (Pub. L. No. 94-553)</Link>
           </cite>{" "}
           in the United States.
         </Typography>

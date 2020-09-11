@@ -15,5 +15,5 @@ export abstract class BaseFormValidation<T> {
     }
   }
 
-  abstract validate(activeStep?: number): any;
+  abstract validate(activeStep?: number): FormikErrors<T>;
 }

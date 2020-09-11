@@ -6,7 +6,7 @@
 
 #include "dependencies/nlohmann/json.hpp"
 #include "dependencies/vincentlaucsb/csv.hpp"
-#include "fake_check.hpp"
+#include "factibly.hpp"
 
 #define VERSION 1.0
 #define AUTHOR "Jadon"
@@ -14,7 +14,7 @@
 // using namespace std;
 using json = nlohmann::json;
 
-const std::string fakecheck::i18n::program_help_text = R"(
+const std::string factibly::i18n::program_help_text = R"(
   USAGE: ./i18n [-h] [-c] [-j] [-i path] [-o path]
   ---------------------------------------------------------------------------------------------------------
   |  FLAG  |  DESCRIPTION                                              |  ARGUMENT             |  DEFAULT |
@@ -34,7 +34,7 @@ const std::string fakecheck::i18n::program_help_text = R"(
       FILE WILL BE LOST IN THE PROCESS!
 )";
 
-void fakecheck::i18n::messages_csv_to_json(const std::string i_name, const std::string o_name) {
+void factibly::i18n::messages_csv_to_json(const std::string i_name, const std::string o_name) {
   // std::stringstream j_stream;
   json j;
   csv::CSVReader reader(i_name);
@@ -64,14 +64,14 @@ void fakecheck::i18n::messages_csv_to_json(const std::string i_name, const std::
   o_file.close();
 }
 
-void fakecheck::i18n::messages_json_to_csv(const std::string i_name, const std::string o_name) {
+void factibly::i18n::messages_json_to_csv(const std::string i_name, const std::string o_name) {
   std::ifstream i_file(i_name);
   json j;
   i_file >> j;
   i_file.close();
 
-  fakecheck::i18n::fc_locale_name_set locale_name_set;
-  fakecheck::i18n::fc_message_map rows;
+  factibly::i18n::fc_locale_name_set locale_name_set;
+  factibly::i18n::fc_message_map rows;
   for (auto const &[locale, messages] : j.items()) {
     locale_name_set.insert(locale);
     for (auto const &[id, text] : messages.items()) {
@@ -80,7 +80,7 @@ void fakecheck::i18n::messages_json_to_csv(const std::string i_name, const std::
     }
   }
 
-  fakecheck::i18n::inspect_locale_messages(rows, locale_name_set);
+  factibly::i18n::inspect_locale_messages(rows, locale_name_set);
 
   std::ofstream o_file(o_name);
   o_file.clear();
@@ -103,13 +103,13 @@ void fakecheck::i18n::messages_json_to_csv(const std::string i_name, const std::
   o_file.close();
 }
 
-const bool fakecheck::i18n::inspect_locale_messages(
-    const fakecheck::i18n::fc_message_map message_map,
-    const fakecheck::i18n::fc_locale_name_set locale_name_set) {
+const bool factibly::i18n::inspect_locale_messages(
+    const factibly::i18n::fc_message_map message_map,
+    const factibly::i18n::fc_locale_name_set locale_name_set) {
   bool good = true;
 
   for (auto const &[message_id, locale_map] : message_map) {
-    for (fakecheck::i18n::fc_locale_name const &locale_name : locale_name_set) {
+    for (factibly::i18n::fc_locale_name const &locale_name : locale_name_set) {
       if (!locale_map.count(locale_name)) {  // or std::map::contains with C++20 (either way, O(log(n)) time complexity)
         std::cout << "WARNING: message \"" << message_id << "\" not found for locale \"" << locale_name << "\""
                   << "\n";
@@ -124,7 +124,7 @@ const bool fakecheck::i18n::inspect_locale_messages(
 
 int main(int argc, char *argv[]) {
   if (__cplusplus < 201703L) {
-    std::cerr << "requires C++17 (201703L) or newer, currently using " << fakecheck::get_friendly_cpp_standard() << std::endl;
+    std::cerr << "requires C++17 (201703L) or newer, currently using " << factibly::get_friendly_cpp_standard() << std::endl;
     return 1;
   }
 
@@ -149,7 +149,7 @@ int main(int argc, char *argv[]) {
         o_name = optarg;
         break;
       case 'h':
-        std::cout << fakecheck::i18n::program_help_text << std::endl;
+        std::cout << factibly::i18n::program_help_text << std::endl;
         return 0;
       case '?':
         if (optopt == 'i' || optopt == 'o') {
@@ -182,9 +182,9 @@ int main(int argc, char *argv[]) {
     std::cerr << "flag conflict, cannot convert to csv and json at the same time" << std::endl;
     return 1;
   } else if (as_csv) {
-    fakecheck::i18n::messages_csv_to_json(i_name, o_name);
+    factibly::i18n::messages_csv_to_json(i_name, o_name);
   } else if (as_json) {
-    fakecheck::i18n::messages_json_to_csv(i_name, o_name);
+    factibly::i18n::messages_json_to_csv(i_name, o_name);
   }
 
   return 0;

@@ -16,7 +16,7 @@ describe("Support Reducers", () => {
         ticketId: "30197",
         success: true,
         submitted: true,
-        messageId: "support.banner.msg.success",
+        messageId: "support.banner.msg.submission.success",
       },
     };
     expect(supportReducers(undefined, testAction)).toEqual(expectedState);
@@ -36,7 +36,7 @@ describe("Support Reducers", () => {
         ticketId: null,
         submitted: true,
         success: false,
-        messageId: "support.banner.msg.fail",
+        messageId: "support.banner.msg.submission.error",
       },
     };
     expect(supportReducers(undefined, testAction)).toEqual(expectedState);

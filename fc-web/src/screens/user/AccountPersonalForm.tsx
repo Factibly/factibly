@@ -12,15 +12,15 @@ import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { RegistrationFormValues, retrieveMinimumRequiredAge } from "../../utils/forms/registration-form-helper";
 import { getSortedCountries } from "../../utils/string-utils";
 
-interface UserPersonalFormProps {
+interface AccountPersonalFormProps {
   errors: FormikErrors<RegistrationFormValues>;
   onBack: () => void;
-  onNext: (event: any) => void | undefined;
+  onNext: (event: any) => void;
 }
 
 export var countryNameCodeMap = {};
 
-const AccountPersonalForm = ({ errors, onBack, onNext }: UserPersonalFormProps) => {
+const AccountPersonalForm = ({ errors, onBack, onNext }: AccountPersonalFormProps) => {
   const intl = useIntl();
 
   const { setFieldValue } = useFormikContext();
@@ -53,7 +53,7 @@ const AccountPersonalForm = ({ errors, onBack, onNext }: UserPersonalFormProps) 
         />
         <FormControl variant="outlined">
           <InputLabel htmlFor="country">
-            {intl.formatMessage({ id: "user.registration.form.field.countryRegion" })}
+            {intl.formatMessage({ id: "user.registration.form.field.country" })}
           </InputLabel>
           <Field
             as={Select}
@@ -61,7 +61,7 @@ const AccountPersonalForm = ({ errors, onBack, onNext }: UserPersonalFormProps) 
             variant="outlined"
             name="country"
             autoComplete="country-name"
-            label={intl.formatMessage({ id: "user.registration.form.field.countryRegion" })}
+            label={intl.formatMessage({ id: "user.registration.form.field.country" })}
             native
             aria-required="true"
             aria-describedby="user-registration-country"

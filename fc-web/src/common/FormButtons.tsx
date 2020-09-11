@@ -1,9 +1,9 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { withTheme, WithTheme as WithThemeProps } from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Box, Button, CircularProgress } from "@material-ui/core";
 
-interface FormButtonsProps extends WithThemeProps {
+interface FormButtonsProps {
   primaryText: string;
   onPrimaryClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   secondaryText?: string;
@@ -13,54 +13,64 @@ interface FormButtonsProps extends WithThemeProps {
   loadingText?: string;
 }
 
-class FormButtons extends PureComponent<FormButtonsProps> {
-  render() {
-    const {
-      primaryText,
-      onPrimaryClick,
-      secondaryText,
-      onSecondaryClick,
-      to,
-      isLoading = false,
-      loadingText,
-      theme,
-    } = this.props;
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    button: {
+      margin: theme.spacing(0.5, 0),
+    },
+  })
+);
 
-    const btnStyle = { margin: theme.spacing(0.5, 0) };
+const FormButtons = ({
+  primaryText,
+  onPrimaryClick,
+  secondaryText,
+  onSecondaryClick,
+  to,
+  isLoading = false,
+  loadingText,
+}: FormButtonsProps) => {
+  const classes = useStyles();
 
-    return (
-      <Box>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          onClick={onPrimaryClick}
-          fullWidth
-          disabled={isLoading}
-          style={btnStyle}
-        >
-          {isLoading ? (
-            <>
-              <CircularProgress size={24} />
-              {loadingText && <> &emsp;{loadingText}&hellip;</>}
-            </>
-          ) : (
-            primaryText
-          )}
-        </Button>
-        {secondaryText &&
-          (to ? (
-            <Button component={RouterLink} variant="contained" color="default" to={to} fullWidth style={btnStyle}>
-              {secondaryText}
-            </Button>
-          ) : (
-            <Button variant="contained" color="default" onClick={onSecondaryClick} fullWidth style={btnStyle}>
-              {secondaryText}
-            </Button>
-          ))}
-      </Box>
-    );
-  }
-}
+  return (
+    <Box>
+      <Button
+        className={classes.button}
+        type="submit"
+        variant="contained"
+        color="primary"
+        onClick={onPrimaryClick}
+        fullWidth
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <>
+            <CircularProgress size={24} />
+            {loadingText && <Button> &emsp;{loadingText}&hellip;</Button>}
+          </>
+        ) : (
+          primaryText
+        )}
+      </Button>
+      {secondaryText &&
+        (to ? (
+          <Button
+            className={classes.button}
+            component={RouterLink}
+            to={to}
+            variant="contained"
+            color="default"
+            fullWidth
+          >
+            {secondaryText}
+          </Button>
+        ) : (
+          <Button className={classes.button} variant="contained" color="default" onClick={onSecondaryClick} fullWidth>
+            {secondaryText}
+          </Button>
+        ))}
+    </Box>
+  );
+};
 
-export default withTheme(FormButtons);
+export default FormButtons;

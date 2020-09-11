@@ -31,13 +31,17 @@ export const showTicketSubmissionFail = () => (dispatch: any) => {
   retrieveTicketPayload(false, null, dispatch);
 };
 
-export const submitToAsana = (category: string, topic: string, values: SupportFormValues | undefined) => (
-  dispatch: any
-) => {
+export const submitToAsana = (
+  category: string,
+  topic: string,
+  values: SupportFormValues | undefined,
+  support: boolean = true
+) => (dispatch: any) => {
   if (
     process.env.REACT_APP_ASANA_ACCESS_TOKEN &&
     process.env.REACT_APP_ASANA_WORKSPACE_GID &&
     process.env.REACT_APP_ASANA_SUPPORT_PROJECT_GID &&
+    process.env.REACT_APP_ASANA_FEEDBACK_PROJECT_GID &&
     values
   ) {
     // eslint-disable-next-line max-len
@@ -47,7 +51,9 @@ export const submitToAsana = (category: string, topic: string, values: SupportFo
       completed: false,
       followers: process.env.REACT_APP_ASANA_USERS_GID?.split(" ") ?? [],
       name: `[${category.toUpperCase()}] ${values.title}`,
-      projects: [process.env.REACT_APP_ASANA_SUPPORT_PROJECT_GID],
+      projects: [
+        support ? process.env.REACT_APP_ASANA_SUPPORT_PROJECT_GID : process.env.REACT_APP_ASANA_FEEDBACK_PROJECT_GID,
+      ],
       html_notes,
       workspace: process.env.REACT_APP_ASANA_WORKSPACE_GID,
       options: {

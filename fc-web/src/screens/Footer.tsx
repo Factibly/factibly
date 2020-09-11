@@ -13,11 +13,11 @@ interface FooterProps extends WrappedComponentProps<"intl"> {
   locale: string;
 }
 
-const RecaptchaLegalLink = ({ name, href }) => {
+const RecaptchaLegalLink = ({ nameId, href }) => {
   const intl = useIntl();
   return (
-    <Link color="inherit" href={href}>
-      {intl.formatMessage({ id: `app.recaptcha.${name}.name` })}
+    <Link href={href} color="inherit">
+      {intl.formatMessage({ id: nameId })}
     </Link>
   );
 };
@@ -28,15 +28,15 @@ class Footer extends Component<FooterProps> {
       <Box component="footer" bgcolor={NAVIGATION_BLACK} color="primary.contrastText">
         <Grid container spacing={1}>
           <Grid item xs={12} sm={9} style={{ textAlign: "left" }}>
-            <Link color="inherit" component={RouterLink} to={LEGAL_CONTACT_PATH}>
+            <Link component={RouterLink} to={LEGAL_CONTACT_PATH} color="inherit">
               {this.props.intl.formatMessage({ id: "legal.legal" })}
             </Link>
             &nbsp;&#9679;&nbsp;
-            <Link color="inherit" component={RouterLink} to={LEGAL_PRIVACY_POLICY_PATH}>
+            <Link component={RouterLink} to={LEGAL_PRIVACY_POLICY_PATH} color="inherit">
               {this.props.intl.formatMessage({ id: "legal.privacy" })}
             </Link>
             &nbsp;&#9679;&nbsp;
-            <Link color="inherit" component={RouterLink} to={ACCESSIBILITY_PATH}>
+            <Link component={RouterLink} to={ACCESSIBILITY_PATH} color="inherit">
               {this.props.intl.formatMessage({ id: "legal.accessibility" })}
             </Link>
             {/* &nbsp;&#9679;&nbsp; */}
@@ -55,14 +55,14 @@ class Footer extends Component<FooterProps> {
                   pp: (
                     <RecaptchaLegalLink
                       key="rc-pp-link"
-                      name="pp"
+                      nameId="app.recaptcha.privacyPolicy"
                       href={`https://policies.google.com/privacy?hl=${this.props.locale}`}
                     />
                   ),
                   tos: (
                     <RecaptchaLegalLink
                       key="rc-tos-link"
-                      name="tos"
+                      nameId="app.recaptcha.serviceTerms"
                       href={`https://policies.google.com/terms?hl=${this.props.locale}`}
                     />
                   ),

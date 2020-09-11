@@ -1,21 +1,32 @@
 import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
-import LightTooltip from "../../../common/LightTooltip";
 import FactCheckScoreBar from "./FactCheckScoreBar";
 import FactCheckHighlightCard from "./FactCheckHighlightCard";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Grid, Typography, Button, Accordion, AccordionSummary, List, ListItem, ListItemText } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Button,
+  Link,
+  Accordion,
+  AccordionSummary,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt, faShare, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt, faShare, faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import ReactCountryFlag from "react-country-flag";
+import { BOOKMARKS_PATH } from "../../../static/paths";
 
 interface FactCheckOverviewMobileProps {
   content: any;
   userLoggedIn: boolean;
-  onOpenShareMenu: any;
-  onOpenCitationGenerator: any;
-  onCreateBookmark: any;
+  onOpenShareMenu: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onOpenReferenceGenerator: () => void;
+  onCreateBookmark: () => Promise<void>;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,11 +37,18 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: theme.typography.pxToRem(32),
       },
     },
-    actionButtons: {
-      "& > div": {
+    buttons: {
+      "& > *": {
         margin: theme.spacing(1, 0),
         textTransform: "none",
       },
+    },
+    button: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      color: theme.palette.text.primary,
+      textTransform: "none",
     },
     accordionTop: {
       color: theme.palette.common.black,
@@ -49,6 +67,7 @@ const FactCheckOverviewMobile = ({
   content,
   userLoggedIn,
   onOpenShareMenu,
+  onOpenReferenceGenerator,
   onCreateBookmark,
 }: FactCheckOverviewMobileProps) => {
   const classes = useStyles();
@@ -57,10 +76,6 @@ const FactCheckOverviewMobile = ({
   const [expandedAccordion, setExpandedAccordion] = useState<string | false>("panel1");
   const handleAccordionChange = (panel: string) => (_: React.ChangeEvent<{}>, isExpanded: boolean) =>
     setExpandedAccordion(isExpanded ? panel : false);
-
-  const [openBookmarkTooltip, setOpenBookmarkTooltip] = useState<boolean>(false);
-  const handleOpenBookmarkTooltip = () => setOpenBookmarkTooltip(true);
-  const handleCloseBookmarkTooltip = () => setOpenBookmarkTooltip(false);
 
   const retrieveHighlights = () => {
     return content?.ratingSet
@@ -80,60 +95,59 @@ const FactCheckOverviewMobile = ({
       ));
   };
 
+  const bookmarked = content.isBookmarked || !userLoggedIn;
+
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <FactCheckScoreBar ratingSet={content?.ratingSet} overallScore={content?.overallScore} ratingFontSize={40} />
+        <FactCheckScoreBar ratings={content?.ratingSet} overallScore={content?.overallScore} ratingFontSize={40} />
       </Grid>
-      <Grid item className={classes.actionButtons}>
-        <div>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<FontAwesomeIcon icon={faExternalLinkAlt} />}
-            href={content?.url}
-            target="_blank"
-            rel="noreferrer noopener"
-            fullWidth
-          >
-            {intl.formatMessage({ id: "factCheck.userRatings.action.visitSource" })}
-          </Button>
-        </div>
-        <div>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<FontAwesomeIcon icon={faShare} />}
-            onClick={onOpenShareMenu}
-            fullWidth
-          >
-            {intl.formatMessage({ id: "general.action.share" })}
-          </Button>
-        </div>
-        {userLoggedIn && (
-          <LightTooltip
-            placement="bottom"
-            title={intl.formatMessage({ id: "factCheck.overview.action.bookmarked" })}
-            arrow
-            open={content.isBookmarked && openBookmarkTooltip}
-            onOpen={handleOpenBookmarkTooltip}
-            onClose={handleCloseBookmarkTooltip}
-          >
-            <div>
-              <Button
-                key={`fact-check-bookmarked-${content.isBookmarked}`}
-                variant="contained"
-                color="primary"
-                startIcon={<FontAwesomeIcon icon={faHeart} />}
-                disabled={content.isBookmarked}
-                onClick={onCreateBookmark}
-                fullWidth
-              >
-                {intl.formatMessage({ id: "factCheck.overview.action.bookmark" })}
-              </Button>
-            </div>
-          </LightTooltip>
-        )}
+      <Grid item className={classes.buttons}>
+        <Button
+          className={classes.button}
+          variant="outlined"
+          href={content?.url}
+          target="_blank"
+          rel="noreferrer noopener"
+          startIcon={<FontAwesomeIcon icon={faExternalLinkAlt} />}
+          fullWidth
+        >
+          {intl.formatMessage({ id: "factCheck.userRatings.action.visitSource" })}
+        </Button>
+        <Button
+          className={classes.button}
+          variant="outlined"
+          startIcon={<FontAwesomeIcon icon={faShare} />}
+          onClick={onOpenShareMenu}
+          fullWidth
+        >
+          {intl.formatMessage({ id: "general.action.share" })}
+        </Button>
+        <Button
+          className={classes.button}
+          variant="outlined"
+          startIcon={<FontAwesomeIcon icon={faQuoteLeft} />}
+          onClick={onOpenReferenceGenerator}
+          fullWidth
+        >
+          {intl.formatMessage({ id: "factCheck.cite.action" })}
+        </Button>
+        <Link
+          className={classes.button}
+          key={`fact-check-bookmarked--${bookmarked}`}
+          component={bookmarked ? RouterLink : "button"}
+          variant="button"
+          onClick={bookmarked ? undefined : onCreateBookmark}
+          to={bookmarked ? BOOKMARKS_PATH : ""}
+          style={{ fontSize: "larger" }}
+        >
+          {intl.formatMessage({
+            id:
+              content.isBookmarked && userLoggedIn
+                ? "factCheck.overview.action.bookmarked"
+                : "factCheck.overview.action.bookmark",
+          })}
+        </Link>
       </Grid>
       <Grid item>
         <Accordion expanded={expandedAccordion === "panel1"} onChange={handleAccordionChange("panel1")}>

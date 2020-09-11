@@ -33,7 +33,7 @@ class ConfirmationDialog extends PureComponent<ConfirmationDialogProps> {
       >
         <DialogContent>
           <DialogContentText id="confirmation-dialog-description">
-            {dialogContentText || intl.formatMessage({ id: "general.dialog.confirmation.message" })}
+            {dialogContentText || intl.formatMessage({ id: "general.dialog.confirm" })}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

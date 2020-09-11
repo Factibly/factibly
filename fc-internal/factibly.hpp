@@ -1,5 +1,5 @@
-#ifndef FAKE_CHECK_H_
-#define FAKE_CHECK_H_
+#ifndef FACTIBLY_H_
+#define FACTIBLY_H_
 
 #include <getopt.h>
 
@@ -11,7 +11,8 @@
 #include <map>  // use over std::unordered_map to maintain consistent CSV structure
 #include <unordered_set>
 #include <vector>
-namespace fakecheck {
+
+namespace factibly {
 /* constexpr */ inline const std::string get_friendly_cpp_standard() {  // C++20 and its constexpr on std::string...
   std::string cpp_standard = "";
 
@@ -45,6 +46,6 @@ void messages_csv_to_json(std::string, std::string);
 void messages_json_to_csv(std::string, std::string);
 const bool inspect_locale_messages(fc_message_map, fc_locale_name_set);
 }  // namespace i18n
-}  // namespace fakecheck
+}  // namespace factibly
 
 #endif

@@ -4,8 +4,8 @@ import FlatPaper from "../../../common/FlatPaper";
 import FactCheckRatingHeader from "../user-rating/FactCheckRatingHeader";
 import FactCheckRatingBreakdown from "../user-rating/FactCheckRatingBreakdown";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Card, CardContent } from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+import { Card, CardContent, Typography } from "@material-ui/core";
+import Rating from "@material-ui/lab/Rating";
 import { RatingOrigin } from "../../../static/enums";
 import { findMean } from "../../../utils/number-utils";
 import clsx from "clsx";
@@ -23,18 +23,27 @@ interface FactCheckHighlightCardProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      width: "100%",
       padding: theme.spacing(1, 1, 3),
       borderRadius: theme.spacing(2),
       borderWidth: 2,
     },
-    content: {
-      paddingTop: 0,
-      "& > div:not(:last-child)": {
-        paddingBottom: theme.spacing(2),
+    contentRoot: {
+      paddingTop: 1,
+      paddingBottom: 1,
+      "&:last-child": {
+        paddingBottom: 0,
       },
     },
     countryFlag: {
       fontSize: theme.typography.pxToRem(32),
+    },
+    filler: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
     },
   })
 );
@@ -60,35 +69,40 @@ const FactCheckHighlightCard = ({
       elevation={0}
       inheritBackground
     >
-      <FactCheckRatingHeader displayName={displayName} createdAt={createdAt} country={country} />
-      <CardContent className={classes.content}>
-        <Rating
-          size="large"
-          value={findMean(scores)}
-          precision={0.1}
-          readOnly
-          aria-label={intl.formatMessage({ id: "factCheck.userRatings.rating.aria" })}
-        />
-        <div>{justification}</div>
-        <div>
-          <FactCheckRatingBreakdown
-            displayName={displayName}
-            scores={scores}
-            origin={RatingOrigin.HIGHLIGHTED}
-            style={{ float: "left" }}
+      <div>
+        <FactCheckRatingHeader displayName={displayName} createdAt={createdAt} country={country} />
+        <CardContent classes={{ root: classes.contentRoot }}>
+          <Rating
+            size="large"
+            value={findMean(scores)}
+            precision={0.1}
+            readOnly
+            aria-label={intl.formatMessage({ id: "factCheck.userRatings.rating.aria" })}
           />
-          <div style={{ float: "right" }}>
-            {intl.formatMessage(
-              { id: "factCheck.userRatings.upvoteCount" },
-              { upvoteCount: intl.formatNumber(upvoteCount) }
-            )}
-            <br />
-            {intl.formatMessage(
-              { id: "factCheck.userRatings.downvoteCount" },
-              { downvoteCount: intl.formatNumber(Math.abs(downvoteCount)) }
-            )}
-          </div>
-        </div>
+          <Typography component="p" variant="body2">
+            {justification}
+          </Typography>
+        </CardContent>
+      </div>
+      <div className={classes.filler} />
+      <CardContent classes={{ root: classes.contentRoot }}>
+        <FactCheckRatingBreakdown
+          displayName={displayName}
+          scores={scores}
+          origin={RatingOrigin.HIGHLIGHTED}
+          style={{ float: "left" }}
+        />
+        <Typography component="div" variant="body2" style={{ float: "right" }}>
+          {intl.formatMessage(
+            { id: "factCheck.userRatings.upvoteCount" },
+            { upvoteCount: intl.formatNumber(upvoteCount) }
+          )}
+          <br />
+          {intl.formatMessage(
+            { id: "factCheck.userRatings.downvoteCount" },
+            { downvoteCount: intl.formatNumber(Math.abs(downvoteCount)) }
+          )}
+        </Typography>
       </CardContent>
     </FlatPaper>
   );

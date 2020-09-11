@@ -9,10 +9,10 @@ import FcInput from "../../common/FcInput";
 import FcErrorMessage from "../../common/FcErrorMessage";
 import { RegistrationFormValues } from "../../utils/forms/registration-form-helper";
 
-interface UserPersonalFormProps {
+interface AccountCustomizationFormProps {
   errors: FormikErrors<RegistrationFormValues>;
   onBack: () => void;
-  onSubmit: (event: any) => void | undefined;
+  onSubmit: (event: any) => void;
   avatarEditorRef: (editor: any, image: File | null) => void;
   locale: string;
   prefersDarkMode: boolean;
@@ -25,7 +25,7 @@ const AccountCustomizationForm = ({
   avatarEditorRef,
   locale,
   prefersDarkMode = false,
-}: UserPersonalFormProps) => {
+}: AccountCustomizationFormProps) => {
   const intl = useIntl();
 
   const { setFieldValue } = useFormikContext();

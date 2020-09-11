@@ -10,7 +10,8 @@ export const ACCOUNT_BASE_PATH = "/account";
 export const ACCOUNT_SIGN_IN_PATH = `${ACCOUNT_BASE_PATH}/sign-in`;
 export const ACCOUNT_REGISTER_PATH = `${ACCOUNT_BASE_PATH}/register`;
 
-export const FACT_CHECK_PATH = "/content/:contentId";
+export const FACT_CHECK_BASE_PATH = "/fact-check";
+export const FACT_CHECK_CONTENT_PATH = "/fact-check/:contentId";
 
 export const LEGAL_BASE_PATH = "/legal";
 export const LEGAL_POLICY_PATH = `${LEGAL_BASE_PATH}/:policyName`;

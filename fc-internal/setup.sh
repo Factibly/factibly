@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# FAKECHECK PROJECT SETUP SCRIPT
+# FACTIBLY SETUP SCRIPT
 # Created by Jadon
 # Last updated on July 22, 2020
 
@@ -27,12 +27,12 @@ function display_help {
     -------------------------------------------------------------------------------------------------------------------------
     |  FLAG  |  DESCRIPTION                                          |  ARGUMENT                  |  DEFAULT                |
     |--------|-------------------------------------------------------|----------------------------|-------------------------|
-    |  -h    |  display the help message                             |  N/A                       |  N/A                    |  
-    |  -b    |  install the dependencies via homebrew                |  N/A                       |  N/A                    |  
-    |  -p    |  resolve common psycopg2 installation issue           |  N/A                       |  N/A                    |  
-    |  -c    |  0: no clone, 1: public repos, 2: private repos       |  integer [0,1,2]           |  0                      |  
-    |  -w    |  set the path for the web front-end code (fc-web)     |  fc-web directory path     |  ./Fakenews-Web         |  
-    |  -a    |  set the path for the back-end code (fc-api)          |  fc-api directory path     |  ./Fakenews-backend     |  
+    |  -h    |  display the help message                             |  N/A                       |  N/A                    |
+    |  -b    |  install the dependencies via homebrew                |  N/A                       |  N/A                    |
+    |  -p    |  resolve common psycopg2 installation issue           |  N/A                       |  N/A                    |
+    |  -c    |  0: no clone, 1: public repos, 2: private repos       |  integer [0,1,2]           |  0                      |
+    |  -w    |  set the path for the web front-end code (fc-web)     |  fc-web directory path     |  ./Fakenews-Web         |
+    |  -a    |  set the path for the back-end code (fc-api)          |  fc-api directory path     |  ./Fakenews-backend     |
     -------------------------------------------------------------------------------------------------------------------------
     * The paths can be either absolute or relative
   "
@@ -51,7 +51,7 @@ do
     h) display_help; exit 0;;
     b) BREW_FLOW=1;;
     p) RESOLVE_PSYCOGP2=1;;
-    c) CLONE_REPO=$OPTARG;; 
+    c) CLONE_REPO=$OPTARG;;
     u) REMOTE_BRANCH=$OPTARG;;
     w) WEB_DIR=$OPTARG;;
     a) API_DIR=$OPTARG;;
@@ -71,11 +71,11 @@ if [ $BREW_FLOW -ge 1 ] ; then
 
   PYTHON_STANDARD=$(python --version)
   PYTHON_FALLBACK=$(python3 --version)
-  PYTHON_3_7_REGEX="^Python3.7.*$" 
+  PYTHON_3_7_REGEX="^Python3.7.*$"
   if [[ ! $PYTHON_STANDARD =~ $PYTHON_3_7_REGEX} ]] || [[ ! $PYTHON_FALLBACK =~ $PYTHON_3_7_REGEX ]] ; then
     brew install python@3.7
     export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-  fi 
+  fi
 
   which -s git
   if [[ $? != 0 ]] ; then
@@ -115,7 +115,7 @@ if [ $CLONE_REPO -eq 1 ] ; then
 elif [ $CLONE_REPO -eq 2 ] ; then
   git clone https://github.com/Sapphire-Labs/Fakenews-Web.git
   git clone https://github.com/Sapphire-Labs/Fakenews-backend.git
-else 
+else
   echo "WARNING: This script has assumed that you have a copy of the source code for this project and therefore did not run git clone (see the -g flag options)"
 fi
 

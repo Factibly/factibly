@@ -22,7 +22,7 @@ const matchMeterText = function matchMeterText(expected: string) {
 const meetPasswordRequirement = function meetPasswordRequirement(index: number, expectedColour: string) {
   expect(
     wrapper
-      .findWhere(node => node.key() === `#pass-req-${index}`)
+      .findWhere((node: any) => node.key() === `#pass-req-${index}`)
       .find("span")
       .prop("style")
   ).toHaveProperty("backgroundColor", expectedColour);

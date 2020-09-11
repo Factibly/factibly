@@ -11,7 +11,7 @@ import { UpvoteRatingInput } from "./../../../__generated__/globalTypes";
 
 export interface UpvoteRating_upvoteRating_rating {
   __typename: "RatingType";
-  upvoteCount: number;
+  upvoteCount: number | null;
 }
 
 export interface UpvoteRating_upvoteRating {

@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { changeWebsiteLanguage } from "../../../store/settings/actions";
+import { changeWebsiteLocale } from "../../../store/settings/actions";
 import { RootState } from "../../../store/rootReducer";
 import { injectIntl, WrappedComponentProps } from "react-intl";
 import DropdownMenuItem from "../../../common/DropdownMenuItem";
@@ -9,7 +9,7 @@ import locales from "../../../static/locales";
 
 interface LanguageMenuProps extends WrappedComponentProps<"intl"> {
   locale: string;
-  changeWebsiteLanguage: (locale: string) => object;
+  changeWebsiteLocale: (locale: string) => object;
   onMenuBack: () => void;
   onMenuDone: () => void;
 }
@@ -29,7 +29,7 @@ class LanguageMenu extends PureComponent<LanguageMenuProps> {
             primary={display}
             selected={bcp === this.props.locale}
             onClick={() => {
-              this.props.changeWebsiteLanguage(bcp);
+              this.props.changeWebsiteLocale(bcp);
               this.props.onMenuDone();
             }}
           />
@@ -41,7 +41,7 @@ class LanguageMenu extends PureComponent<LanguageMenuProps> {
 
 const mapStateToProps = (state: RootState) => ({ locale: state.settingsReducer.locale });
 const mapDispatchToProps = (dispatch: any) => ({
-  changeWebsiteLanguage: (locale: string) => dispatch(changeWebsiteLanguage(locale)),
+  changeWebsiteLocale: (locale: string) => dispatch(changeWebsiteLocale(locale)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(LanguageMenu));

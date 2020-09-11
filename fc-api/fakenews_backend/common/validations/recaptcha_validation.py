@@ -4,7 +4,7 @@ import os
 import requests
 
 
-fail_msg = 'Unsuccessful reCAPTCHA attempt #@app.recaptcha.alert.msg.fail@'
+fail_msg = 'Unsuccessful reCAPTCHA attempt #@app.recaptcha.alert.validation.error@'
 
 
 def validate_recaptcha(version: int, recaptcha_token: str):

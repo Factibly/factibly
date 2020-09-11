@@ -33,7 +33,9 @@ const supportReducers: Reducer<SupportReduxState, SupportReduxAction> = (state =
           submitted: true,
           success: action.payload.success,
           ticketId: action.payload.ticketId,
-          messageId: `support.banner.msg.${action.payload.success ? "success" : "fail"}`,
+          messageId: action.payload.success
+            ? "support.banner.msg.submission.success"
+            : "support.banner.msg.submission.error",
         },
       };
     default:

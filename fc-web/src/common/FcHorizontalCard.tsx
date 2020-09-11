@@ -63,7 +63,7 @@ const FcHorizontalCard = ({ img, header, body, bodyComponent = "p", extra, actio
   const intl = useIntl();
 
   return (
-    <Card className={classes.root} style={style}>
+    <Card className={classes.root} style={{ ...style }}>
       {img && <div className={classes.imgWrapper}>{img}</div>}
       <CardContent classes={{ root: classes.contentRoot }}>
         <div>
@@ -85,10 +85,10 @@ const FcHorizontalCard = ({ img, header, body, bodyComponent = "p", extra, actio
                     <Button
                       key={nameId}
                       className={classes.button}
-                      startIcon={<Icon />}
                       href={href}
                       target="_blank"
                       rel="noreferrer noopener"
+                      startIcon={<Icon />}
                     >
                       {intl.formatMessage({ id: nameId })}
                     </Button>

@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
-import { Link as RouterLink } from "react-router-dom";
+// import { Link as RouterLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { changeDarkMode } from "../../../store/settings/actions";
+import { changePrefersDarkMode } from "../../../store/settings/actions";
 import { RootState } from "../../../store/rootReducer";
 import { injectIntl, WrappedComponentProps } from "react-intl";
 import DropdownMenuItem from "../../../common/DropdownMenuItem";
@@ -13,8 +13,8 @@ import LanguageIcon from "@material-ui/icons/Language";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import HelpIcon from "@material-ui/icons/Help";
-import { SUPPORT_PATH } from "../../../static/paths";
+// import HelpIcon from "@material-ui/icons/Help";
+// import { SUPPORT_PATH } from "../../../static/paths";
 import clsx from "clsx";
 
 interface AccountNavigationMenuProps extends WrappedComponentProps<"intl">, WithStylesProps<typeof styles> {
@@ -23,7 +23,7 @@ interface AccountNavigationMenuProps extends WrappedComponentProps<"intl">, With
   onMenuBack: () => void;
   userLoggedIn: boolean;
   prefersDarkMode: boolean;
-  changeDarkMode: (prefersDarkMode: boolean) => object;
+  changePrefersDarkMode: (prefersDarkMode: boolean) => object;
 }
 
 const styles = createStyles({
@@ -46,7 +46,7 @@ const styles = createStyles({
   },
 });
 class AccountNavigationMenu extends PureComponent<AccountNavigationMenuProps> {
-  handleDarkModeSwitch = () => this.props.changeDarkMode(!this.props.prefersDarkMode);
+  handleDarkModeSwitch = () => this.props.changePrefersDarkMode(!this.props.prefersDarkMode);
 
   render() {
     const { onSwitchMenu, handleLogout, userLoggedIn, prefersDarkMode, classes, intl } = this.props;
@@ -81,18 +81,18 @@ class AccountNavigationMenu extends PureComponent<AccountNavigationMenuProps> {
         >
           <ChevronRightIcon />
         </DropdownMenuItem>
-        <DropdownMenuItem
-          component={RouterLink}
+        {/* <DropdownMenuItem
           button
-          primary={intl.formatMessage({ id: "nav.drawer.item.supportFeedback" })}
-          icon={<HelpIcon />}
+          component={RouterLink}
           to={SUPPORT_PATH}
-        />
+          primary={intl.formatMessage({ id: "nav.dropdown.item.support" })}
+          icon={<HelpIcon />}
+        /> */}
         {userLoggedIn && (
           <>
             <Divider />
             <DropdownMenuItem
-              primary={intl.formatMessage({ id: "nav.dropdown.item.logOut" })}
+              primary={intl.formatMessage({ id: "user.action.logout" })}
               icon={<ExitToAppIcon />}
               onClick={handleLogout}
             />
@@ -105,7 +105,7 @@ class AccountNavigationMenu extends PureComponent<AccountNavigationMenuProps> {
 
 const mapStateToProps = (state: RootState) => ({ prefersDarkMode: state.settingsReducer.prefersDarkMode });
 const mapDispatchToProps = (dispatch: any) => ({
-  changeDarkMode: (prefersDarkMode: boolean) => dispatch(changeDarkMode(prefersDarkMode)),
+  changePrefersDarkMode: (prefersDarkMode: boolean) => dispatch(changePrefersDarkMode(prefersDarkMode)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(withStyles(styles)(AccountNavigationMenu)));

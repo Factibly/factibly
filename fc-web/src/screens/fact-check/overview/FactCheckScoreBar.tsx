@@ -5,12 +5,12 @@ import Typography from "@material-ui/core/Typography";
 import Rating from "@material-ui/lab/Rating";
 
 interface FactCheckScoreBarProps {
-  ratingSet?: any[];
+  ratings?: any[];
   overallScore?: number;
   ratingFontSize?: number;
 }
 
-const FactCheckScoreBar = ({ ratingSet, overallScore, ratingFontSize = 56 }: FactCheckScoreBarProps) => {
+const FactCheckScoreBar = ({ ratings, overallScore, ratingFontSize = 56 }: FactCheckScoreBarProps) => {
   const theme = useTheme();
   const intl = useIntl();
 
@@ -18,7 +18,7 @@ const FactCheckScoreBar = ({ ratingSet, overallScore, ratingFontSize = 56 }: Fac
     intl.formatNumber(value, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   const scoreText: string = intl.formatMessage(
-    { id: "general.info.msg.outOf" },
+    { id: "general.info.outOf" },
     {
       actualValue: formatScore(overallScore ?? 0),
       maxValue: formatScore(5.0),
@@ -27,14 +27,15 @@ const FactCheckScoreBar = ({ ratingSet, overallScore, ratingFontSize = 56 }: Fac
 
   return (
     <>
-      {ratingSet?.length ? (
+      {ratings?.length ? (
         <>
           <div className="grid--first-column-shrink">
-            <Typography style={{ fontSize: "xxx-large" }}> {scoreText.substr(0, scoreText.indexOf(" "))} </Typography>
+            <Typography style={{ fontSize: "xxx-large" }}>{scoreText.substr(0, scoreText.indexOf(" "))}</Typography>
             <div>
               <Typography style={{ position: "relative", top: "20%", lineHeight: "normal" }}>
-                {scoreText.substr(scoreText.indexOf(" ") + 1)} <br />
-                {intl.formatMessage({ id: "factCheck.overview.rating.count" }, { ratingCount: ratingSet.length })}
+                {scoreText.substr(scoreText.indexOf(" ") + 1)}
+                <br />
+                {intl.formatMessage({ id: "factCheck.overview.rating.count" }, { ratingCount: ratings.length })}
               </Typography>
             </div>
           </div>

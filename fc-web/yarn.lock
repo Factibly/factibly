@@ -3066,10 +3066,10 @@
   dependencies:
     "@babel/runtime" "^7.10.2"
 
-"@types/animejs@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@types/animejs/-/animejs-3.1.1.tgz#f1455e306a96f4bff9aae6b5b61c1b5efca74cf4"
-  integrity sha512-vKWHlTcIyyglTNqT/eBPQcmHYMxv23Jrn1qU/SWcTilodSG12d0BNcq+D2fAyW2vv3YwsJJbPBhTRzPt8aPJDw==
+"@types/animejs@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@types/animejs/-/animejs-3.1.2.tgz#93289a902b0b9bfac3020d29413139dcca6acdbc"
+  integrity sha512-GyyuoztWbZMErx9brJQChvvfeMd5vplWU/H6BYVl7JUcLoMaDOVxlqF3d4ypB7TzXnbgnMSykGmjAVVRsvhHhQ==
 
 "@types/apollo-upload-client@^8.1.3":
   version "8.1.3"
@@ -3393,11 +3393,6 @@
   integrity sha512-6LBtAQBN34i7SI5X+Qs4zpTEZO1tTDZ6sZ9fzFjYwTl3nLQXaBtwYdoV44CzNnyKu438xJ1lSIYyw0YMvunESw==
   dependencies:
     redux "^4.0.5"
-
-"@types/scrollmagic@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@types/scrollmagic/-/scrollmagic-2.0.0.tgz#8fd7e6405540ccdfb65a23d89c9eec1d8764c78b"
-  integrity sha512-Ny9R996E/n336yelFs1uY+ied1HUM+RD22RecZlOdKE+xJxbrkBTJcnJ9RcLX4G8cl98CXIGT9S6D4j7HCiROA==
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -12447,11 +12442,6 @@ schema-utils@^2.5.0, schema-utils@^2.6.0, schema-utils@^2.6.1, schema-utils@^2.6
     "@types/json-schema" "^7.0.4"
     ajv "^6.12.2"
     ajv-keywords "^3.4.1"
-
-scrollmagic@^2.0.7:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/scrollmagic/-/scrollmagic-2.0.7.tgz#4139216f3849d226e38b3ef1e5dbbacf25190b35"
-  integrity sha512-Qu23XB3YTBhqbnTIkyVhVAEP/7r2APvW+QFfxCpd6LvJ5byCnlvSMzSeBdpyKbDKXBxVWGE9XFXUTvue3B7VrQ==
 
 select-hose@^2.0.0:
   version "2.0.0"

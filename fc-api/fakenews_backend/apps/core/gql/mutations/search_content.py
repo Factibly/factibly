@@ -15,7 +15,7 @@ class SearchContent(BaseMutation):
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, url):
-        invalid_url_msg = "Invalid URL #@home.search.alert.msg.invalidUrl@"
+        invalid_url_msg = "Invalid URL #@home.search.alert.url.error@"
         try:
             if not url.startswith("http://") and not url.startswith("https://"):
                 url = "https://" + url

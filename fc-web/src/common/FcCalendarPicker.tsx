@@ -1,25 +1,27 @@
 import React, { PureComponent } from "react";
-import { injectIntl, WrappedComponentProps } from "react-intl";
+import { connect } from "react-redux";
+import { RootState } from "../store/rootReducer";
 import DateFnsUtils from "@date-io/date-fns";
-import { DatePicker, TimePicker, DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { DatePickerProps, TimePickerProps, DateTimePickerProps, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import locales from "../static/locales";
 
-interface FcCalendarPickerProps extends WrappedComponentProps<"intl"> {
-  Picker: typeof DatePicker | typeof TimePicker | typeof DateTimePicker;
+interface FcCalendarPickerProps {
+  Picker: React.FC<DatePickerProps> | React.FC<TimePickerProps> | React.FC<DateTimePickerProps>;
   label: React.ReactNode;
   selectedDate?: ParsableDate;
   onChange: (date: MaterialUiPickersDate) => void;
   helperText?: React.ReactNode;
+  locale: string;
   [x: string]: any;
 }
 
 class FcCalendarPicker extends PureComponent<FcCalendarPickerProps> {
   render() {
-    const { Picker, label, selectedDate, onChange, helperText, intl, ...otherProps } = this.props;
+    const { Picker, label, selectedDate, onChange, helperText, locale, ...otherProps } = this.props;
     return (
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locales[intl.locale].date}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locales[locale].date}>
         <Picker
           variant="inline"
           inputVariant="outlined"
@@ -39,4 +41,8 @@ class FcCalendarPicker extends PureComponent<FcCalendarPickerProps> {
   }
 }
 
-export default injectIntl(FcCalendarPicker);
+const mapStateToProps = (state: RootState) => ({
+  locale: state.settingsReducer.locale,
+});
+
+export default connect(mapStateToProps)(FcCalendarPicker);

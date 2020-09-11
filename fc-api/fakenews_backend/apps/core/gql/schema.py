@@ -1,3 +1,5 @@
+from fakenews_backend.apps.core.gql.mutations.remove_bookmarks import RemoveBookmarks
+from fakenews_backend.apps.core.gql.mutations import remove_bookmarks
 from .mutations import SearchContent, RateContent, BookmarkContent, RemoveBookmark, UpvoteRating, DownvoteRating
 from graphene import ObjectType, relay, ID, Field
 from .types import ContentType
@@ -8,6 +10,7 @@ class Mutation(ObjectType):
     rate_content = RateContent.Field()
     bookmark_content = BookmarkContent.Field()
     remove_bookmark = RemoveBookmark.Field()
+    remove_bookmarks = RemoveBookmarks.Field()
     upvote_rating = UpvoteRating.Field()
     downvote_rating = DownvoteRating.Field()
 

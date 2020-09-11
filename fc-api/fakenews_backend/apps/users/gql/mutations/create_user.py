@@ -30,7 +30,7 @@ class CreateUser(BaseMutation):
 
         if avatar is not None and not re.search(r'^.*\.(jpg|jpeg|png)$', str(avatar), re.IGNORECASE):
             raise Exception(
-                'Invalid image format #@user.avatar.alert.msg.invalidExt@')
+                'Invalid image format #@user.avatar.alert.mime.error@')
 
         user = User(
             email=email,

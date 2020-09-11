@@ -90,9 +90,5 @@ class Rating(models.Model):
         default=0.0
     )
 
-    # A upvote or downvote count is specified by an integer
-    upvote_count = models.IntegerField(default=0)
-    downvote_count = models.IntegerField(default=0)
-
     def overall_score(self):
         return (self.score1 + self.score2 + self.score3)/3

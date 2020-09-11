@@ -37,8 +37,8 @@ const Bookmarks = () => {
 
   const [, setAlert] = useAlert();
 
-  const { loading: bookmarkLoading, data: bookmarkData } = useCustomQuery<BookmarksList>(BOOKMARKS_LIST);
-  const [bookmarks, setBookmarks] = useState(bookmarkData?.currentUser?.bookmarks);
+  const { loading: bookmarksLoading, data: bookmarksData } = useCustomQuery<BookmarksList>(BOOKMARKS_LIST);
+  const [bookmarks, setBookmarks] = useState(bookmarksData?.currentUser?.bookmarks);
   const bookmarkCount = bookmarks?.length ?? 0;
 
   const [removeBookmark] = useMutation<RemoveBookmark, RemoveBookmarkVariables>(REMOVE_BOOKMARK);
@@ -56,7 +56,7 @@ const Bookmarks = () => {
 
     setAlert({
       severity: "success",
-      message: intl.formatMessage({ id: "bookmarks.alert.msg.removed" }),
+      message: intl.formatMessage({ id: "bookmarks.alert.remove.success" }),
     });
   };
 
@@ -77,24 +77,24 @@ const Bookmarks = () => {
   };
 
   useEffect(() => {
-    if (bookmarkData?.currentUser?.bookmarks) {
-      let b = [...bookmarkData?.currentUser?.bookmarks];
+    if (bookmarksData?.currentUser?.bookmarks) {
+      let b = [...bookmarksData?.currentUser?.bookmarks];
       b.sort(sortMode.comparator);
       if (searchQuery.trim() !== "") {
         b = b.filter(v => v?.title?.toLowerCase().includes(searchQuery));
       }
       setBookmarks(b);
     }
-  }, [bookmarkData, searchQuery, sortMode]);
+  }, [bookmarksData, searchQuery, sortMode]);
 
-  if (bookmarkLoading) return <div />;
+  if (bookmarksLoading) return <div />;
 
   return (
     <PageContainer>
       <Helmet>
-        <title> {intl.formatMessage({ id: "nav.drawer.item.bookmark" })} </title>
+        <title>{intl.formatMessage({ id: "nav.drawer.item.bookmark" })}</title>
       </Helmet>
-      {bookmarkData?.currentUser?.bookmarks?.length ? (
+      {bookmarks?.length ? (
         <FlatPaper className={classes.paper} elevation={0} prefersDarkMode={prefersDarkMode}>
           <BookmarkHeader
             total={bookmarkCount}
@@ -102,17 +102,20 @@ const Bookmarks = () => {
             sortCategoryIndex={sortMode.value}
             onSortingChange={handleSortingChange}
           />
-          {bookmarks?.map((bookmark: any, idx: number) => (
-            <BookmarkCard
-              key={`bookmark-${bookmark.title}`}
-              content={bookmark}
-              onRemoveBookmark={handleRemoveBookmark}
-              hideLine={bookmarkCount === 1 || idx === bookmarkCount - 1}
-            />
-          ))}
+          {bookmarks.map(
+            (bookmark, idx) =>
+              bookmark && (
+                <BookmarkCard
+                  key={`bookmark-${bookmark.title}`}
+                  content={bookmark}
+                  onRemoveBookmark={handleRemoveBookmark}
+                  hideLine={bookmarkCount === 1 || idx === bookmarkCount - 1}
+                />
+              )
+          )}
         </FlatPaper>
       ) : (
-        <BookmarkIntroductoryPanel userLoggedIn={!!bookmarkData?.currentUser} />
+        <BookmarkIntroductoryPanel userLoggedIn={!!bookmarksData?.currentUser} />
       )}
     </PageContainer>
   );

@@ -26,7 +26,7 @@ import { InputType } from "../../../static/enums";
 
 interface FactCheckWidgetEditorProps {
   open: boolean;
-  onClose: () => any;
+  onClose: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,23 +58,26 @@ const FactCheckWidgetEditor = ({ open, onClose }: FactCheckWidgetEditorProps) =>
     navigator.clipboard.writeText(iframeUrl);
     setAlert({
       severity: "success",
-      message: intl.formatMessage({ id: "factCheck.widget.alert.msg.linkCopied" }),
+      message: intl.formatMessage({ id: "factCheck.widget.alert.link.copy.success" }),
     });
   };
   const updateIframeUrl = () => setIframeUrl(`${window.location.href}?${urlSearchParams.toString()}`);
 
-  const [propertyValues, setPropertyValues] = useState<{ [x: string]: string }>({
+  const [propertyValues, setPropertyValues] = useState<Record<string, string>>({
     [iframePrts.max.property]: iframePrts.max.defaultValue,
     [iframePrts.height.property]: iframePrts.height.defaultValue,
     [iframePrts.width.property]: iframePrts.width.defaultValue,
   });
-  const handlePropertyValuesChange = (event: any, property: string) => {
+  const handlePropertyValuesChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    property: string
+  ) => {
     urlSearchParams.set(property, event.target.value);
     updateIframeUrl();
     setPropertyValues({ ...propertyValues, [property]: event.target.value });
   };
 
-  const [useDefaults, setUseDefaults] = useState<{ [x: string]: boolean }>({
+  const [useDefaults, setUseDefaults] = useState<Record<string, boolean>>({
     [iframePrts.max.property]: true,
     [iframePrts.height.property]: true,
     [iframePrts.width.property]: true,
@@ -99,20 +102,22 @@ const FactCheckWidgetEditor = ({ open, onClose }: FactCheckWidgetEditorProps) =>
     >
       <DialogTitle id="widget-editor-form-title">{intl.formatMessage({ id: "general.action.embed" })}</DialogTitle>
       <DialogContent id="widget-editor-form-description">
-        <DialogContentText>
-          Use this editor to adjust the iframe based on your specifications. Then, copy the URL to your computer's
-          clipboard (click the "COPY" button
-          {(isWindows || isMacOs) && (
-            <>
-              , or select the URL and press {isWindows && <kbd>Ctrl</kbd>} {isMacOs && <kbd>Cmd</kbd>}&nbsp;+&nbsp;
-              <kbd>C</kbd>
-            </>
-          )}
-          ).
-          <br />
-          <em>
-            WARNING: The URL will <strong> not </strong> be saved when you exit this editor
-          </em>
+        <DialogContentText variant="body2">
+          {isWindows || isMacOs
+            ? intl.formatMessage(
+                { id: "factCheck.widget.editor.instructions.withKey" },
+                {
+                  keys: (
+                    <React.Fragment key="fact-check-widget-url-copy-hotkey">
+                      {isWindows && <kbd>Ctrl</kbd>}
+                      {isMacOs && <kbd>Cmd</kbd>}
+                      &nbsp;+&nbsp;
+                      <kbd>C</kbd>
+                    </React.Fragment>
+                  ),
+                }
+              )
+            : intl.formatMessage({ id: "factCheck.widget.editor.instructions.noKey" })}
         </DialogContentText>
         <TextActionBar
           value={iframeUrl}
@@ -121,48 +126,51 @@ const FactCheckWidgetEditor = ({ open, onClose }: FactCheckWidgetEditorProps) =>
           aria-label="iframe url"
         />
         <form noValidate>
-          {Object.values(iframePrts).map(({ property, nameId, inputType, defaultValue, checkboxLabelId, unit }) => {
-            if (inputType !== InputType.EDITABLE) {
-              return null;
+          {Object.values(iframePrts).map(
+            ({ property, nameId, nameAriaId, inputType, defaultValue, checkboxLabelId, unit }) => {
+              if (inputType !== InputType.EDITABLE) {
+                return null;
+              }
+              const label = intl.formatMessage({ id: nameId });
+              const labelAria = intl.formatMessage({ id: nameAriaId });
+              return (
+                <Box component="fieldset" key={`iframe-${property}`} py={1} my={2} border={1} borderColor="divider">
+                  <FormLabel component="legend" className={classes.legend}>
+                    {label}
+                  </FormLabel>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name={`checked-fact-check-widget-${property}`}
+                          checked={useDefaults[property]}
+                          onChange={() => handleUseDefaultsChange(property)}
+                          inputProps={{
+                            "aria-label": intl.formatMessage(
+                              { id: "general.prompt.useDefault.aria" },
+                              { name: labelAria }
+                            ),
+                          }}
+                        />
+                      }
+                      label={intl.formatMessage({ id: checkboxLabelId })}
+                    />
+                    <FilledInput
+                      type="number"
+                      classes={{ input: classes.paramInputInput }}
+                      defaultValue={defaultValue}
+                      onChange={event => handlePropertyValuesChange(event, property)}
+                      disabled={useDefaults[property]}
+                      endAdornment={unit && <InputAdornment position="end">{unit}</InputAdornment>}
+                      inputProps={{
+                        "aria-label": `iframe ${labelAria}`,
+                      }}
+                    />
+                  </FormGroup>
+                </Box>
+              );
             }
-            const label = intl.formatMessage({ id: nameId });
-            return (
-              <Box component="fieldset" key={`iframe-${property}`} py={1} my={2} border={1} borderColor="divider">
-                <FormLabel component="legend" className={classes.legend}>
-                  {label}
-                </FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        name={`checked-fact-check-widget-${property}`}
-                        checked={useDefaults[property]}
-                        onChange={() => handleUseDefaultsChange(property)}
-                        inputProps={{
-                          "aria-label": intl.formatMessage(
-                            { id: "general.prompt.useDefault.aria" },
-                            { name: label.toLocaleLowerCase(locale || intl.locale) }
-                          ),
-                        }}
-                      />
-                    }
-                    label={intl.formatMessage({ id: checkboxLabelId })}
-                  />
-                  <FilledInput
-                    type="number"
-                    classes={{ input: classes.paramInputInput }}
-                    defaultValue={defaultValue}
-                    onChange={event => handlePropertyValuesChange(event, property)}
-                    disabled={useDefaults[property]}
-                    endAdornment={unit && <InputAdornment position="end"> {unit} </InputAdornment>}
-                    inputProps={{
-                      "aria-label": `iframe ${label.toLocaleLowerCase(locale || intl.locale)}`,
-                    }}
-                  />
-                </FormGroup>
-              </Box>
-            );
-          })}
+          )}
         </form>
       </DialogContent>
       <DialogActions>

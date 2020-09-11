@@ -56,7 +56,7 @@ class FrequentlyAskedQuestions extends PureComponent {
             You are <i>not</i> permitted to create multiple accounts for yourself under any circumstance. You would be
             in violation of our Terms of Service &mdash; which everyone has surely read &#128580; &mdash; otherwise. If
             you have multiple accounts, you should file a support ticket with the emails and passwords of the duplicate
-            accounts immediately. If you do so, you might receive a more leninent penalty. If you instead choose to wait
+            accounts immediately. If you do so, you might receive a more lenient penalty. If you instead choose to wait
             it out and let us catch you, you will most likely receive a very long suspension or permanent ban.
           </Typography>
         </section>

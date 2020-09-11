@@ -5,14 +5,14 @@ import Flex from "../../common/Flex";
 import ContrastingDivider from "../../common/ContrastingDivider";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Button, Tooltip, Typography } from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+import Rating from "@material-ui/lab/Rating";
 import LaunchIcon from "@material-ui/icons/Launch";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { FACT_CHECK_PATH } from "../../static/paths";
+import { FACT_CHECK_BASE_PATH } from "../../static/paths";
 
 interface BookmarkCardProps {
-  content?: any;
-  onRemoveBookmark: Function;
+  content: any;
+  onRemoveBookmark: (contentId: number) => Promise<void>;
   hideLine?: boolean;
 }
 
@@ -56,8 +56,8 @@ const BookmarkCard = ({ content, onRemoveBookmark, hideLine }: BookmarkCardProps
       <Flex className={classes.flex}>
         <Flex className={classes.coverImage} style={{ backgroundImage: `url(${content.imageUrl})` }} />
         <Flex className={classes.innerFlex1}>
-          <Typography variant="h6"> {content.title || content.url} </Typography>
-          {content?.overallScore ? (
+          <Typography variant="h6">{content.title || content.url}</Typography>
+          {content.overallScore ? (
             <Rating
               precision={0.1}
               value={content.overallScore}
@@ -72,9 +72,9 @@ const BookmarkCard = ({ content, onRemoveBookmark, hideLine }: BookmarkCardProps
           <Tooltip title={intl.formatMessage({ id: "bookmarks.bookmark.action.view.factCheck" })}>
             <Button
               className={classes.button}
-              variant="contained"
               component={RouterLink}
-              to={FACT_CHECK_PATH.replace(":contentId", content.id)}
+              to={`${FACT_CHECK_BASE_PATH}/${content.id}`}
+              variant="contained"
               color="primary"
               size="large"
               disableElevation

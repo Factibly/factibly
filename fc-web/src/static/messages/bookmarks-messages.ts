@@ -1,7 +1,7 @@
 export default {
   "en-US": {
-    "bookmarks.alert.msg.added": "Fact check added to your bookmarks",
-    "bookmarks.alert.msg.removed": "Bookmark removed",
+    "bookmarks.alert.add.success": "Fact check added to your bookmarks",
+    "bookmarks.alert.remove.success": "Bookmark removed",
     "bookmarks.bookmark.action.sort.alpha.std": "Alphabetical",
     "bookmarks.bookmark.action.sort.alpha.reverse": "Alphabetical (reverse)",
     "bookmarks.bookmark.action.view.factCheck": "See the Fact Check",
@@ -17,8 +17,8 @@ export default {
       "You must log in to your account in order to add and access your bookmarks.",
   },
   "en-GB": {
-    "bookmarks.alert.msg.added": "Fact check added to your bookmarks",
-    "bookmarks.alert.msg.removed": "Bookmark removed",
+    "bookmarks.alert.add.success": "Fact check added to your bookmarks",
+    "bookmarks.alert.remove.success": "Bookmark removed",
     "bookmarks.bookmark.action.sort.alpha.std": "Alphabetical",
     "bookmarks.bookmark.action.sort.alpha.reverse": "Alphabetical (reverse)",
     "bookmarks.bookmark.action.view.factCheck": "See the Fact Check",
@@ -35,15 +35,15 @@ export default {
       "You must log in to your account in order to add and access your bookmarks.",
   },
   "fr-FR": {
-    "bookmarks.alert.msg.added": "Vérification des faits ajouté aux marque-page",
-    "bookmarks.alert.msg.removed": "Marque-page supprimé",
+    "bookmarks.alert.add.success": "Vérification des faits ajouté aux marque-page",
+    "bookmarks.alert.remove.success": "Marque-page supprimé",
     "bookmarks.bookmark.action.sort.alpha.std": "Alphabétique",
     "bookmarks.bookmark.action.sort.alpha.reverse": "Alphabétique (inversé)",
     "bookmarks.bookmark.action.view.factCheck": "Voir la vérification des faits",
     "bookmarks.bookmark.action.view.factCheck.aria": "voir la vérification des faits",
     "bookmarks.bookmark.count": "{bookmarkCount, plural, one {# marque-page} other {# marque-pages}}",
     "bookmarks.intro.benefits":
-      "Tenez compte des situations suivantes pour décider si un signet pourrait vous être utile",
+      "Tenez compte des situations suivantes pour décider si un marque-page pourrait vous être utile",
     "bookmarks.intro.benefits.1": "vous voudrez peut-être faire référence à une vérification des faits à l'avenir",
     "bookmarks.intro.benefits.2": `
       vous avez lire quelque chose, mais vous n'avez actuellement pas
@@ -54,8 +54,8 @@ export default {
       "Vous devez vous connecter à votre compte afin d'y ajouter et accéder à vos marque-pages.",
   },
   "zh-CN": {
-    "bookmarks.alert.msg.added": "查看事实已添加到书签",
-    "bookmarks.alert.msg.removed": "书签已删除",
+    "bookmarks.alert.add.success": "查看事实已添加到书签",
+    "bookmarks.alert.remove.success": "书签已删除",
     "bookmarks.bookmark.action.sort.alpha.std": "字母顺序",
     "bookmarks.bookmark.action.sort.alpha.reverse": "字母顺序（反向）",
     "bookmarks.bookmark.action.view.factCheck": "查看事实检查",
@@ -69,8 +69,8 @@ export default {
     "bookmarks.intro.header.signinRequired": "你必须先登录到你的账户才能添加和访问你的书签。",
   },
   "zh-TW": {
-    "bookmarks.alert.msg.added": "查看事实已添加到書籤",
-    "bookmarks.alert.msg.removed": "書籤已刪除",
+    "bookmarks.alert.add.success": "查看事实已添加到書籤",
+    "bookmarks.alert.remove.success": "書籤已刪除",
     "bookmarks.bookmark.action.sort.alpha.std": "字母順序",
     "bookmarks.bookmark.action.sort.alpha.reverse": "字母順序（反向）",
     "bookmarks.bookmark.action.view.factCheck": "查看事實檢查",
@@ -84,8 +84,8 @@ export default {
     "bookmarks.intro.header.signinRequired": "你必須先登錄到你的賬戶才能添加和訪問你的書籤。",
   },
   "ja-JP": {
-    "bookmarks.alert.msg.added": "ブックマークに追加されたファクトチェック",
-    "bookmarks.alert.msg.removed": "ブックマークが削除されました",
+    "bookmarks.alert.add.success": "ブックマークに追加されたファクトチェック",
+    "bookmarks.alert.remove.success": "ブックマークが削除されました",
     "bookmarks.bookmark.action.sort.alpha.std": "アルファベット順",
     "bookmarks.bookmark.action.sort.alpha.reverse": "アルファベット順（逆）",
     "bookmarks.bookmark.action.view.factCheck": "ファクトチェックを表示",

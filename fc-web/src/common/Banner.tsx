@@ -23,7 +23,7 @@ class Banner extends PureComponent<BannerProps> {
           color: theme.palette.common.white,
         }}
       >
-        <Typography gutterBottom> {message} </Typography>
+        <Typography gutterBottom>{message}</Typography>
         {children}
       </Paper>
     );

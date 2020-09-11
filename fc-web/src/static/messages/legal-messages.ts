@@ -53,7 +53,7 @@ export default {
     "legal.legal": "法定",
     "legal.accessibility": "アクセシビリティ",
     "legal.contact": "連絡",
-    "legal.cookie": "クッキーポリシー",
+    "legal.cookie": "Cookieポリシー",
     "legal.fairUse": "公正使用ポリシー",
     "legal.privacy": "プライバシーポリシー",
     "legal.service": "利用規約",

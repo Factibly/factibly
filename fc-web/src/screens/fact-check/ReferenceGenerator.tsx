@@ -6,9 +6,9 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  DialogContentText,
   DialogActions,
   Box,
-  Typography,
   TextField,
   MenuItem,
   Button,
@@ -23,7 +23,7 @@ import { useAlert } from "../../hooks/useAlert";
 interface ReferenceGeneratorProps {
   contentId: string;
   open: boolean;
-  onClose: () => any;
+  onClose: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -99,19 +99,19 @@ const ReferenceGenerator = ({ contentId, open, onClose }: ReferenceGeneratorProp
       variables: { contentId },
     }
   );
-  const referenceSet = referenceData?.content?.referenceSet;
+  const references = referenceData?.content?.referenceSet;
 
   const [selectedCitationStyle, setSelectedCitationStyle] = useState<number>(0);
   const handleCitationStyleChange = (event: React.ChangeEvent<{ value: unknown }>) =>
     setSelectedCitationStyle(event.target.value as number);
 
   const handleCitationCopyClick = () => {
-    const reference = referenceSet?.length && referenceSet[selectedCitationStyle]?.reference;
+    const reference = references?.length && references[selectedCitationStyle]?.reference;
     if (reference) {
       copyReference();
       setAlert({
         severity: "success",
-        message: intl.formatMessage({ id: "factCheck.widget.alert.msg.linkCopied" }),
+        message: intl.formatMessage({ id: "factCheck.widget.alert.link.copy.success" }),
       });
     }
   };
@@ -131,7 +131,7 @@ const ReferenceGenerator = ({ contentId, open, onClose }: ReferenceGeneratorProp
     >
       <DialogTitle id="reference-generator-title">{intl.formatMessage({ id: "factCheck.cite" })}</DialogTitle>
       <DialogContent id="reference-generator-description">
-        {referenceSet?.length && (
+        {references?.length && (
           <>
             <TextField
               id="citation-style-selector"
@@ -142,7 +142,7 @@ const ReferenceGenerator = ({ contentId, open, onClose }: ReferenceGeneratorProp
               variant="outlined"
               fullWidth
             >
-              {referenceSet.map((reference, index) => (
+              {references.map((reference, index) => (
                 <MenuItem key={`citation-style-${reference?.style}`} value={index}>
                   {reference?.style}
                 </MenuItem>
@@ -150,12 +150,13 @@ const ReferenceGenerator = ({ contentId, open, onClose }: ReferenceGeneratorProp
             </TextField>
             <Box component="div" my={2}>
               <Box component="div" p={3} border={1}>
-                <Typography
+                <DialogContentText
                   id="reference-generator-output-text"
                   className={classes.outputText}
                   variant="body1"
+                  color="textPrimary"
                   dangerouslySetInnerHTML={{
-                    __html: formatReference(classes.highlightedText, referenceSet[selectedCitationStyle]?.reference),
+                    __html: formatReference(classes.highlightedText, references[selectedCitationStyle]?.reference),
                   }}
                 />
               </Box>
@@ -169,12 +170,12 @@ const ReferenceGenerator = ({ contentId, open, onClose }: ReferenceGeneratorProp
                 {intl.formatMessage({ id: "general.action.copy" })}
               </Button>
             </Box>
-            <Typography component="div" variant="body2">
+            <DialogContentText variant="body2">
               This reference should only be treated as a template. Please double check that all fields are correct. Any
               field marked in <span className={classes.highlightedText}>blue</span> indicates that the generator was not
-              able to determine its value and that you can, and should, manually changed their values. When you click on
+              able to determine its value and that you can, and should, manually changed its value. When you click on
               the "COPY" button, the text will be automatically formatted for you.
-            </Typography>
+            </DialogContentText>
           </>
         )}
       </DialogContent>

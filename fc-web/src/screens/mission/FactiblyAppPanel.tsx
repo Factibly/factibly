@@ -52,10 +52,10 @@ const FactiblyAppPanel = () => {
           <Button
             key={`document-button-${nameId}`}
             variant="outlined"
-            startIcon={<DescriptionIcon />}
             href={href}
             target="_blank"
             rel="noreferrer noopener"
+            startIcon={<DescriptionIcon />}
             fullWidth
           >
             {intl.formatMessage({ id: nameId })}
@@ -94,11 +94,6 @@ const FactiblyAppPanel = () => {
                 bodyComponent="div"
                 extra={
                   <>
-                    <div>
-                      {app.techStack.map((content: string) => (
-                        <Chip key={content} className={classes.chip} icon={<CodeIcon />} label={content} />
-                      ))}
-                    </div>
                     {app.internalName === "fc-monday" && (
                       <div className={classes.mondayInstall}>
                         <a href="https://auth.monday.com/oauth2/authorize?client_id=531eed8d176c2b24bfe94a21f9213f15&response_type=install">
@@ -110,6 +105,11 @@ const FactiblyAppPanel = () => {
                         </a>
                       </div>
                     )}
+                    <div>
+                      {app.techStack.map((content: string) => (
+                        <Chip key={content} className={classes.chip} icon={<CodeIcon />} label={content} />
+                      ))}
+                    </div>
                   </>
                 }
                 actions={actions}

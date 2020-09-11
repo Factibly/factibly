@@ -14,11 +14,18 @@ class DownvoteRating(BaseMutation):
     @classmethod
     @login_required
     def mutate_and_get_payload(cls, root, info, rating_id):
-        # Django raises DoesNotExist exception if rating_id does not exist
+        user = info.context.user
         rating = Node.get_node_from_global_id(
             info, rating_id, only_type=RatingType)
-        if rating:
-            rating.downvote_count -= 1
 
-        rating.save()
+        if rating in user.upvotes.all():
+            user.upvotes.remove(rating)
+
+        if rating in user.downvotes.all():
+            user.downvotes.remove(rating)
+        else:
+            user.downvotes.add(rating)
+
+        user.save()
+
         return DownvoteRating(rating=rating)

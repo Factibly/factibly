@@ -6,32 +6,38 @@ import PageContainer from "../common/PageContainer";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { findClosestPathname } from "../utils/string-utils";
-import * as pathnames from "../static/paths";
+import * as paths from "../static/paths";
 
 const Http404 = () => {
   const intl = useIntl();
 
   const [closestPathname, setClosestPathname] = useState<string | null>(null);
 
-  useEffect(() => findClosestPathname(pathnames, setClosestPathname), []);
+  useEffect(() => findClosestPathname(paths, setClosestPathname), []);
 
   return (
     <PageContainer>
       <Helmet>
-        <title> Fake Check </title>
+        <title>{intl.formatMessage({ id: "app.http.404" })} - Factibly</title>
       </Helmet>
       <Typography component="h2" variant="h3" gutterBottom>
         &#128533; {intl.formatMessage({ id: "app.http.404" })}
       </Typography>
-      <Typography variant="body1" paragraph>
+      <Typography variant="body1">
         {intl.formatMessage({ id: "app.http.404.terribleJadonJoke" })}&hellip;
         {closestPathname && (
           <>
             <br />
-            {intl.formatMessage({ id: "app.http.404.redirectSuggestion" })}&nbsp;
-            <Link component={RouterLink} to={closestPathname}>
-              {`${window.location.protocol}//${window.location.host}${closestPathname}`}
-            </Link>
+            {intl.formatMessage(
+              { id: "app.http.404.redirect.suggestion" },
+              {
+                url: (
+                  <Link key={`redirect-suggestion-${closestPathname}`} component={RouterLink} to={closestPathname}>
+                    {`${window.location.protocol}//${window.location.host}${closestPathname}`}
+                  </Link>
+                ),
+              }
+            )}
           </>
         )}
       </Typography>

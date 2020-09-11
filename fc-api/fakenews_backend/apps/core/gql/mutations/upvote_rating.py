@@ -1,6 +1,5 @@
 from graphene import Field, ID, Node
 from ..types import RatingType
-from ...models import Rating
 from ....base_mutation import BaseMutation
 from graphql_jwt.decorators import login_required
 
@@ -14,13 +13,18 @@ class UpvoteRating(BaseMutation):
     @classmethod
     @login_required
     def mutate_and_get_payload(cls, root, info, rating_id):
-
-        # Django raises DoesNotExist exception if rating_id does not exist
+        user = info.context.user
         rating = Node.get_node_from_global_id(
             info, rating_id, only_type=RatingType)
 
-        if rating:
-            rating.upvote_count += 1
+        if rating in user.downvotes.all():
+            user.downvotes.remove(rating)
 
-        rating.save()
+        if rating in user.upvotes.all():
+            user.upvotes.remove(rating)
+        else:
+            user.upvotes.add(rating)
+
+        user.save()
+
         return UpvoteRating(rating=rating)

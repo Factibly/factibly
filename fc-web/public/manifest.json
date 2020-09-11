@@ -1,6 +1,7 @@
 {
   "short_name": "Factibly",
   "name": "Factibly",
+  "description": "A crowd-sourced fact checker",
   "icons": [
     {
       "src": "favicon.ico",

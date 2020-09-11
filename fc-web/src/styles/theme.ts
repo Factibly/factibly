@@ -5,7 +5,6 @@ import locales from "../static/locales";
 const createTheme = process.env.NODE_ENV === "production" ? createMuiTheme : unstable_createMuiStrictModeTheme;
 
 export default function (locale: string = "en-US", prefersDarkMode: boolean = false) {
-  const webkitAutofillProperty = prefersDarkMode ? "" : "0 0 0 30px transparent inset !important";
   return createTheme(
     {
       palette: {
@@ -34,10 +33,9 @@ export default function (locale: string = "en-US", prefersDarkMode: boolean = fa
               padding: "32px 10%",
             },
             input: {
-              "&:-webkit-autofill": webkitAutofillProperty,
-              "&:-webkit-autofill:hover": webkitAutofillProperty,
-              "&:-webkit-autofill:focus": webkitAutofillProperty,
-              "&:-webkit-autofill:active": webkitAutofillProperty,
+              "&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus, &:-webkit-autofill:active": prefersDarkMode
+                ? undefined
+                : "0 0 0 30px transparent inset !important",
             },
             blockquote: {
               margin: 0,

@@ -1,7 +1,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/97d1a684ce9148b3c2b2/maintainability)](https://codeclimate.com/repos/5efd15773789a301760000f7/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/97d1a684ce9148b3c2b2/test_coverage)](https://codeclimate.com/repos/5efd15773789a301760000f7/test_coverage)
 
-# FakeCheck Back-end
+# Factibly APIs and Services
 
 ## Setup Procedures
 
@@ -13,8 +13,8 @@
 6. Repeat step 3 in a new tab/window of your command line interface
 7. Run `python3 --version` and check that [Python 3.7](https://www.python.org/downloads/) is installed on your machine; if not, install it.
 8. Run `export PIPENV_VENV_IN_PROJECT="enabled"`
-9. Run `pipenv install` to install the [project dependencies](Pipfile)\*
-10. Run `pipenv shell` to open the virtual environment\*\*
+9. Run `pipenv install` to install the [project dependencies](Pipfile) \*
+10. Run `pipenv shell` to open the virtual environment \*\*
 11. Run `./manage.py runserver` to start the server
 
 \* If `psycopg2` fails to install, run:
@@ -28,17 +28,17 @@
 > pipenv install
 ```
 
-\*\* The virtual environment and docker container must both be active
+\*\* The virtual environment and Docker container must both be active
 
 ## Database
 
-This project utilizes [PostgreSQL](https://www.postgresql.org/) for its database. You can use any PostgreSQL client, but we recommend [Postico](https://eggerapps.at/postico/).
+We utilize [PostgreSQL](https://www.postgresql.org/) for our back-end databases. You can use any PostgreSQL client, but we recommend [Postico](https://eggerapps.at/postico/).
 
 ## Infrastructure
 
-There is a publicly accessible [infrastructure diagram](https://app.diagrams.net/#G1tL5VqGfF9K73nWqdyFTNIqNhhN7EQQF9) in the FakeCheck folder on Google Drive.
+There is a publicly accessible [infrastructure diagram](https://app.diagrams.net/#G1tL5VqGfF9K73nWqdyFTNIqNhhN7EQQF9) in the Factibly folder on Google Drive.
 
-| Name                                                             | Usages                                        | Person Responsible |
+| Service                                                          | Usages                                        | Person Responsible |
 | ---------------------------------------------------------------- | --------------------------------------------- | ------------------ |
 | [AWS](https://aws.amazon.com/)                                   | file storage, CDN hosting                     | Jadon              |
 | [Cloud Console](https://console.cloud.google.com/home/dashboard) | Google API & service configurations           | Jadon              |
@@ -46,9 +46,15 @@ There is a publicly accessible [infrastructure diagram](https://app.diagrams.net
 | [reCAPTCHA Admin](https://www.google.com/recaptcha/admin)        | reCAPTCHA configurations, reCAPTCHA analytics | Jadon              |
 | [Rollbar](https://rollbar.com/)                                  | error tracking (production only)              | Jadon              |
 
+## Environment Variables
+
+The environment variables are initialized in the .env file on the root directory. If a particular environment variable has a name with a prefix of "DEV", "STAGE", or "PROD", then that variable is only applicable to the development, staging or production environment respectively; otherwise, that variable is applicable to all environments.
+
+The .env file is ignored by git (see [.gitignore](.gitignore)). You can contact Jadon for a copy of that file. The django-dotenv package automatically loads the environment variables onto the pipenv environment whenever you open the pipenv shell, and automatically updates them whenever you change them.
+
 ## Tests
 
-You should use the default [Django testing framework](https://docs.djangoproject.com/en/3.0/topics/testing/), which is built on top of Python's `unittest` module, to write automated tests on the back-end.
+We use the default [Django testing framework](https://docs.djangoproject.com/en/3.0/topics/testing/) to create automated tests.
 
 ## Stringification
 
@@ -58,11 +64,13 @@ You can use your own judgement as to when you should assign a `verbose_name` to 
 
 ## Code Styles
 
-This project utilizes [Pylint](https://pypi.org/project/pylint/), along with its [Django extension](https://pypi.org/project/pylint-django/), to enforce styling rules. Your code should be "pythonic"; if you are not familiar with Python coding conventions, you can refer to the [_Hitchhiker's Guide to Python_](https://docs.python-guide.org/writing/style/).
+We utilize [Pylint](https://pypi.org/project/pylint/), along with its [Django extension](https://pypi.org/project/pylint-django/), to enforce styling rules. Your code should be "pythonic"; if you are not familiar with Python coding conventions, you can refer to the [_Hitchhiker's Guide to Python_](https://docs.python-guide.org/writing/style/).
 
-You should also comply with the following naming rules:
+We also have integrated Code Climate to determine potential improvements in the code quality and reduce our technical debt. It will automatically analyze any changes that you push onto a branch that has an open PR with the `dev` branch as the destination branch. Our Code Climate configurations can be found in the (.codeclimate.yml)(.codeclimate.yml) file.
 
-| Usage        | Rule                 | Examples                             |
+You should also comply with the following naming conventions:
+
+| Type         | Rule                 | Examples                             |
 | ------------ | -------------------- | ------------------------------------ |
 | variables    | snake_case           | `chandler_score: int = 5`            |
 | functions    | snake_case           | `def rate_chandler -> int : pass`    |
@@ -71,22 +79,23 @@ You should also comply with the following naming rules:
 | files        | snake_case           | `chandler_info.py`                   |
 | folders      | snake_case           | `fact_check` folder                  |
 
-The ternary operator (`<expression> if <condition> else <expression>`) is arguably also "unpythonic" and, in this project, should be avoided _unless_ the condition and expressions are short and simple.
+The ternary operator (`<expression> if <condition> else <expression>`) is arguably also "unpythonic" and should be avoided _unless_ the condition and expressions are short and simple.
 
 Formatted string literals ("f-strings") are _generally_ preferred over the `str.format()` method and placeholder strings (`str % sub`), but all three are acceptable.
 
 ## Frameworks and Packages
 
-This project utilizes the following frameworks and packages:
+We utilize the following frameworks and packages:
 
 - Django &ndash; simplifies back-end development
 - Graphene &ndash; builds GraphQL schemas and types
 - psycopg2 &ndash; connects the application with the PostgreSQL databases
+- django-dotenv &ndash; loads environment variables from the .env file
 - django-graphql-jwt &ndash; authenticates user sessions via JSON Web Tokens
 - django-cors-headers &ndash; injects CORS headers to responses
-- Django Extensions &ndash; provides, amongst other extensions, some useful tools in the `manage.py` script
-- newspaper3k &ndash; scraps website metadata and content
-- boto3 &ndash; provides the AWS SDK
+- django-csp &ndash; injects Content-Security-Policy headers to responses
+- Newspaper3k &ndash; scraps website metadata and content
+- Boto3 &ndash; provides the AWS SDK
 - django-storages &ndash; handles uploads and retrievals of files from Amazon S3 buckets
 - graphene-file-upload &ndash; handles file mutations and queries under the GraphQL multi-part request spec
 
@@ -100,4 +109,5 @@ The following VSCode extensions are recommended for this project:
 - GitLens &ndash; further integrates git in the IDE
 - Live Share &ndash; shares your edits in real-time with other people (useful for pair programming)
 - MagicPython &ndash; highlights Python syntax
-- Python Docstring Generator &ndash; generates Python docstrings
+- Python Docstring Generator &ndash; generates Python doc-strings
+- Code Spell Checker &ndash; checks your code for spelling errors

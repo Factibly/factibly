@@ -28,13 +28,14 @@ const FactCheckRatingHeader = ({
 }: FactCheckRatingHeaderProps) => {
   const classes = useStyles();
   const intl = useIntl();
+
   return (
     <CardHeader
       avatar={
         disableAvatar || (
           <Avatar
             alt={displayName}
-            aria-label={intl.formatMessage({ id: "user.avatar.otherUsers.aria" }, { displayName })}
+            aria-label={intl.formatMessage({ id: "user.avatar.others.aria" }, { displayName })}
           />
         )
       }

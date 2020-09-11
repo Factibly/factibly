@@ -1,4 +1,4 @@
-# FactCheck Internal
+# Factibly Internal Tools
 
 ## Overview
 
@@ -41,9 +41,9 @@ For files with a .cpp extension,
 
 ## Code Styles
 
-This project follows Google's [C++ Style Guide](https://google.github.io/styleguide/cppguide.html) as well as the following naming conventions:
+We follow Google's [C++ Style Guide](https://google.github.io/styleguide/cppguide.html) as well as the following naming conventions:
 
-| Usage        | Rule                 | Examples                                 |
+| Type         | Rule                 | Examples                                 |
 | ------------ | -------------------- | ---------------------------------------- |
 | macros       | SCREAMING_SNAKE_CASE | `#define PI_THREE_SIG_FIGS 3.14`         |
 | globals      | SCREAMING_SNAKE_CASE | `const float PI_THREE_SIG_FIGS = 3.14`   |
@@ -54,15 +54,15 @@ This project follows Google's [C++ Style Guide](https://google.github.io/stylegu
 | classes      | PascalCase           | `class JadonFan: public WaterlooStudent` |
 | enum types   | PascalCase           | `enum struct JadonMood { HAPPY, SAD }`   |
 | enum members | PascalCase           | `enum class JadonMood { HaOp, SaPe };`   |
-| namespaces   | lowercase            | `namespace fakecheck { }`                |
+| namespaces   | lowercase            | `namespace factibly { }`                 |
 | files        | snake_case           | `fake_check.hpp`                         |
 | folders      | snake_case           | `fact_check` folder                      |
 
 ## Libraries
 
-The source code for the third-party libraries can be found in the [dependencies](./dependencies/) folder. This project currently does _not_ &mdash; but may in the future &mdash; use CMake (somewhat overkill) or any dependency manager such as Hunter.
+The source code for the third-party libraries can be found in the [dependencies](./dependencies/) folder. We currently do _not_ &mdash; but may in the future &mdash; use CMake (somewhat overkill) or any dependency manager such as Hunter.
 
-This project utilizes the following libraries beyond the C++ STL:
+We utilize the following libraries beyond the C++ STL:
 
 - JSON for Modern C++ &ndash; parses and formats JSON objects
 - CSV for C++ &ndash; parses and formats CSV files

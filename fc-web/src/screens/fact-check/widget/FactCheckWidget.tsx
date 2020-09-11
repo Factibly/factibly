@@ -112,7 +112,7 @@ const FactCheckWidget = ({ originUrl, content, maxRatings, width, height }: Fact
       </Typography>
       <div className={classes.body}>
         <div className={classes.scoreWrapper}>
-          <FactCheckScoreBar ratingSet={content?.ratingSet} overallScore={content?.overallScore} />
+          <FactCheckScoreBar ratings={content?.ratingSet} overallScore={content?.overallScore} />
           <Button variant="contained" color="primary" size="small" href={originUrl} fullWidth disableElevation>
             {intl.formatMessage({ id: "factCheck.widget.action.readComplete" })}
           </Button>
@@ -120,8 +120,8 @@ const FactCheckWidget = ({ originUrl, content, maxRatings, width, height }: Fact
         {maxSteps > 0 && (
           <Box component="div" className={classes.subbody} border={1}>
             <Paper square className={classes.ratingHeader} elevation={0}>
-              <strong> {intl.formatMessage({ id: "factCheck.widget.ratings" })} </strong> <br />
-              {rating?.user?.displayName} &mdash;&nbsp;
+              <strong>{intl.formatMessage({ id: "factCheck.widget.ratings" })}</strong> <br />
+              {rating?.user?.displayName} &mdash;{" "}
               {formatAsDaysAgo(
                 rating?.createdAt,
                 daysAgo => intl.formatMessage({ id: "general.unit.daysAgo" }, { daysAgo }),
@@ -136,7 +136,7 @@ const FactCheckWidget = ({ originUrl, content, maxRatings, width, height }: Fact
                 style={{ float: "left" }}
               />
               <Link className={classes.fullRatingText} href={originUrl} style={{ clear: "both" }}>
-                {intl.formatMessage({ id: "factCheck.widget.ratings.prompt.seeFull" })}
+                {intl.formatMessage({ id: "factCheck.widget.ratings.seeFull" })}
               </Link>
             </div>
             <MobileStepper

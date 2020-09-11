@@ -19,7 +19,7 @@ export function useCustomMutation<T, V extends Record<string, any> = any>(
   mutation: DocumentNode,
   options?: MutationHookOptions<T, V> | undefined
 ) {
-  const [refreshTokenMutation] = useMutation<RefreshToken>(REFRESH_TOKEN);
+  const [refreshToken] = useMutation<RefreshToken>(REFRESH_TOKEN);
   const [currMutation] = useMutation<T, V>(mutation, options);
 
   // define the type here so that code displays properly
@@ -31,7 +31,7 @@ export function useCustomMutation<T, V extends Record<string, any> = any>(
     } catch (err) {
       if (err.toString().includes("permission")) {
         try {
-          await refreshTokenMutation();
+          await refreshToken();
           return await currMutation(options);
         } catch (err) {
           logoutUser();
@@ -55,7 +55,7 @@ export function useCustomQuery<TData = any, TVariables = OperationVariables>(
   //   try {
   //     await client.mutate({ mutation: REFRESH_TOKEN });
   //   } catch (err) {
-  //     // queres are accesible even if a user is not logged in
+  //     // queries are accessible even if a user is not logged in
   //   }
   // };
 

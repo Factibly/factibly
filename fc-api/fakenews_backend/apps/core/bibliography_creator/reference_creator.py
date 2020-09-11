@@ -19,6 +19,13 @@ from .citation_specific.mhra_reference import MhraReference
 from .citation_specific.aaa_reference import AaaReference
 from .citation_specific.apsa_reference import ApsaReference
 
+klasses = (ApaReference, MlaReference, HarvardReference,
+           ChicagoReference, TurabianReference, BibtexReference,
+           IeeeReference, AcmReference, CbeCseReference,
+           AcsReference, VancouverReference, NlmReference,
+           AmaReference, OscolaReference, MhraReference,
+           AaaReference, ApsaReference)
+
 
 class CitationType(ObjectType):
     style = String()
@@ -26,23 +33,16 @@ class CitationType(ObjectType):
 
 
 class ReferenceCreator:
-    klasses = (ApaReference, MlaReference, HarvardReference,
-               ChicagoReference, TurabianReference, BibtexReference,
-               IeeeReference, AcmReference, CbeCseReference,
-               AcsReference, VancouverReference, NlmReference,
-               AmaReference, OscolaReference, MhraReference,
-               AaaReference, ApsaReference)
-
     def __init__(self, content: Content):
         self.url = content.url
         self.title = content.title
         self.author = content.author
         self.publication_date = content.publication_date
 
-    def create_citations(self):
+    def create_references(self):
         citations = []
         medium = "website"
-        for klass in self.klasses:
+        for klass in klasses:
             ct = CitationType()
             ct.style = klass.name
             obj = klass(

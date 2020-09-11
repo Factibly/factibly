@@ -9,7 +9,7 @@ const ParagraphedTextContainer = withStyles((theme: Theme) => ({
       marginBottom: theme.spacing(5),
       wordWrap: "break-word",
     },
-    "& p:not(.primary-text), & ul:not(.primary-text)": {
+    "& p:not(.primary-text), & ul:not(.primary-text), & ol:not(.primary-text), & dd:not(.primary-text)": {
       color: theme.palette.text.secondary,
     },
     [theme.breakpoints.down("xs")]: {

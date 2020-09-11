@@ -8,22 +8,18 @@ import FactCheckRatingBreakdown from "./FactCheckRatingBreakdown";
 import FactCheckRatingActions from "./FactCheckRatingActions";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Typography, Card, CardContent, CardActions, Popover } from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+import Rating from "@material-ui/lab/Rating";
 import { RatingOrigin, RatingAction } from "../../../static/enums";
 import { findMean } from "../../../utils/number-utils";
 import clsx from "clsx";
 
 interface FactCheckRatingCardProps {
   className?: string;
-  displayName: string;
-  ratingId: string;
+  userLoggedIn: boolean;
   contentId: string;
-  createdAt: Date;
-  scores: number[];
-  justification: string;
+  rating: any;
+  displayName: string;
   country?: string;
-  upvoteCount?: number;
-  downvoteCount?: number;
   elevation?: number;
   disableAvatar?: boolean;
   origin: RatingOrigin;
@@ -40,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
     },
+    ratingWrapper: {
+      width: "fit-content",
+    },
     actions: {
       textTransform: "none",
       "& > span": {
@@ -55,43 +54,51 @@ const useStyles = makeStyles((theme: Theme) =>
     countryFlag: {
       fontSize: theme.typography.pxToRem(32),
     },
-    readMoreButton: {
-      fontWeight: "bold",
+    boldedButton: {
+      fontWeight: theme.typography.fontWeightBold,
+    },
+    bodyText: {
+      overflow: "hidden",
     },
   })
 );
 
 const FactCheckRatingCard = ({
   className,
-  displayName,
-  ratingId,
+  userLoggedIn,
   contentId,
-  createdAt,
-  scores,
-  justification,
+  rating,
+  displayName,
   country,
-  upvoteCount = 0,
-  downvoteCount = 0,
   elevation,
   disableAvatar = false,
   origin,
   action,
   onRatingEditorOpen,
 }: FactCheckRatingCardProps) => {
+  const ratingId = rating.id;
+  const createdAt = rating.createdAt;
+  const scores = [rating.score1, rating.score2, rating.score3];
+  const justification = rating.justification ?? "";
+  const upvoteCount = rating.upvoteCount ?? 0;
+  const downvoteCount = rating.downvoteCount ?? 0;
+  const isUpvoted = !!rating.isUpvoted;
+  const isDownvoted = !!rating.isDownvoted;
+
   const prefersDarkMode: boolean = useSelector((state: RootState) => state.settingsReducer.prefersDarkMode);
 
   const classes = useStyles();
   const intl = useIntl();
 
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const openPopover = Boolean(anchorEl);
-  const popoverId = openPopover ? "rating-breakdown-popover" : undefined;
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const [anchorElBreakdown, setAnchorElBreakdown] = useState<HTMLElement | null>(null);
+  const openBreakdownPopover = Boolean(anchorElBreakdown);
+  const breakdownPopoverId = openBreakdownPopover ? "rating-breakdown-popover" : undefined;
+  const handleBreakdownPopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (event.currentTarget != null) {
-      setAnchorEl(event.currentTarget);
+      setAnchorElBreakdown(event.currentTarget);
     }
   };
-  const handlePopoverClose = () => setAnchorEl(null);
+  const handleBreakdownPopoverClose = () => setAnchorElBreakdown(null);
 
   return (
     <FlatPaper
@@ -109,11 +116,11 @@ const FactCheckRatingCard = ({
       />
       <CardContent className={classes.content}>
         <div
-          onMouseOver={handlePopoverOpen}
-          onMouseOut={handlePopoverClose}
-          aria-owns={popoverId}
+          className={classes.ratingWrapper}
+          onMouseOver={handleBreakdownPopoverOpen}
+          onMouseOut={handleBreakdownPopoverClose}
+          aria-owns={breakdownPopoverId}
           aria-haspopup="true"
-          style={{ width: "fit-content" }}
         >
           <Rating
             size="large"
@@ -124,35 +131,32 @@ const FactCheckRatingCard = ({
           />
         </div>
         <Popover
-          id={popoverId}
+          id={breakdownPopoverId}
           className={classes.popover}
           classes={{ paper: classes.paper }}
-          open={openPopover}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
+          open={openBreakdownPopover}
+          anchorEl={anchorElBreakdown}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          transformOrigin={{ vertical: "top", horizontal: "left" }}
         >
           <FactCheckRatingBreakdown displayName={displayName} origin={origin} scores={scores} />
         </Popover>
-        <Typography className="clamped-text--five-lines" component="p" variant="body2" style={{ overflow: "hidden" }}>
+        <Typography className={clsx(classes.bodyText, "clamped-text--five-lines")} component="p" variant="body2">
           {justification}
         </Typography>
-        <span className={classes.readMoreButton}>
+        <span className={classes.boldedButton}>
           {intl.formatMessage({ id: "factCheck.userRatings.action.readMore" })}
         </span>
       </CardContent>
-      <CardActions className={classes.actions} disableSpacing>
+      <CardActions className={classes.actions}>
         <FactCheckRatingActions
           ratingId={ratingId}
           contentId={contentId}
           upvoteCount={upvoteCount}
           downvoteCount={downvoteCount}
+          userLoggedIn={userLoggedIn}
+          isUpvoted={isUpvoted}
+          isDownvoted={isDownvoted}
           action={action}
           onRatingEditorOpen={onRatingEditorOpen}
         />

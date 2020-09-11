@@ -2,12 +2,12 @@ import React, { PureComponent } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { injectIntl, WrappedComponentProps } from "react-intl";
 import { Helmet } from "react-helmet";
-import ParagraphedTextContainer from "../../common/ParagraphedTextContainer";
-import IconicText from "../../common/IconicText";
+import ParagraphedTextContainer from "../../../common/ParagraphedTextContainer";
+import IconicText from "../../../common/IconicText";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
-import { SUPPORT_PATH } from "../../static/paths";
+import { SUPPORT_PATH } from "../../../static/paths";
 
 class AccessibilityStatement extends PureComponent<WrappedComponentProps<"intl">> {
   render() {
@@ -25,8 +25,7 @@ class AccessibilityStatement extends PureComponent<WrappedComponentProps<"intl">
               height="32"
               width="88"
               src="https://www.w3.org/WAI/WCAG21/wcag2.1AA-v"
-              alt="Level AA conformance,
-            W3C WAI Web Content Accessibility Guidelines 2.1"
+              alt="Level AA conformance, W3C WAI Web Content Accessibility Guidelines 2.1"
             />
           </a>
           <figcaption>
@@ -51,49 +50,63 @@ class AccessibilityStatement extends PureComponent<WrappedComponentProps<"intl">
             The words, acronyms and initialisms listed below shall take on the following meanings when referenced on
             this webpage.
           </Typography>
-          <Typography component="ul">
-            <li>
+          <Typography component="dl">
+            <dt id="dfn--aria">
               <dfn>
                 <abbr title="Accessible Rich Internet Applications">ARIA</abbr>
-              </dfn>{" "}
-              meaning the suite of accessibility standards for websites under the Web Accessibility Initiative (WAI) of
-              the World Wide Web Consortium (W3C)
-            </li>
-            <li>
+              </dfn>
+            </dt>
+            <dd aria-labelledby="dfn--aria">
+              The suite of accessibility standards for websites under the Web Accessibility Initiative (WAI) of the
+              World Wide Web Consortium (W3C)
+            </dd>
+            <dt id="dfn--ascii">
               <dfn>
                 <abbr title="American Standard Code for Information Interchange">ASCII</abbr>
-              </dfn>{" "}
-              meaning the 8-bit character encoding standard that includes the English alphanumeric characters and some
-              special characters
-            </li>
-            <li>
+              </dfn>
+            </dt>
+            <dd aria-labelledby="dfn--ascii">
+              The 8-bit character encoding standard that includes the English alphanumeric characters and some special
+              characters
+            </dd>
+            <dt id="dfn--css">
               <dfn>
                 <abbr title="Cascading Style Sheet">CSS</abbr>
-              </dfn>{" "}
-              meaning the styling language that defines the visual styling of factibly.com when rendered inside a
-              browser
-            </li>
-            <li>
-              <dfn>Factibly</dfn> meaning the company Factibly, as the developer of factibly.com and other Factibly
-              services and tools, and its staff
-            </li>
-            <li>
-              <dfn>factibly.com</dfn> meaning the website and its webpages with the base{" "}
-              <abbr title="Uniform Resource Locator">URL</abbr> of www.factibly.com including any subdomains; that is,
-              the website that you are currently on
-            </li>
-            <li>
+              </dfn>
+            </dt>
+            <dd aria-labelledby="dfn--css">
+              The styling language that defines the visual styling of factibly.com when rendered inside a browser
+            </dd>
+            <dt id="dfn--factibly">
+              <dfn>Factibly</dfn>
+            </dt>
+            <dd aria-labelledby="dfn--factibly">
+              The company Factibly, as the developer of factibly.com and other Factibly services and tools, and its team
+              members
+            </dd>
+            <dt id="dfn--factibly.com">
+              <dfn>factibly.com</dfn>
+            </dt>
+            <dd aria-labelledby="dfn--factibly.com">
+              The website and its webpages with the base <abbr title="Uniform Resource Locator">URL</abbr> of
+              www.factibly.com including any subdomains; that is, the website that you are currently on
+            </dd>
+            <dt id="dfn--gif">
               <dfn>
                 <abbr title="Graphics Interchange Format">GIF</abbr>
-              </dfn>{" "}
-              meaning a common image format with the filename extension of ".gif" and internet media type of "image/gif"
-            </li>
-            <li>
+              </dfn>
+            </dt>
+            <dd aria-labelledby="dfn--gif">
+              The common image format with the filename extension of ".gif" and internet media type of "image/gif"
+            </dd>
+            <dt id="dfn--html">
               <dfn>
                 <abbr title="Hypertext Markup Language">HTML</abbr>
-              </dfn>{" "}
-              meaning the markup language that defines the structure of factibly.com when rendered inside a browser
-            </li>
+              </dfn>
+            </dt>
+            <dd aria-labelledby="dfn--html">
+              The markup language that defines the structure of factibly.com when rendered inside a browser
+            </dd>
           </Typography>
         </section>
         <section id="animations">
@@ -101,12 +114,12 @@ class AccessibilityStatement extends PureComponent<WrappedComponentProps<"intl">
             Animations and Transitions
           </Typography>
           <Typography variant="body1" paragraph>
-            Factibly.com automatically disables all transitions and animations for a particular user whenever that user
+            factibly.com automatically disables all transitions and animations for a particular user whenever that user
             enables "reduce motion" in their operating system settings. Internally, factibly.com uses the
             "prefers-reduce-motion" <abbr title="Cascading Style Sheet">CSS</abbr> media query to detect this setting.
           </Typography>
           <Typography variant="body1" paragraph>
-            Factibly.com also avoids the use of <abbr title="Graphics Interchange Format">GIFs</abbr> where possible and
+            factibly.com also avoids the use of <abbr title="Graphics Interchange Format">GIFs</abbr> where possible and
             instead shows any animated clips as embedded YouTube videos with autoplay disabled. In the event that
             factibly.com uses a <abbr title="Graphics Interchange Format">GIF</abbr>, it is only triggered upon a cursor
             hover and is completely disabled whenever the "reduce motion" setting is enabled.
@@ -117,7 +130,7 @@ class AccessibilityStatement extends PureComponent<WrappedComponentProps<"intl">
             Landmarks and Roles
           </Typography>
           <Typography variant="body1" paragraph>
-            Factibly.com injects <abbr title="Hypertext Markup Language">HTML</abbr> landmark elements and applies{" "}
+            factibly.com injects <abbr title="Hypertext Markup Language">HTML</abbr> landmark elements and applies{" "}
             <abbr title="Accessible Rich Internet Applications">ARIA</abbr> roles to{" "}
             <abbr title="Hypertext Markup Language">HTML</abbr> elements where relevant. This way, your screen reader
             can better identify the purpose and significance of each part of a webpage, the location of headers and
@@ -131,7 +144,7 @@ class AccessibilityStatement extends PureComponent<WrappedComponentProps<"intl">
             Labels, Tooltips and Captions
           </Typography>
           <Typography variant="body1" paragraph>
-            Factibly.com assigns <abbr title="Accessible Rich Internet Applications">ARIA</abbr> labels to{" "}
+            factibly.com assigns <abbr title="Accessible Rich Internet Applications">ARIA</abbr> labels to{" "}
             <abbr title="Hypertext Markup Language">HTML</abbr> elements where relevant. These labels only use{" "}
             <abbr title="American Standard Code for Information Interchange">ASCII</abbr> characters and avoids any
             special characters that may be too difficult for some screen readers to interpret.
@@ -151,13 +164,17 @@ class AccessibilityStatement extends PureComponent<WrappedComponentProps<"intl">
             Responsive Font Sizes
           </Typography>
           <Typography variant="body1" paragraph>
-            Factibly.com meaures the font sizes in units of <code>rem</code> so that the texts proportionally scale with
+            factibly.com meaures the font sizes in units of <code>rem</code> so that the texts proportionally scale with
             whatever the user has set as their default font size in their browser or operating system settings.
             Regardless of what font size an user uses (up to 200% of the 'normal' font size), factibly.com will continue
             to look beautiful and be fully functional.
           </Typography>
         </section>
-        <IconicText text="Accessibility Statement (effective from August 27, 2020)" icon={<AccessibilityNewIcon />} />
+        <IconicText
+          id="accessibility--stamp"
+          text="Accessibility Statement (effective from August 27, 2020)"
+          icon={<AccessibilityNewIcon />}
+        />
       </ParagraphedTextContainer>
     );
   }

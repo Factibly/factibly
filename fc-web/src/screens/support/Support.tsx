@@ -23,7 +23,7 @@ const Support = () => {
   return (
     <div style={{ width: "100%" }}>
       <Helmet>
-        <title>{intl.formatMessage({ id: "nav.drawer.item.supportFeedback" })}</title>
+        <title>{intl.formatMessage({ id: "nav.dropdown.item.support" })}</title>
       </Helmet>
       <AppBar position="static" color="default">
         <Tabs

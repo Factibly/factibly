@@ -9,7 +9,7 @@ interface FcInputProps extends OutlinedInputProps {
   name: string;
   label: string;
   value: string;
-  onChange: (input: any) => void;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
   type?: string;
   errorMsg?: string;
   helperText?: string;
@@ -29,7 +29,7 @@ const FcInput = ({
 }: FcInputProps) => {
   return (
     <FormControl variant="outlined" style={{ width: "100%" }}>
-      <InputLabel htmlFor={label}> {label} </InputLabel>
+      <InputLabel htmlFor={label}>{label}</InputLabel>
       <OutlinedInput
         id={label}
         name={name}
@@ -43,7 +43,7 @@ const FcInput = ({
         aria-describedby={errorMsg ? `${label}-error-message` : `${label}-helper-text`}
         {...otherProps}
       />
-      {helperText && <FormHelperText id={`${label}-helper-text`}> {helperText} </FormHelperText>}
+      {helperText && <FormHelperText id={`${label}-helper-text`}>{helperText}</FormHelperText>}
       {errorMsg && <FcErrorMessage id={`${label}-error-message`} msg={errorMsg} />}
       {children}
     </FormControl>

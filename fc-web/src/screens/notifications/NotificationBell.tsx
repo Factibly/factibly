@@ -4,7 +4,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 
 const NotificationBell = () => {
   return (
-    <Badge badgeContent={8} color="primary">
+    <Badge badgeContent={0} color="primary">
       <NotificationsIcon />
     </Badge>
   );

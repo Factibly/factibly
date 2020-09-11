@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Rating } from "@material-ui/lab";
+import Rating from "@material-ui/lab/Rating";
 import { RatingOrigin } from "../../../static/enums";
 import clsx from "clsx";
 

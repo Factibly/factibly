@@ -43,6 +43,8 @@ export const CONTENT = gql`
         justification
         upvoteCount
         downvoteCount
+        isUpvoted
+        isDownvoted
         user {
           id
           displayName
@@ -58,6 +60,21 @@ export const CONTENT = gql`
         createdAt
         upvoteCount
         downvoteCount
+      }
+    }
+  }
+`;
+
+export const CONTENT_RATING_TEMPORAL_TRENDS_LIST = gql`
+  query ContentRatingTemporalTrendsList($contentId: ID!) {
+    content(id: $contentId) {
+      id
+      ratingTemporalTrendsSet {
+        monthsAgo
+        score1Mean
+        score2Mean
+        score3Mean
+        overallMean
       }
     }
   }

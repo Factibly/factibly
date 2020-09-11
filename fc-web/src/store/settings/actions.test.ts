@@ -15,7 +15,7 @@ describe("Settings Actions", () => {
   });
 
   it("find change website language", () => {
-    expect(screenActions.changeWebsiteLanguage).toBeDefined();
+    expect(screenActions.changeWebsiteLocale).toBeDefined();
   });
 
   it("dispatch change website language", () => {
@@ -27,13 +27,13 @@ describe("Settings Actions", () => {
         },
       },
     ];
-    store.dispatch(screenActions.changeWebsiteLanguage(locale));
+    store.dispatch(screenActions.changeWebsiteLocale(locale));
     expect(store.getActions()).toEqual(expectedActions);
     expect(localStorage.getItem(SITE_LOCALE_KEY)).toEqual(locale);
   });
 
   it("find change dark mode", () => {
-    expect(screenActions.changeDarkMode).toBeDefined();
+    expect(screenActions.changePrefersDarkMode).toBeDefined();
   });
 
   it("dispatch change dark mode", () => {
@@ -45,7 +45,7 @@ describe("Settings Actions", () => {
         },
       },
     ];
-    store.dispatch(screenActions.changeDarkMode(false));
+    store.dispatch(screenActions.changePrefersDarkMode(false));
     expect(store.getActions()).toEqual(expectedActions);
     expect(localStorage.getItem(PREFERS_DARK_MODE_KEY)).toEqual("false");
   });

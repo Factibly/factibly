@@ -16,18 +16,18 @@ export function retrieveMinimumRequiredAge() {
 export function retrievePasswordRequirements(password: string) {
   return Object.freeze([
     {
-      validator: validatePasswordMinimumLength(password),
+      passed: validatePasswordMinimumLength(password),
       failTextId: "user.registration.form.msg.password.requirement.length",
     },
     {
-      validator: validatePasswordUppercase(password),
+      passed: validatePasswordUppercase(password),
       failTextId: "user.registration.form.msg.password.requirement.oneUpper",
     },
     {
-      validator: validatePasswordNumericality(password),
+      passed: validatePasswordNumericality(password),
       failTextId: "user.registration.form.msg.password.requirement.oneNumber",
     },
-    // { validator: /^(?:(.)(?!\1{3}))*$/.test(password), failTextId: "user.registration.form.msg.password.requirement.consecutive"},
+    // { passed: /^(?:(.)(?!\1{3}))*$/.test(password), failTextId: "user.registration.form.msg.password.requirement.consecutive"},
   ]);
 }
 
@@ -85,9 +85,9 @@ export class RegistrationFormValidation extends BaseFormValidation<RegistrationF
     if (!this.values.password) {
       this.errors.password = this.requiredFieldMsg;
     } else {
-      retrievePasswordRequirements(this.values.password).forEach(req => {
-        if (!req.validator) {
-          this.errors = this.#onPasswordRequirementFailed(req.failTextId, this.errors);
+      retrievePasswordRequirements(this.values.password).forEach(requirement => {
+        if (!requirement.passed) {
+          this.errors = this.#onPasswordRequirementFailed(requirement.failTextId, this.errors);
         }
       });
     }

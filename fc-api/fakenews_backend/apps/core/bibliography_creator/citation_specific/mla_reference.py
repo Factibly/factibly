@@ -25,7 +25,7 @@ class MlaReference(BaseReference):
 
         self.pub_dt = ""
         if publication_date:
-            self.pub_dt = publication_date.strftime("%Y, %B %d")
+            self.pub_dt = publication_date.strftime("%d %b %Y")
 
     def reference_website(self):
         last_on_author = ", "
@@ -39,5 +39,5 @@ class MlaReference(BaseReference):
             title=self.title,
             publisher="",
             publication_date=self.pub_dt,
-            accessed_date=datetime.now().strftime("%d %b. %Y")
+            accessed_date=datetime.now().strftime("%d %b %Y")
         )

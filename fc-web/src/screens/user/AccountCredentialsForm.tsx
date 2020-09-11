@@ -9,10 +9,10 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Popover } from "@material-ui/core";
 import { RegistrationFormValues } from "../../utils/forms/registration-form-helper";
 
-interface UserCredentialsFormProps {
+interface AccountCredentialsFormProps {
   values: RegistrationFormValues;
   errors: FormikErrors<RegistrationFormValues>;
-  onNext: (event: any) => void | undefined;
+  onNext: (event: any) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,22 +26,19 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const AccountCredentialsForm = ({ values, errors, onNext }: UserCredentialsFormProps) => {
+const AccountCredentialsForm = ({ values, errors, onNext }: AccountCredentialsFormProps) => {
   const classes = useStyles();
   const intl = useIntl();
 
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const openPopover = Boolean(anchorEl);
-
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const [anchorElPsi, setAnchorElPsi] = useState<HTMLElement | null>(null);
+  const openPsi = Boolean(anchorElPsi);
+  const psiPopoverId = openPsi ? "password-strength-popover" : undefined;
+  const handlePsiOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (event.currentTarget != null) {
-      setAnchorEl(event.currentTarget);
+      setAnchorElPsi(event.currentTarget);
     }
   };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
+  const handlePsiClose = () => setAnchorElPsi(null);
 
   return (
     <Form onSubmit={onNext}>
@@ -61,28 +58,20 @@ const AccountCredentialsForm = ({ values, errors, onNext }: UserCredentialsFormP
           type="password"
           label={intl.formatMessage({ id: "user.registration.form.field.password" })}
           errorMsg={errors.password}
-          onMouseDown={handlePopoverOpen}
-          onBlur={handlePopoverClose}
+          onMouseDown={handlePsiOpen}
+          onBlur={handlePsiClose}
           aria-required="true"
-          aria-owns={openPopover ? "password-strength-popover" : undefined}
+          aria-owns={psiPopoverId}
           aria-haspopup="true"
         />
         <Popover
-          id="password-strength-popover"
+          id={psiPopoverId}
           className={classes.popover}
-          classes={{
-            paper: classes.paper,
-          }}
-          open={openPopover}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-          transformOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
+          classes={{ paper: classes.paper }}
+          open={openPsi}
+          anchorEl={anchorElPsi}
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
+          transformOrigin={{ vertical: "bottom", horizontal: "left" }}
           disableAutoFocus
           disableEnforceFocus
         >

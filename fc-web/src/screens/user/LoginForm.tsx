@@ -8,6 +8,7 @@ import FormGroupCompact from "../../common/FormGroupCompact";
 import FcInput from "../../common/FcInput";
 import FormButtons from "../../common/FormButtons";
 import PageContainer from "../../common/PageContainer";
+import AuthenticationCookieAlert from "./AuthenticationCookieAlert";
 import { Typography, Link, IconButton, InputAdornment } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -42,7 +43,7 @@ const LoginForm = () => {
 
       setAlert({
         severity: "success",
-        message: intl.formatMessage({ id: "user.alert.msg.loginSuccess" }),
+        message: intl.formatMessage({ id: "user.alert.login.success" }),
       });
     } catch (err) {
       setAlert({
@@ -53,76 +54,79 @@ const LoginForm = () => {
   };
 
   return (
-    <Formik
-      initialValues={{ email: "", password: "" }}
-      onSubmit={handleLoginAttempt}
-      validateOnBlur={false}
-      validateOnChange={false}
-    >
-      {({ errors, submitForm }) => {
-        const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-          event.preventDefault();
-          submitForm();
-        };
+    <>
+      {navigator.cookieEnabled || <AuthenticationCookieAlert />}
+      <PageContainer maxWidth="md">
+        <Helmet>
+          <title>{intl.formatMessage({ id: "user.signin.form" })}</title>
+        </Helmet>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          onSubmit={handleLoginAttempt}
+          validateOnBlur={false}
+          validateOnChange={false}
+        >
+          {({ errors, submitForm }) => {
+            const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+              event.preventDefault();
+              submitForm();
+            };
 
-        return (
-          <PageContainer maxWidth="md">
-            <Helmet>
-              <title> {intl.formatMessage({ id: "user.signin.form" })} </title>
-            </Helmet>
-            <FormPaper elevation={4}>
-              <Typography component="h2" variant="h4">
-                {intl.formatMessage({ id: "user.signin.form" })}
-              </Typography>
-              <Form onSubmit={onSubmit}>
-                <FormGroupCompact>
-                  <Field
-                    as={FcInput}
-                    name="email"
-                    type="email"
-                    label={intl.formatMessage({ id: "user.signin.form.field.email" })}
-                    autoComplete="email"
-                    errorMsg={errors.email}
-                    aria-required="true"
+            return (
+              <FormPaper elevation={4}>
+                <Typography component="h2" variant="h4">
+                  {intl.formatMessage({ id: "user.signin.form" })}
+                </Typography>
+                <Form onSubmit={onSubmit}>
+                  <FormGroupCompact>
+                    <Field
+                      as={FcInput}
+                      name="email"
+                      type="email"
+                      label={intl.formatMessage({ id: "user.signin.form.field.email" })}
+                      autoComplete="email"
+                      errorMsg={errors.email}
+                      aria-required="true"
+                    />
+                    <Field
+                      as={FcInput}
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      label={intl.formatMessage({ id: "user.signin.form.field.password" })}
+                      autoComplete="current-password"
+                      errorMsg={errors.password}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            edge="end"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            aria-label={intl.formatMessage({
+                              id: "user.signin.form.action.password.toggleVisibility.aria",
+                            })}
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      aria-required="true"
+                    />
+                    <Link href="#" variant="body2" color="inherit" align="left">
+                      <b>{intl.formatMessage({ id: "user.action.forgotPassword" })}</b>
+                    </Link>
+                  </FormGroupCompact>
+                  <FormButtons
+                    primaryText={intl.formatMessage({ id: "user.action.login" })}
+                    secondaryText={intl.formatMessage({ id: "user.action.register" })}
+                    to={{ pathname: ACCOUNT_REGISTER_PATH, state: location.state }}
                   />
-                  <Field
-                    as={FcInput}
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    label={intl.formatMessage({ id: "user.signin.form.field.password" })}
-                    autoComplete="current-password"
-                    errorMsg={errors.password}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          edge="end"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          aria-label={intl.formatMessage({
-                            id: "user.signin.form.action.password.toggleVisibility.aria",
-                          })}
-                        >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    aria-required="true"
-                  />
-                  <Link href="#" variant="body2" style={{ color: "inherit", textAlign: "left" }}>
-                    <b> {intl.formatMessage({ id: "user.action.forgotPassword" })} </b>
-                  </Link>
-                </FormGroupCompact>
-                <FormButtons
-                  primaryText={intl.formatMessage({ id: "user.action.login" })}
-                  secondaryText={intl.formatMessage({ id: "user.action.register" })}
-                  to={{ pathname: ACCOUNT_REGISTER_PATH, state: location.state }}
-                />
-              </Form>
-            </FormPaper>
-          </PageContainer>
-        );
-      }}
-    </Formik>
+                </Form>
+              </FormPaper>
+            );
+          }}
+        </Formik>
+      </PageContainer>
+    </>
   );
 };
 

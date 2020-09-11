@@ -17,21 +17,21 @@ import {
   Paper,
   PaperProps,
 } from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+import Rating from "@material-ui/lab/Rating";
 import { RateContent, RateContentVariables } from "../../../gql/__generated__/RateContent";
 import { RATE_CONTENT } from "../../../gql/mutations";
 import { CONTENT } from "../../../gql/queries";
+import { useCustomMutation } from "../../../hooks/gql";
 import { useAlert } from "../../../hooks/useAlert";
 import { isEqual } from "lodash";
 import { parseGqlErrorMsg } from "../../../utils/string-utils";
-import { useCustomMutation } from "../../../hooks/gql";
 
 interface FactCheckRatingEditorProps {
-  contentId: any;
+  contentId: string;
   defaultScores?: number[];
   defaultJustification?: string;
   open: boolean;
-  onClose: () => any;
+  onClose: () => void;
   executeRecaptcha?: (action?: string | undefined) => Promise<string>;
 }
 
@@ -39,6 +39,11 @@ const useStyles = makeStyles(() =>
   createStyles({
     dialogPaper: {
       width: 512,
+    },
+    ratingDescription: {
+      display: "flex",
+      justifyContent: "left",
+      alignItems: "center",
     },
   })
 );
@@ -112,7 +117,7 @@ const FactCheckRatingEditor = ({
           });
           setAlert({
             severity: "success",
-            message: intl.formatMessage({ id: "factCheck.userRatings.alert.msg.submitted" }),
+            message: intl.formatMessage({ id: "factCheck.userRatings.alert.submit.success" }),
           });
         } catch (err) {
           setAlert({
@@ -141,7 +146,7 @@ const FactCheckRatingEditor = ({
         aria-describedby="rating-editor-form-description"
       >
         <DialogTitle id="rating-editor-form-title" style={{ cursor: "move" }}>
-          {intl.formatMessage({ id: "factCheck.userRatings.action.rate.rateSource" })}
+          {intl.formatMessage({ id: "factCheck.userRatings.action.rate" })}
         </DialogTitle>
         <DialogContent id="rating-editor-form-description">
           <form autoComplete="off">
@@ -150,7 +155,8 @@ const FactCheckRatingEditor = ({
                 const criterionName = intl.formatMessage({ id: `factCheck.userRatings.criterion${i + 1}` });
                 return (
                   <DialogContentText key={`rating-question-${i}`} component="div" color="inherit">
-                    <Typography component="div" id={`rating-criterion-${criterionName}-edit`}>
+                    <Typography id={`rating-criterion-${criterionName}-edit`} component="div">
+                      <b>{intl.formatMessage({ id: `factCheck.userRatings.criterion${i + 1}` })}</b>:{" "}
                       {intl.formatMessage({ id: `factCheck.userRatings.criterion${i + 1}.question` })}
                     </Typography>
                     <div
@@ -164,7 +170,7 @@ const FactCheckRatingEditor = ({
                         onChangeActive={(_, value) => handleRatingHover(value, i)}
                         onChange={(_, value) => handleRatingChange(value, i)}
                       />
-                      <span style={{ display: "flex", justifyContent: "left", alignItems: "center" }}>
+                      <span className={classes.ratingDescription}>
                         {ratingDescriptions[i] && intl.formatMessage({ id: ratingDescriptions[i] })}
                       </span>
                     </div>
@@ -183,17 +189,15 @@ const FactCheckRatingEditor = ({
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
-            {intl.formatMessage({ id: "general.action.cancel" })}
-          </Button>
-          <Button onClick={handleEditorSubmit} disabled={scores.some(score => score === 0)} color="primary">
+          <Button onClick={onClose}>{intl.formatMessage({ id: "general.action.cancel" })}</Button>
+          <Button onClick={handleEditorSubmit} disabled={scores.some(score => score === 0)}>
             {intl.formatMessage({ id: "general.action.submit" })}
           </Button>
         </DialogActions>
       </Dialog>
       <Prompt
-        when={ratingChanged() && !ratingFormCompleted}
-        message={intl.formatMessage({ id: "general.dialog.navChangeUnsaved.message" })}
+        when={open && ratingChanged() && !ratingFormCompleted}
+        message={intl.formatMessage({ id: "factCheck.userRatings.editor.changed.unsaved" })}
       />
     </>
   );

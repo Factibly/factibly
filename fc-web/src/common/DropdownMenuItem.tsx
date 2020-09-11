@@ -12,7 +12,7 @@ interface DropdownMenuItemProps {
 
 class DropdownMenuItem extends PureComponent<DropdownMenuItemProps> {
   render() {
-    const { primary, icon, selected, onClick, children, ...otherProps } = this.props;
+    const { primary, icon, selected = false, onClick, children, ...otherProps } = this.props;
     return (
       <MenuItem onClick={onClick} selected={selected} {...otherProps}>
         {icon && <ListItemIcon>{icon}</ListItemIcon>}

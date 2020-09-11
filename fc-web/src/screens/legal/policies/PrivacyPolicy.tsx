@@ -3,7 +3,7 @@ import ParagraphedTextContainer from "../../../common/ParagraphedTextContainer";
 import IconicText from "../../../common/IconicText";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
-import GavelIcon from "@material-ui/icons/Gavel";
+import PolicyIcon from "@material-ui/icons/Policy";
 import { LEGAL_COOKIE_POLICY_PATH } from "../../../static/paths";
 
 const PrivacyPolicy = () => {
@@ -273,7 +273,11 @@ const PrivacyPolicy = () => {
           contact us immediately and we will do our best efforts to promptly remove such information from our records.
         </Typography>
       </div>
-      <IconicText text="Privacy Policy (effective from August 23, 2020)" icon={<GavelIcon />} />
+      <IconicText
+        id="privacy-policy--stamp"
+        text="Privacy Policy (effective from August 23, 2020)"
+        icon={<PolicyIcon />}
+      />
     </ParagraphedTextContainer>
   );
 };

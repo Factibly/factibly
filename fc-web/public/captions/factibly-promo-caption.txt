@@ -21,7 +21,7 @@
 [0:52] <action> {B2}: person scrolls down to the share menu on the fact check page, pauses there, and opens up the share menu to display a list of social media buttons that can be clicked on in order to share the fact check with other person
 
 [0:54] <action> {B3}: person scrolls down to a line chart showing the rating trends over time for the CNN source, and pauses there for now
-	
+
 [0:55] <text>: "See the trends"
 
 [1:02] <action> {B4}: person scrolls down to the list of individual ratings made by factibly.com users, along with each of their given scores and justifications
@@ -40,7 +40,7 @@
 
 [1:23] <action> {D1}: person clicks on the "Bookmark this fact check" button on the fact check page; upon clicking it, the button text changes to "This fact check has already been bookmarked" and a green success banner shows up on the top-right corner of the Chrome window with the message "Content bookmarked"
 
-[1:30] <action> {D2}: person clicks on the "Bookmarks" button on the top navigation bar of factibly.com; upon clicking it, person is redirected to the factibly.com bookmarks page (url: www.factibly.com/bookmarks) where the person sees his recently added bookmark 
+[1:30] <action> {D2}: person clicks on the "Bookmarks" button on the top navigation bar of factibly.com; upon clicking it, person is redirected to the factibly.com bookmarks page (url: www.factibly.com/bookmarks) where the person sees his recently added bookmark
 
 [1:31] <action> {E1}: person skips back to the same fact check page for the CNN source and clicks on the "edit" button for a fact check rating that he has already submitted; upon clicking it, person sees a dialog opening up with a form to edit the rating for each of the fact check criterion (namely Accuracy, Expertise and Strength) and a text-box to edit his justification
 

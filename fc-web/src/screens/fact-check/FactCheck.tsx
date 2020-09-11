@@ -7,6 +7,7 @@ import PageContainer from "../../common/PageContainer";
 import FactCheckOpenGraph from "./FactCheckOpenGraph";
 import FactCheckHeader from "./FactCheckHeader";
 import FactCheckCoverImage from "./FactCheckCoverImage";
+import FactCheckRatingPromptBox from "./FactCheckRatingPromptBox";
 import FactCheckOverview from "./overview/FactCheckOverview";
 import FactCheckRatingCard from "./user-rating/FactCheckRatingCard";
 import FactCheckRatingEditor from "./user-rating/FactCheckRatingEditor";
@@ -14,7 +15,7 @@ import FactCheckRatingsChart from "./trends/FactCheckRatingsChart";
 import FactCheckRatings from "./user-rating/FactCheckRatings";
 import { showFactCheckWidget } from "./widget/FactCheckWidget";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Grid, Button } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import { CONTENT, LOGGED_IN } from "../../gql/queries";
 import history from "../../hooks/history";
 import { RatingOrigin, RatingAction } from "../../static/enums";
@@ -30,10 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
       "& > *": {
         marginBottom: theme.spacing(6),
       },
-    },
-    button: {
-      marginTop: theme.spacing(2),
-      borderRadius: theme.spacing(3),
     },
     fab: {
       position: "fixed",
@@ -55,6 +52,18 @@ const FactCheck = () => {
   const location = useLocation();
   const classes = useStyles();
   const intl = useIntl();
+
+  // const [scrollTarget, setScrollTarget] = useState(undefined);
+  // const targetRectTop = (scrollTarget as any)?.getBoundingClientRect().top;
+
+  // useEffect(() => {
+  //   const callback = () => {
+  //     if (targetRectTop - window.innerHeight <= 0) {
+  //     }
+  //   };
+  //   window.addEventListener("scroll", callback);
+  //   return () => window.removeEventListener("scroll", callback);
+  // }, [scrollTarget, targetRectTop]);
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -117,33 +126,25 @@ const FactCheck = () => {
               <section id="self-rating" aria-label={intl.formatMessage({ id: "factCheck.userRatings.selfRating" })}>
                 {selfRating ? (
                   <FactCheckRatingCard
+                    userLoggedIn={userLoggedIn}
                     displayName={intl.formatMessage({ id: "factCheck.userRatings.selfRating" })}
-                    ratingId={selfRating.id}
                     contentId={contentId}
-                    createdAt={selfRating.createdAt}
-                    scores={[selfRating.score1, selfRating.score2, selfRating.score3]}
-                    justification={selfRating.justification ?? ""}
-                    upvoteCount={selfRating.upvoteCount}
-                    downvoteCount={selfRating.downvoteCount}
+                    rating={selfRating}
                     elevation={5}
                     origin={RatingOrigin.YOURS}
                     action={RatingAction.EDIT}
                     onRatingEditorOpen={handleOpenRatingEditor}
                   />
                 ) : (
-                  <Button
-                    className={classes.button}
-                    variant="contained"
-                    color="primary"
-                    onClick={handleOpenRatingEditor}
-                    disableElevation
-                  >
-                    {intl.formatMessage({
-                      id: userLoggedIn
-                        ? "factCheck.userRatings.action.rate.rateSource"
-                        : "factCheck.userRatings.action.rate.logRate",
-                    })}
-                  </Button>
+                  <FactCheckRatingPromptBox
+                    // ref={node => {
+                    //   if (node && !scrollTarget) {
+                    //     setScrollTarget(node as any);
+                    //   }
+                    // }}
+                    onOpenRatingEditor={handleOpenRatingEditor}
+                    userLoggedIn={userLoggedIn}
+                  />
                 )}
               </section>
             </Grid>
@@ -159,16 +160,16 @@ const FactCheck = () => {
           />
           <Grid container item direction="column" spacing={3}>
             <FactCheckRatingsChart
-              ratings={content?.ratingSet ?? []}
+              contentId={contentId}
               aria-label={intl.formatMessage({ id: "factCheck.trends.rating" })}
             />
             <Grid item>
               <section
                 id="user-ratings"
-                aria-label={intl.formatMessage({ id: "factCheck.userRatings" })}
+                aria-label={intl.formatMessage({ id: "factCheck.userRatings.aria" })}
                 aria-live="polite"
               >
-                <FactCheckRatings contentId={contentId} content={content} />
+                <FactCheckRatings contentId={contentId} content={content} userLoggedIn={userLoggedIn} />
               </section>
             </Grid>
           </Grid>

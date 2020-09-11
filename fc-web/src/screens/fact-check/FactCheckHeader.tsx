@@ -34,13 +34,17 @@ const FactCheckHeader = ({ sourceTitle, author }: FactCheckHeaderProps) => {
   return (
     <>
       <Typography className={classes.tag} gutterBottom>
-        {intl.formatMessage({ id: "factCheck.factCheckCertified.tag" })}
+        {intl.formatMessage({ id: "factCheck.certified.tag" })}
       </Typography>
       <Typography className={classes.title} component="h2" variant="h3" gutterBottom>
         {sourceTitle}
       </Typography>
       <Typography gutterBottom style={{ fontSize: "large" }}>
-        {author ? `by ${author}` : <em> {intl.formatMessage({ id: "factCheck.overview.author.unknown" })} </em>}
+        {author ? (
+          intl.formatMessage({ id: "factCheck.overview.author.by" }, { author })
+        ) : (
+          <em>{intl.formatMessage({ id: "factCheck.overview.author.unknown" })}</em>
+        )}
       </Typography>
     </>
   );

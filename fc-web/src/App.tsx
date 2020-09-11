@@ -18,7 +18,7 @@ import RegistrationForm from "./screens/user/RegistrationForm";
 import NavigationBar from "./screens/navigation/NavigationBar";
 import Footer from "./screens/Footer";
 import Legal from "./screens/legal/Legal";
-import AccessibilityStatement from "./screens/legal/AccessibilityStatement";
+import AccessibilityStatement from "./screens/legal/policies/AccessibilityStatement";
 import Http404 from "./screens/Http404";
 import { Theme, responsiveFontSizes } from "@material-ui/core/styles";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
@@ -36,7 +36,7 @@ import {
   SUPPORT_PATH,
   ACCOUNT_SIGN_IN_PATH,
   ACCOUNT_REGISTER_PATH,
-  FACT_CHECK_PATH,
+  FACT_CHECK_CONTENT_PATH,
   LEGAL_POLICY_PATH,
   ACCESSIBILITY_PATH,
 } from "./static/paths";
@@ -107,7 +107,7 @@ class App extends Component<AppProps, AppState> {
                 <main>
                   <Switch>
                     <Route exact path={HOME_PATH} component={Home} />
-                    <Route exact path={FACT_CHECK_PATH} component={FactCheck} />
+                    <Route exact path={FACT_CHECK_CONTENT_PATH} component={FactCheck} />
                     <Route exact path={BOOKMARKS_PATH} component={Bookmarks} />
                     <Route exact path={MISSION_PATH} component={Mission} />
                     <Route exact path={SUPPORT_PATH} component={Support} />

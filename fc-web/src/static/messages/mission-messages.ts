@@ -39,7 +39,7 @@ export default {
   },
   "fr-FR": {
     "mission.applications": "Applications et services Factibly",
-    "mission.applications.application": "application",
+    "mission.applications.application": "Application",
     "mission.applications.erd": "Diagramme entité-association",
     "mission.applications.infraDiagram": "Diagramme d'infrastructure",
     "mission.applications.sourceCode": "Code source",

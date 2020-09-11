@@ -28,11 +28,11 @@ class AnonymousActionMenu extends PureComponent<AnonymousActionMenuProps> {
         {actions.map(({ primaryNameId, icon, to }) => (
           <DropdownMenuItem
             key={`anonymous-action-menu-item-${primaryNameId}`}
-            component={RouterLink}
             button
+            component={RouterLink}
+            to={to}
             primary={this.props.intl.formatMessage({ id: primaryNameId })}
             icon={icon}
-            to={to}
           />
         ))}
       </>

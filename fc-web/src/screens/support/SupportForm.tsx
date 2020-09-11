@@ -57,8 +57,8 @@ const SupportForm = ({ support }: SupportFormProps) => {
   const handleOpenConfirmationDialog = () => setOpenConfirmationDialog(true);
   const handleCloseConfirmationDialog = (alsoSendTicket: boolean = false, values?: SupportFormValues) => {
     if (alsoSendTicket) {
-      submitToAsana(support.nameDefault, category, values)(dispatch);
       setSubmissionLoading(true);
+      submitToAsana(support.nameDefault, category, values, support.id !== "feedback")(dispatch);
     }
     setOpenConfirmationDialog(false);
   };
@@ -91,10 +91,10 @@ const SupportForm = ({ support }: SupportFormProps) => {
           </CardContent>
           <CardActions>
             <Button
-              startIcon={<GitHubIcon />}
               href="https://github.com/Sapphire-Labs/factibly/issues"
               target="_blank"
               rel="noreferrer noopener"
+              startIcon={<GitHubIcon />}
             >
               {intl.formatMessage({ id: "general.action.github.issue.create" })}
             </Button>

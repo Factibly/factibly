@@ -1,9 +1,7 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
-import NavigationTitle from "./NavigationTitle";
-import NotificationsBell from "../notifications/NotificationBell";
-import CountrySelector from "../countries/CountrySelector";
+import NavigationLogo from "./NavigationLogo";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import {
   Drawer,
@@ -17,7 +15,8 @@ import {
   Fade,
 } from "@material-ui/core";
 import { NAVIGATION_BLACK } from "../../styles/colours";
-import navPages from "../../static/data/navigation-pages";
+import { partition } from "lodash";
+import pages from "../../static/data/navigation-pages";
 
 interface NavigationDrawerProps {
   drawerOpened: boolean;
@@ -34,54 +33,48 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 256,
       },
     },
-    title: {
+    logo: {
       padding: theme.spacing(2),
       backgroundColor: NAVIGATION_BLACK,
       color: theme.palette.primary.contrastText,
     },
-    topConfigurationBar: {
+    topMenuItems: {
+      display: "flex",
       "& > *": {
         height: 48,
       },
     },
-    topConfigurationBarRoot: {
+    topMenuItemsRoot: {
       paddingTop: 0,
       paddingBottom: 0,
+    },
+    selector: {
+      flex: "50%",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    iconButton: {
+      width: "100%",
+      height: "100%",
+      borderRadius: 0,
     },
   })
 );
 
-const configItems = Object.freeze([
-  {
-    Icon: CountrySelector,
-    nameId: navPages.countriesSelector.nameId,
-    ariaLabelId: navPages.notificationsSelector.ariaLabelId,
-  },
-  {
-    Icon: NotificationsBell,
-    nameId: navPages.notificationsSelector.nameId,
-    ariaLabelId: navPages.notificationsSelector.ariaLabelId,
-  },
-]);
+const [topMenuItems, centreMenuItems] = partition(pages, o => o.showIconOnly);
 
-const TopConfigurationBar = () => {
+const TopMenuItems = () => {
   const classes = useStyles();
   const intl = useIntl();
   return (
-    <ListItem
-      className={classes.topConfigurationBar}
-      classes={{ root: classes.topConfigurationBarRoot }}
-      disableGutters
-      style={{ display: "flex" }}
-    >
-      {configItems.map(({ Icon, nameId, ariaLabelId }) => (
-        <ListItemIcon
-          key={`nav-config-bar-${nameId}-selector`}
-          style={{ flex: "50%", justifyContent: "center", alignItems: "center" }}
-        >
+    <ListItem className={classes.topMenuItems} classes={{ root: classes.topMenuItemsRoot }} disableGutters>
+      {topMenuItems.map(({ nameId, Icon, pathname, ariaLabelId }) => (
+        <ListItemIcon key={`nav-drawer-${nameId}-selector`} className={classes.selector}>
           <Tooltip title={intl.formatMessage({ id: nameId })} TransitionComponent={Fade}>
             <IconButton
-              style={{ width: "100%", height: "100%", borderRadius: 0 }}
+              className={classes.iconButton}
+              component={pathname ? RouterLink : "button"}
+              to={pathname}
               aria-label={intl.formatMessage({ id: ariaLabelId })}
             >
               <Icon />
@@ -93,23 +86,18 @@ const TopConfigurationBar = () => {
   );
 };
 
-const DrawerMenuList = () => {
+const CentreMenuItems = () => {
   const intl = useIntl();
   return (
     <>
-      {Object.values(navPages).map(({ nameId, pathname, Icon: PageIcon, showIconOnly }) => {
-        if (showIconOnly) {
-          return null;
-        }
-        return (
-          <ListItem key={`nav-item-${nameId}`} component={RouterLink} button to={pathname}>
-            <ListItemIcon>
-              <PageIcon />
-            </ListItemIcon>
-            <ListItemText primary={intl.formatMessage({ id: nameId })} />
-          </ListItem>
-        );
-      })}
+      {centreMenuItems.map(({ nameId, Icon, pathname = "" }) => (
+        <ListItem key={`nav-item-${nameId}`} button component={RouterLink} to={pathname}>
+          <ListItemIcon>
+            <Icon />
+          </ListItemIcon>
+          <ListItemText primary={intl.formatMessage({ id: nameId })} />
+        </ListItem>
+      ))}
     </>
   );
 };
@@ -136,13 +124,13 @@ const NavigationDrawer = (props: NavigationDrawerProps) => {
         onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}
       >
-        <NavigationTitle className={classes.title} showAlways />
+        <NavigationLogo className={classes.logo} />
         <Divider />
         <nav>
           <List disablePadding>
-            <TopConfigurationBar />
+            <TopMenuItems />
             <Divider />
-            <DrawerMenuList />
+            <CentreMenuItems />
             <Divider />
           </List>
         </nav>

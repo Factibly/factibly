@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { isBrowser } from "react-device-detect";
-import StyledMenu from "../../common/StyledMenu";
+import DropdownMenu from "../../common/DropdownMenu";
 import DropdownMenuItem from "../../common/DropdownMenuItem";
 import TextActionBar from "../../common/TextActionBar";
 import FactCheckWidgetEditor from "./widget/FactCheckWidgetEditor";
@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode, faLink } from "@fortawesome/free-solid-svg-icons";
 import { useAlert } from "../../hooks/useAlert";
 import socialMedia from "../../static/data/social-media";
+import IconicText from "../../common/IconicText";
 
 interface FactCheckShareMenuProps {
   anchorEl: HTMLElement | null;
@@ -47,20 +48,20 @@ const FactCheckShareMenu = ({ anchorEl, onCloseShareMenu }: FactCheckShareMenuPr
     navigator.clipboard.writeText(window.location.href);
     setAlert({
       severity: "success",
-      message: intl.formatMessage({ id: "factCheck.widget.alert.msg.linkCopied" }),
+      message: intl.formatMessage({ id: "factCheck.widget.alert.link.copy.success" }),
     });
   };
 
-  const handleOpenShareWindow = (starter: string, urlParamName: string, ...otherQueryParams: string[]) => {
+  const handleOpenShareWindow = (starter: string, urlParamName: string, ...otherSearchParams: string[]) => {
     window.open(
       `${starter}?${urlParamName}=${process.env.REACT_APP_SHARE_DEFAULT_URL ?? window.location.href}&` +
-        otherQueryParams.map(encodeURI).join("&")
+        otherSearchParams.map(encodeURI).join("&")
     );
   };
 
   return (
     <>
-      <StyledMenu
+      <DropdownMenu
         classes={{ paper: classes.menuPaper }}
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
@@ -69,10 +70,10 @@ const FactCheckShareMenu = ({ anchorEl, onCloseShareMenu }: FactCheckShareMenuPr
         <DropdownMenuItem
           primary={
             <>
-              <div>
-                <FontAwesomeIcon icon={faLink} />
-                &nbsp;&nbsp;{intl.formatMessage({ id: "factCheck.overview.action.share.factCheckUrl" })}
-              </div>
+              <IconicText
+                text={intl.formatMessage({ id: "factCheck.overview.action.share.factCheckUrl" })}
+                icon={<FontAwesomeIcon icon={faLink} />}
+              />
               <TextActionBar
                 value={window.location.href}
                 actionName={intl.formatMessage({ id: "general.action.copy" })}
@@ -90,16 +91,16 @@ const FactCheckShareMenu = ({ anchorEl, onCloseShareMenu }: FactCheckShareMenuPr
           onClick={handleOpenWidgetEditor}
         />
         {Object.values(socialMedia(isBrowser, window.location.href, "Fake Check", "")).map(
-          ({ nameId, nameDefault, icon, starter, urlQueryParamKey, otherQueryParams }) => (
+          ({ nameId, icon, starter, urlSearchParamKey, otherSearchParams }) => (
             <DropdownMenuItem
-              key={`social-share-${nameDefault}`}
-              primary={intl.formatMessage({ id: nameId, defaultMessage: nameDefault })}
+              key={`social-share-${nameId}`}
+              primary={intl.formatMessage({ id: nameId })}
               icon={<FontAwesomeIcon icon={icon} size="lg" />}
-              onClick={() => handleOpenShareWindow(starter, urlQueryParamKey, otherQueryParams)}
+              onClick={() => handleOpenShareWindow(starter, urlSearchParamKey, otherSearchParams)}
             />
           )
         )}
-      </StyledMenu>
+      </DropdownMenu>
       <FactCheckWidgetEditor open={openWidgetEditor} onClose={handleCloseWidgetEditor} />
     </>
   );

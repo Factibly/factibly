@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
-from fakenews_backend.models import Content
+from fakenews_backend.models import Content, Rating
 
 
 class User(AbstractBaseUser):
@@ -27,6 +27,9 @@ class User(AbstractBaseUser):
 
     avatar = models.ImageField(upload_to="avatars", null=True)
     bookmarks = models.ManyToManyField(Content)
+
+    upvotes = models.ManyToManyField(Rating, related_name="upvote_users")
+    downvotes = models.ManyToManyField(Rating, related_name="downvote_users")
 
     objects = BaseUserManager()
 

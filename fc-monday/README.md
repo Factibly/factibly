@@ -2,7 +2,7 @@
 
 ## Setup Procedures
 
-1. Complete the setup procedures for the [fc-web](https://github.com/Sapphire-Labs/Hackathon/blob/master/FE/README.md) and the [fc-api](https://github.com/Sapphire-Labs/Hackathon/blob/master/BE/README.md) subprojects
+1. Complete the setup procedures for the [fc-web](https://github.com/Sapphire-Labs/factibly/blob/master/fc-web/README.md) and the [fc-api](https://github.com/Sapphire-Labs/factibly/blob/master/fc-api/README.md) subprojects
 2. Open [MingGW-64](https://sourceforge.net/projects/mingw-w64/) (Windows) or Terminal (macOS/Linux), or any equivalent command line interface
 3. Clone or download this repository
 4. Go to the root directory for this repository on your machine
@@ -12,16 +12,16 @@
 8. Open monday.com and login to your account
 9. Select your avatar on the left navigation bar, open the "Developers" section and select the "Factibly" app
 10. Open the "Features" section and select the "Fact Check Analyzer" feature
-11. Go to the [ngrok dashboard](http://localhost:4040/status) in your browser and under "command_line section" find the URL (this is the public URL of the app\*).
+11. Go to the [ngrok dashboard](http://localhost:4040/status) in your browser and under "command_line section" find the URL \*
 12. Open the "View setup" tab back in monday.com and paste the URL into the "Custom URL" field
 13. Click the "Boards" button and choose one of the boards with some data in it
 14. Click the "Preview" button
 
-\* ngrok exposes the local web server to the internet
+\* this is the public URL of the app that ngrok generated as it exposes the local web server to the internet
 
 ## Monday SDK
 
-The application retrieves and manipulates data from Monday boards through the [Monday SDK](https://monday.com/developers/apps/intro).
+The application retrieves and manipulates data from monday.com boards through the [Monday SDK](https://monday.com/developers/apps/intro).
 
 ## Release
 
@@ -34,21 +34,23 @@ The application retrieves and manipulates data from Monday boards through the [M
 
 ## User Interface (UI) Design
 
-This project uses a [material design](https://material.io/design/foundation-overview/). You should be particularly aware
-of the following UI guidelines:
+The app uses [material design](https://material.io/design/foundation-overview/) as its design language. 
+
+You should be particularly aware of the following UI guidelines:
 
 - Use, for most components, sizes and spacings &mdash; including the width, height, margin and padding properties
   &mdash; in increments of 4dp (4px on web) for tighter or smaller components, and of 8dp (8px on web) otherwise
 - Use dialogs sparingly, and only when they contain critical information or tasks for the users, and consider    the use of
-  a snackbar, toast, tooltip or popover instead as dialogs are purposefully interruptive
+  a snack bar, toast, tooltip or popover instead as dialogs are purposefully interruptive
 
 ## Code Styles
 
-This project utilizes [Prettier](https://prettier.io/) to enforce certain
+We utilize [Prettier](https://prettier.io/) to enforce certain
 [styling rules](.pretterric.json). It will auto-format your code whenever you save that code.
 
-You should also comply with the following naming rules:
-| Usage                         | Rule                           | Examples                                  |
+You should also comply with the following naming conventions:
+
+| Type                         | Rule                           | Examples                                  |
 |-------------------------------|--------------------------------|-------------------------------------------|
 | globals                       | SCREAMING_SNAKE_CASE           | `const PI_MATHS = 3.14`                   |
 | variables                     | camelCase                      | `var jadonFan = "Hello, World!";`         |
@@ -61,12 +63,11 @@ You should also comply with the following naming rules:
 
 ## Tests
 
-You should use [Jest](https://jestjs.io/) and [Enzyme](https://enzymejs.github.io/enzyme/) to write automated tests on
-the front-end. The test files should have an extension of `.test.[jt]sx?`.
+We use [Jest](https://jestjs.io/) and [Enzyme](https://enzymejs.github.io/enzyme/) to create automated tests. The test files should have an extension of `.test.[jt]sx?`.
 
 ## Frameworks and Libraries
 
-This project utilizes the following frameworks and libraries:
+We utilize the following frameworks and libraries:
 
 - React &ndash; simplifies front-end development
 - Material-UI &ndash; creates material-themed UI components and icons

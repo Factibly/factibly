@@ -2,56 +2,56 @@ import InfoIcon from "@material-ui/icons/Info";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import CountrySelector from "../../screens/countries/CountrySelector";
-import NotificationsBell from "../../screens/notifications/NotificationBell";
-import { MISSION_PATH, BOOKMARKS_PATH } from "../paths";
+// import NotificationsBell from "../../screens/notifications/NotificationBell";
+import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
+import { MISSION_PATH, BOOKMARKS_PATH, SUPPORT_PATH } from "../paths";
 
-interface NavPage {
+interface Page {
   nameId: string;
   pathname?: string;
-  Icon: React.ReactNode;
+  Icon: React.ElementType;
   showIconOnly: boolean;
   ariaLabelId?: string;
 }
 
-interface NavPages {
-  insightsPage: NavPage;
-  bookmarksPage: NavPage;
-  aboutPage: NavPage;
-  countriesSelector: NavPage;
-  notificationsSelector: NavPage;
-}
-
-const navPages: NavPages = {
-  insightsPage: {
+const pages: Page[] = [
+  {
     nameId: "nav.drawer.item.insights",
-    pathname: "/insights",
     Icon: AssessmentIcon,
     showIconOnly: false,
+    pathname: "/insights",
   },
-  aboutPage: {
+  {
     nameId: "nav.drawer.item.mission",
-    pathname: MISSION_PATH,
     Icon: InfoIcon,
     showIconOnly: false,
+    pathname: MISSION_PATH,
   },
-  bookmarksPage: {
+  {
     nameId: "nav.drawer.item.bookmark",
-    pathname: BOOKMARKS_PATH,
     Icon: BookmarkIcon,
     showIconOnly: false,
+    pathname: BOOKMARKS_PATH,
   },
-  countriesSelector: {
+  {
     nameId: "nav.selector.item.country",
     Icon: CountrySelector,
     showIconOnly: true,
     ariaLabelId: "nav.selector.item.country.aria",
   },
-  notificationsSelector: {
-    nameId: "nav.selector.item.notifications",
-    Icon: NotificationsBell,
+  {
+    nameId: "nav.dropdown.item.support",
+    Icon: QuestionAnswerIcon,
     showIconOnly: true,
-    ariaLabelId: "nav.selector.item.notifications.aria",
+    pathname: SUPPORT_PATH,
+    ariaLabelId: "nav.dropdown.item.support.aria",
   },
-};
+  // {
+  //   nameId: "nav.selector.item.notifications",
+  //   Icon: NotificationsBell,
+  //   showIconOnly: true,
+  //   ariaLabelId: "nav.selector.item.notifications.aria",
+  // },
+];
 
-export default navPages;
+export default pages;

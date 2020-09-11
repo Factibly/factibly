@@ -16,9 +16,9 @@ export const parseAsSpaced = function parseAsSpaced(
   parseWordLimit: number = -1
 ) {
   const parsedBreakdown: string[] = str.toLowerCase().split(delimiter);
-  const reducer = (acculumator: string, currentValue: string) => {
+  const reducer = (accumulator: string, currentValue: string) => {
     const next = capitalize ? currentValue.charAt(0).toUpperCase() + currentValue.slice(1) : currentValue;
-    return `${acculumator} ${next}`;
+    return `${accumulator} ${next}`;
   };
   // Array.prototype.slice() handles any indices that are out of bounds within the array and
   //  can accept -ve numbers, in which case the method would traverse the array from the right
@@ -48,7 +48,7 @@ export const parseGqlErrorMsg = function parseGqlErrorMsg(errorMsg: string) {
   return res[1];
 };
 
-export const hasSimiliarPathnames = function (pathname1: string, pathname2: string) {
+export const hasSimiliarPathnames = function hasSimiliarPathnames(pathname1: string, pathname2: string) {
   return !/^.*\/:.*$/i.test(pathname1) && (pathname2.includes(pathname1) || pathname1.includes(pathname2));
 };
 

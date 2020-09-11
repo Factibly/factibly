@@ -3,10 +3,10 @@ import { SettingsReduxState, SettingsReduxAction, CHANGE_WEBSITE_LOCALE, CHANGE_
 import { SITE_LOCALE_KEY, PREFERS_DARK_MODE_KEY } from "../../static/keys/local-storage-keys";
 
 const initializePrefersDarkMode = (): boolean => {
-  if (localStorage.getItem(PREFERS_DARK_MODE_KEY) === null) {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  if (PREFERS_DARK_MODE_KEY in localStorage) {
+    return localStorage.getItem(PREFERS_DARK_MODE_KEY) === "true";
   }
-  return localStorage.getItem(PREFERS_DARK_MODE_KEY) === "true";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
 };
 
 const initState: SettingsReduxState = {

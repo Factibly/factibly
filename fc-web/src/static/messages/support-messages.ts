@@ -1,12 +1,13 @@
 export default {
   "en-US": {
-    "support.banner.msg.fail": "Something went wrong! We didn't receive your support ticket. Please try again later.",
-    "support.banner.msg.success":
+    "support.banner.msg.submission.error":
+      "Something went wrong! We didn't receive your support ticket. Please try again later.",
+    "support.banner.msg.submission.success":
       "Thank you! We have received your support ticket and will try to address it as soon as possible.",
     "support.bugReport.category.ui": "User Interface",
     "support.bugReport.category.ux": "User Experience",
     "support.bugReport.subtitle": `
-      If you know how to use GitHub, you can create a new issue on our public GitHub repository. An issue template has
+      If you know how to use GitHub, you can create a new issue on our public git repository. An issue template has
       already been created for your convenience.`,
     "support.feedback.category.accessibility": "Accessibility",
     "support.feedback.category.account.customization": "Account (Customization)",
@@ -57,13 +58,14 @@ export default {
     "support.ticket.number": "Ticket Number",
   },
   "en-GB": {
-    "support.banner.msg.fail": "Something went wrong! We didn't receive your support ticket. Please try again later.",
-    "support.banner.msg.success":
+    "support.banner.msg.submission.error":
+      "Something went wrong! We didn't receive your support ticket. Please try again later.",
+    "support.banner.msg.submission.success":
       "Thank you! We have received your support ticket and will try to address it as soon as possible.",
     "support.bugReport.category.ui": "User Interface",
     "support.bugReport.category.ux": "User Experience",
     "support.bugReport.subtitle": `
-      If you know how to use GitHub, you can create a new issue on our public GitHub repository. An issue template has
+      If you know how to use GitHub, you can create a new issue on our public git repository. An issue template has
       already been created for your convenience.`,
     "support.feedback.category.accessibility": "Accessibility",
     "support.feedback.category.account.customization": "Account (Customisation)",
@@ -114,15 +116,15 @@ export default {
     "support.ticket.number": "Ticket Number",
   },
   "fr-FR": {
-    "support.banner.msg.fail":
+    "support.banner.msg.submission.error":
       "Quelque chose a mal tourné! Nous n'avons pas reçu votre ticket d'assistance. Veuillez réessayer plus tard.",
-    "support.banner.msg.success": `
+    "support.banner.msg.submission.success": `
       Je vous remercie! Nous avons reçu votre ticket d'assistance et nous essaierons d'y répondre dans
       les plus brefs délais.`,
     "support.bugReport.category.ui": "Interface utilisateur",
     "support.bugReport.category.ux": "Expérience utilisateur",
     "support.bugReport.subtitle": `
-    Si vous savez comment utiliser GitHub, vous pouvez créer un nouveau problème sur notre référentiel GitHub public.
+    Si vous savez comment utiliser GitHub, vous pouvez créer un nouveau problème sur notre référentiel git public.
     Un modèle de problème a déjà été configuré pour votre commodité.`,
     "support.feedback.category.accessibility": "Accessibilité",
     "support.feedback.category.account.customization": "Compte (Personnalisation)",
@@ -175,12 +177,12 @@ export default {
     "support.ticket.number": "Numéro de ticket",
   },
   "zh-CN": {
-    "support.banner.msg.fail": "出了些问题！ 我们没收到您的支持查询。 请稍后再试。",
-    "support.banner.msg.success": "谢谢！ 我们收到了您的支持查询，将尝试尽快解决。",
+    "support.banner.msg.submission.error": "出了些问题！ 我们没收到您的支持查询。 请稍后再试。",
+    "support.banner.msg.submission.success": "谢谢！ 我们收到了您的支持查询，将尝试尽快解决。",
     "support.bugReport.category.ui": "用户界面",
     "support.bugReport.category.ux": "用户体验",
     "support.bugReport.subtitle":
-      "如果您知道如何使用GitHub，您可以在我们的公共GitHub存储库上创建一个新的议题。 为方便起见，我们已经设置了一个议题模板。",
+      "如果您知道如何使用GitHub，您可以在我们的公共git存储库上创建一个新的议题。 为方便起见，我们已经设置了一个议题模板。",
     "support.feedback.category.accessibility": "辅助功能",
     "support.feedback.category.account.customization": "账户（客制化）",
     "support.feedback.category.account.registrationProcess": "账户（注册过程）",
@@ -208,7 +210,7 @@ export default {
     "support.help.category.accessibility": "辅助功能",
     "support.help.category.account.fraud": "账户（欺诈）",
     "support.help.category.account.inappDisplayName": "账户 （不当个人资料图片）",
-    "support.help.category.account.multiAccount": "账户（多个帐户）",
+    "support.help.category.account.multiAccount": "账户（多个账户）",
     "support.help.category.account.privacy": "账户（隐私）",
     "support.help.category.account.settings": "账户（设定）",
     "support.help.category.discriminatory.employees": "歧视性做法 -- 员工",
@@ -229,12 +231,12 @@ export default {
     "support.ticket.number": "票号",
   },
   "zh-TW": {
-    "support.banner.msg.fail": "出了些問題！我們沒有收到您的支持查詢。請稍後再試。",
-    "support.banner.msg.success": "謝謝！我們收到了您的支持票，將嘗試盡快解決。",
+    "support.banner.msg.submission.error": "出了些問題！我們沒有收到您的支持查詢。請稍後再試。",
+    "support.banner.msg.submission.success": "謝謝！我們收到了您的支持票，將嘗試盡快解決。",
     "support.bugReport.category.ui": "用戶界面",
     "support.bugReport.category.ux": "用戶體驗",
     "support.bugReport.subtitle":
-      "如果您知道如何使用GitHub，您可以在我們的公共GitHub存儲庫上創建一個新的議題。 為方便起見，我們已經設置了一個議題模板。",
+      "如果您知道如何使用GitHub，您可以在我們的公共git存儲庫上創建一個新的議題。 為方便起見，我們已經設置了一個議題模板。",
     "support.feedback.category.accessibility": "輔助功能",
     "support.feedback.category.account.customization": "賬戶（客制化）",
     "support.feedback.category.account.registrationProcess": "賬戶（註冊過程）",
@@ -262,7 +264,7 @@ export default {
     "support.help.category.accessibility": "輔助功能",
     "support.help.category.account.fraud": "賬戶（欺詐）",
     "support.help.category.account.inappDisplayName": "賬戶 （不當個人資料圖片）",
-    "support.help.category.account.multiAccount": "賬戶（多個帳戶）",
+    "support.help.category.account.multiAccount": "賬戶（多個賬戶）",
     "support.help.category.account.privacy": "賬戶（隱私）",
     "support.help.category.account.settings": "賬戶（設定）",
     "support.help.category.discriminatory.employees": "歧視性做法 -- 員工",
@@ -283,14 +285,14 @@ export default {
     "support.ticket.number": "票號",
   },
   "ja-JP": {
-    "support.banner.msg.fail":
+    "support.banner.msg.submission.error":
       "問題が発生しました！ サポートチケットを受け取っていません。 後でもう一度やり直してください。",
-    "support.banner.msg.success":
+    "support.banner.msg.submission.success":
       "ありがとうございました！ サポートチケットを受け取りました。できるだけ早く解決できるよう努めます。",
     "support.bugReport.category.ui": "ユーザーインターフェース",
     "support.bugReport.category.ux": "ユーザーエクスペリエンス",
     "support.bugReport.subtitle": `
-      GitHubの使用方法がわかっている場合は、あなたは公開されているGitHubリポジトリで新しい問題を作成できます。
+      GitHubの使用方法がわかっている場合は、あなたは公開されているgitリポジトリで新しい問題を作成できます。
       便宜上、私たちは問題テンプレートはすでに設定されています。`,
     "support.feedback.category.accessibility": "アクセシビリティ",
     "support.feedback.category.account.customization": "アカウント（カスタマイズ）",

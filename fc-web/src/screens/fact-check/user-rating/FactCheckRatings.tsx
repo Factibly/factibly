@@ -9,6 +9,7 @@ import { RatingOrigin, RatingAction } from "../../../static/enums";
 interface FactCheckRatingsProps {
   contentId: string;
   content: any;
+  userLoggedIn: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FactCheckRatings = ({ contentId, content }: FactCheckRatingsProps) => {
+const FactCheckRatings = ({ contentId, content, userLoggedIn }: FactCheckRatingsProps) => {
   const classes = useStyles();
   const intl = useIntl();
 
@@ -67,15 +68,11 @@ const FactCheckRatings = ({ contentId, content }: FactCheckRatingsProps) => {
         <FactCheckRatingCard
           key={`rating-${rating.id}`}
           className={classes.ratingCard}
-          ratingId={rating.id}
+          userLoggedIn={userLoggedIn}
           contentId={contentId}
+          rating={rating}
           displayName={rating.user.displayName}
-          createdAt={rating.createdAt}
-          scores={[rating.score1, rating.score2, rating.score3]}
-          justification={rating.justification}
           country={rating.user.country}
-          upvoteCount={rating.upvoteCount}
-          downvoteCount={rating.downvoteCount}
           origin={RatingOrigin.THEIRS}
           action={RatingAction.VOTE}
         />

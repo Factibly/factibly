@@ -1,9 +1,12 @@
 import React, { PureComponent } from "react";
 import { injectIntl, WrappedComponentProps } from "react-intl";
 import zxcvbn from "zxcvbn";
+import IconicText from "../../common/IconicText";
+import { withTheme, WithTheme as WithThemeProps } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import { retrievePasswordRequirements } from "../../utils/forms/registration-form-helper";
 
-interface PasswordStrengthIndicatorProps extends WrappedComponentProps<"intl"> {
+interface PasswordStrengthIndicatorProps extends WrappedComponentProps<"intl">, WithThemeProps {
   password: string;
 }
 
@@ -15,7 +18,7 @@ class PasswordStrengthIndicator extends PureComponent<PasswordStrengthIndicatorP
   render() {
     const score = zxcvbn(this.props.password, ["fact", "fake", "factibly"])?.score;
     return (
-      <div style={{ fontSize: "small", textAlign: "left" }}>
+      <Typography component="div" variant="body2" align="left">
         <meter
           value={score}
           min={0}
@@ -28,21 +31,29 @@ class PasswordStrengthIndicator extends PureComponent<PasswordStrengthIndicatorP
           aria-valuetext={this.passwordScoreToTextual(score)}
         />
         <div id="password-strength">
-          <strong> {this.passwordScoreToTextual(score)} </strong>
+          <strong>{this.passwordScoreToTextual(score)}</strong>
         </div>
         <br />
-        {this.props.intl.formatMessage({ id: "user.registration.form.msg.password.header" })} <br />
-        {retrievePasswordRequirements(this.props.password).map((req, index) => (
+        {this.props.intl.formatMessage({ id: "user.registration.form.msg.password.header" })}
+        <br />
+        {retrievePasswordRequirements(this.props.password).map((requirement, index) => (
           <React.Fragment key={`password-requirement-${index}`}>
-            <span className="circle-sm" style={{ backgroundColor: req.validator ? "green" : "red" }} />
-            &nbsp;&nbsp;
-            {this.props.intl.formatMessage({ id: req.failTextId })}
-            <br />
+            <IconicText
+              text={this.props.intl.formatMessage({ id: requirement.failTextId })}
+              icon={
+                <span
+                  className="circle-sm"
+                  style={{
+                    backgroundColor: this.props.theme.palette[requirement.passed ? "success" : "error"].main,
+                  }}
+                />
+              }
+            />
           </React.Fragment>
         ))}
-      </div>
+      </Typography>
     );
   }
 }
 
-export default injectIntl(PasswordStrengthIndicator);
+export default injectIntl(withTheme(PasswordStrengthIndicator));

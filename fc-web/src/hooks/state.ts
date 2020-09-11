@@ -8,8 +8,18 @@ import { LOGOUT } from "../gql/mutations";
 export const loginUser = async (redirectPreset: string | false | null = null) => {
   await client.resetStore();
   client
-    .query<CurrentUser>({ query: CURRENT_USER })
-    .then(res => rollbar.configure({ payload: { person: { id: res.data?.currentUser?.id } } }));
+    .query<CurrentUser>({ query: CURRENT_USER, fetchPolicy: "network-only" })
+    .then(res => {
+      if (navigator.doNotTrack !== "1" && window.doNotTrack !== "1") {
+        rollbar.configure({
+          payload: {
+            person: {
+              id: res.data?.currentUser?.id,
+            },
+          },
+        });
+      }
+    });
 
   if (redirectPreset) {
     history.replace(redirectPreset);
@@ -28,6 +38,7 @@ export const logoutUser = async (redirectHome: boolean = true) => {
   });
   await client.mutate({ mutation: LOGOUT });
   await client.query({ query: LOGGED_IN, fetchPolicy: "network-only" });
+  await client.clearStore();
 
   if (redirectHome) {
     history.push("/");

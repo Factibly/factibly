@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
 import Flex from "../../../common/Flex";
 import IconicText from "../../../common/IconicText";
@@ -14,9 +15,9 @@ import { BOOKMARKS_PATH } from "../../../static/paths";
 interface FactCheckOverviewDesktopProps {
   content: any;
   userLoggedIn: boolean;
-  onOpenShareMenu: any;
-  onOpenCitationGenerator: any;
-  onCreateBookmark: any;
+  onOpenShareMenu: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onOpenReferenceGenerator: () => void;
+  onCreateBookmark: () => Promise<void>;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,6 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     countryFlags: {
+      flex: 1,
+      flexDirection: "row",
+      justifyContent: "flex-start",
       "& > img": {
         margin: theme.spacing(0, 1),
         fontSize: theme.typography.pxToRem(48),
@@ -78,7 +82,7 @@ const FactCheckOverviewDesktop = ({
   content,
   userLoggedIn,
   onOpenShareMenu,
-  onOpenCitationGenerator,
+  onOpenReferenceGenerator,
   onCreateBookmark,
 }: FactCheckOverviewDesktopProps) => {
   const classes = useStyles();
@@ -104,20 +108,19 @@ const FactCheckOverviewDesktop = ({
       ));
   };
 
+  const bookmarked = content.isBookmarked || !userLoggedIn;
+
   return (
     <Grid container item direction="row">
       <Grid container item className={classes.overviewLeft} direction="column" xs={8} xl={4}>
         <Grid item>
-          <FactCheckScoreBar ratingSet={content?.ratingSet} overallScore={content?.overallScore} />
+          <FactCheckScoreBar ratings={content?.ratingSet} overallScore={content?.overallScore} />
         </Grid>
         <Grid item>
           <Typography style={{ fontSize: "large" }}>
             {intl.formatMessage({ id: "factCheck.overview.popularCountries" })}
           </Typography>
-          <Flex
-            className={classes.countryFlags}
-            style={{ flex: 1, flexDirection: "row", justifyContent: "flex-start" }}
-          >
+          <Flex className={classes.countryFlags}>
             {["CA", "US", "GB"].map(countryCode => (
               <ReactCountryFlag
                 key={`trending-country-${countryCode}`}
@@ -157,6 +160,7 @@ const FactCheckOverviewDesktop = ({
         <Grid item>
           <Typography component="div" style={{ fontSize: "large" }}>
             <IconicText
+              id="source-type--articled-media"
               text="Articled Media"
               icon={<BookIcon />}
               style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}
@@ -191,26 +195,27 @@ const FactCheckOverviewDesktop = ({
             className={classes.button}
             variant="outlined"
             startIcon={<FontAwesomeIcon icon={faQuoteLeft} />}
-            onClick={onOpenCitationGenerator}
+            onClick={onOpenReferenceGenerator}
           >
-            Cite
+            {intl.formatMessage({ id: "factCheck.cite.action" })}
           </Button>
         </div>
-        {userLoggedIn && (
-          <Link
-            key={`fact-check-bookmarked-${content.isBookmarked}`}
-            className={classes.button}
-            component={content.isBookmarked ? "a" : "button"}
-            variant="button"
-            onClick={content.isBookmarked ? undefined : onCreateBookmark}
-            href={content.isBookmarked ? BOOKMARKS_PATH : ""}
-            style={{ marginLeft: "auto", fontSize: "large" }}
-          >
-            {content.isBookmarked
-              ? intl.formatMessage({ id: "factCheck.overview.action.bookmarked" })
-              : intl.formatMessage({ id: "factCheck.overview.action.bookmark" })}
-          </Link>
-        )}
+        <Link
+          key={`fact-check-bookmarked--${bookmarked}`}
+          className={classes.button}
+          component={bookmarked ? RouterLink : "button"}
+          variant="button"
+          onClick={bookmarked ? undefined : onCreateBookmark}
+          to={bookmarked ? BOOKMARKS_PATH : ""}
+          style={{ marginLeft: "auto", fontSize: "large" }}
+        >
+          {intl.formatMessage({
+            id:
+              content.isBookmarked && userLoggedIn
+                ? "factCheck.overview.action.bookmarked"
+                : "factCheck.overview.action.bookmark",
+          })}
+        </Link>
       </Grid>
     </Grid>
   );

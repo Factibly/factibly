@@ -31,8 +31,10 @@ export interface Content_content_ratingSet {
   score2: number;
   score3: number;
   justification: string | null;
-  upvoteCount: number;
-  downvoteCount: number;
+  upvoteCount: number | null;
+  downvoteCount: number | null;
+  isUpvoted: boolean | null;
+  isDownvoted: boolean | null;
   user: Content_content_ratingSet_user;
 }
 
@@ -47,8 +49,8 @@ export interface Content_content_userRating {
   score3: number;
   justification: string | null;
   createdAt: any | null;
-  upvoteCount: number;
-  downvoteCount: number;
+  upvoteCount: number | null;
+  downvoteCount: number | null;
 }
 
 export interface Content_content {

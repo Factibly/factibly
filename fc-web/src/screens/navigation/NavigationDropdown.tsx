@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
-import StyledMenu from "../../common/StyledMenu";
+import DropdownMenu from "../../common/DropdownMenu";
 import AccountNavigationMenu from "./dropdown/AccountNavigationMenu";
 import LanguageMenu from "./dropdown/LanguageMenu";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
@@ -66,13 +66,13 @@ const NavigationDropdown = () => {
 
     setAlert({
       severity: "success",
-      message: intl.formatMessage({ id: "user.alert.msg.logoutSuccess" }),
+      message: intl.formatMessage({ id: "user.alert.logout.success" }),
     });
   };
 
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const handleOpenMenu = (event: any) => setAnchorEl(event.currentTarget);
-  const handleCloseMenu = () => setAnchorEl(null);
+  const [anchorElMenu, setAnchorElMenu] = useState<HTMLElement | null>(null);
+  const handleOpenMenu = (event: any) => setAnchorElMenu(event.currentTarget);
+  const handleCloseMenu = () => setAnchorElMenu(null);
 
   const [selectedNameMenu, setSelectedMenuName] = useState<string>("default");
   const handleSwitchMenu = (newMenuName: string) => setSelectedMenuName(newMenuName);
@@ -105,7 +105,7 @@ const NavigationDropdown = () => {
         onClick={handleOpenMenu}
         aria-haspopup="true"
       >
-        {userLoggedIn && <Typography className={classes.profileName}> {displayName} </Typography>}
+        {userLoggedIn && <Typography className={classes.profileName}>{displayName}</Typography>}
       </Button>
       <IconButton
         key={`profile-button-${displayName}-iconic`}
@@ -115,11 +115,11 @@ const NavigationDropdown = () => {
       >
         {ScaledAvatar}
       </IconButton>
-      <StyledMenu
+      <DropdownMenu
         id="primary-nav-menu"
         classes={{ paper: classes.menuPaper }}
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
+        open={Boolean(anchorElMenu)}
+        anchorEl={anchorElMenu}
         onClose={handleCloseMenu}
         aria-label={intl.formatMessage({ id: "nav.dropdown.action.open.aria" })}
       >
@@ -136,7 +136,7 @@ const NavigationDropdown = () => {
             language: <LanguageMenu onMenuBack={handleMenuBack} onMenuDone={handleMenuBackAndQuit} />,
           }[selectedNameMenu]
         }
-      </StyledMenu>
+      </DropdownMenu>
     </nav>
   );
 };

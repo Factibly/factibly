@@ -29,6 +29,6 @@ class NlmReference(BaseReference):
             publisher="",
             date_of_publication=self.pub_dt,
             date_of_update="",
-            date_of_citation=datetime.now().strftime("%Y %b. %d"),
+            date_of_citation=datetime.now().strftime("%Y %b %d"),
             url=self.url
         )

@@ -7,11 +7,11 @@ import SearchBar from "../../common/SearchBar";
 import HeavyDivider from "../../common/HeavyDivider";
 import NavigationDropdown from "./NavigationDropdown";
 import NavigationDrawer from "./NavigationDrawer";
-import NavigationTitle from "./NavigationTitle";
+import NavigationLogo from "./NavigationLogo";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles, createStyles, Theme, useTheme, fade } from "@material-ui/core/styles";
-import { Toolbar, AppBar, Slide, Button, IconButton, Tooltip } from "@material-ui/core";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import { Toolbar, AppBar, Slide, Button, IconButton, Tooltip } from "@material-ui/core";
 import { NAVIGATION_BLACK, NAVIGATION_HOVER_GREY } from "../../styles/colours";
 import MenuIcon from "@material-ui/icons/Menu";
 import ArrowBack from "@material-ui/icons/ArrowBack";
@@ -20,8 +20,8 @@ import { useMutation } from "@apollo/client";
 import { SEARCH_CONTENT } from "../../gql/mutations";
 import { useAlert } from "../../hooks/useAlert";
 import history from "../../hooks/history";
-import navPages from "../../static/data/navigation-pages";
-import { FACT_CHECK_PATH } from "../../static/paths";
+import pages from "../../static/data/navigation-pages";
+import { FACT_CHECK_BASE_PATH } from "../../static/paths";
 import { parseGqlErrorMsg } from "../../utils/string-utils";
 import { SearchContent, SearchContentVariables } from "../../gql/__generated__/SearchContent";
 
@@ -43,6 +43,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.up(searchBreakpoint)]: {
         marginRight: theme.spacing(2),
+      },
+    },
+    logo: {
+      display: "none",
+      [theme.breakpoints.up(searchBreakpoint)]: {
+        display: "block",
       },
     },
     search: {
@@ -107,9 +113,7 @@ interface ElevationScrollProps {
 
 const ElevationScroll = ({ children }: ElevationScrollProps) => {
   const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
-  return cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-  });
+  return cloneElement(children, { elevation: trigger ? 4 : 0 });
 };
 
 interface HideOnScrollProps {
@@ -125,9 +129,7 @@ const HideOnScroll = ({ children }: HideOnScrollProps) => {
   );
 };
 
-function isMissionPage() {
-  return /.*\/mission-?/.test(window.location.pathname);
-}
+const ScrollBehaviour = isBrowser ? ElevationScroll : HideOnScroll;
 
 const NavigationBar = ({ location }: NavigationBarProps) => {
   const theme = useTheme();
@@ -137,11 +139,11 @@ const NavigationBar = ({ location }: NavigationBarProps) => {
   const [, setAlert] = useAlert();
   const smUpWidth = useMediaQuery(theme.breakpoints.up(searchBreakpoint));
 
-  const [searchMutation] = useMutation<SearchContent, SearchContentVariables>(SEARCH_CONTENT);
+  const [searchFactCheck] = useMutation<SearchContent, SearchContentVariables>(SEARCH_CONTENT);
 
   const [searchExpanded, setSearchExpanded] = useState<boolean>(false);
   const handleSearchExpand = () => !smUpWidth && setSearchExpanded(true);
-  const handleNavBack = () => !smUpWidth && setSearchExpanded(false);
+  const handleNavigationBack = () => !smUpWidth && setSearchExpanded(false);
 
   const [drawerOpened, setDrawerOpened] = useState(false);
   const handleDrawerOpened = (open: boolean = !drawerOpened) => setDrawerOpened(open);
@@ -149,86 +151,78 @@ const NavigationBar = ({ location }: NavigationBarProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(event.target.value);
   const handleSearchClear = () => setSearchQuery("");
-
-  const submitSearch = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     try {
-      const res = await searchMutation({ variables: { input: { url: searchQuery } } });
-
+      const res = await searchFactCheck({ variables: { input: { url: searchQuery } } });
       if (res.data?.searchContent?.errors) throw new GraphQLError(res.data?.searchContent?.errors);
-
-      history.push(FACT_CHECK_PATH.replace(":contentId", res.data!.searchContent!.content!.id));
+      history.push(`${FACT_CHECK_BASE_PATH}/${res.data!.searchContent!.content!.id}`);
     } catch (err) {
       setAlert({
         severity: "error",
         message: intl.formatMessage({ id: parseGqlErrorMsg(err.toString()) }),
       });
     }
-
     setSearchQuery("");
   };
-
-  const ScrollBehaviour = isBrowser || isMissionPage() ? ElevationScroll : HideOnScroll;
 
   return (
     <>
       <ScrollBehaviour>
-        <AppBar position={isMissionPage() ? "static" : "fixed"}>
+        <AppBar position="fixed">
           <Toolbar className={classes.toolbar}>
             <IconButton
               className={classes.menuButton}
               edge="start"
               color="inherit"
-              onClick={() => (searchExpanded ? handleNavBack() : handleDrawerOpened())}
+              onClick={() => (searchExpanded ? handleNavigationBack() : handleDrawerOpened())}
               disableRipple={searchExpanded}
               aria-label={intl.formatMessage({ id: "nav.drawer.action.open.aria" })}
             >
               {searchExpanded ? <ArrowBack /> : <MenuIcon />}
             </IconButton>
-            <NavigationTitle />
+            <NavigationLogo className={classes.logo} />
             {location.pathname === "/" ? (
               <Flex style={{ flex: 1 }} />
             ) : (
-              <form role="search" className={classes.search} onSubmit={submitSearch}>
+              <form role="search" className={classes.search} onSubmit={handleSearchSubmit}>
                 <SearchBar
                   classes={{ root: classes.inputRoot }}
                   autoComplete="url"
                   value={searchQuery}
                   onChange={handleSearchInput}
-                  onSubmit={submitSearch}
                   onClear={handleSearchClear}
                   onFocus={handleSearchExpand}
-                  onBlur={handleNavBack}
-                  adornmentPaddingTopBottom={theme.spacing(2.2)}
-                  useContrastingColor
-                  hideSearchButtonOnTiny={!searchExpanded}
+                  onBlur={handleNavigationBack}
+                  apv={2.2}
+                  aph={3}
                 />
               </form>
             )}
             <nav className={classes.linksGroup}>
-              {Object.values(navPages).map(({ nameId, pathname, Icon: PageIcon, showIconOnly, ariaLabelId }) => {
-                if (showIconOnly) {
-                  return (
-                    <Tooltip key={`nav-item-${nameId}`} title={intl.formatMessage({ id: nameId })}>
-                      <IconButton className={classes.linkButton} aria-label={intl.formatMessage({ id: ariaLabelId })}>
-                        <PageIcon />
-                      </IconButton>
-                    </Tooltip>
-                  );
-                } else {
-                  return (
-                    <Button
-                      key={`nav-item-${nameId}`}
+              {pages.map(({ nameId, Icon, showIconOnly, pathname = "", ariaLabelId }) =>
+                showIconOnly ? (
+                  <Tooltip key={`nav-item-${nameId}`} title={intl.formatMessage({ id: nameId })}>
+                    <IconButton
                       className={classes.linkButton}
-                      component={RouterLink}
+                      component={pathname ? RouterLink : "button"}
                       to={pathname}
+                      aria-label={intl.formatMessage({ id: ariaLabelId })}
                     >
-                      {intl.formatMessage({ id: nameId })}
-                    </Button>
-                  );
-                }
-              })}
+                      <Icon />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Button
+                    key={`nav-item-${nameId}`}
+                    className={classes.linkButton}
+                    component={RouterLink}
+                    to={pathname}
+                  >
+                    {intl.formatMessage({ id: nameId })}
+                  </Button>
+                )
+              )}
             </nav>
             {!searchExpanded && (
               <>
@@ -239,7 +233,7 @@ const NavigationBar = ({ location }: NavigationBarProps) => {
           </Toolbar>
         </AppBar>
       </ScrollBehaviour>
-      {isMissionPage() || <div className={classes.offset} />}
+      <div className={classes.offset} />
       <NavigationDrawer drawerOpened={drawerOpened} onDrawerOpened={handleDrawerOpened} />
     </>
   );

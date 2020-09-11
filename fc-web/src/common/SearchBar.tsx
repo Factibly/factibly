@@ -1,24 +1,22 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { InputBase, InputAdornment, IconButton, Tooltip } from "@material-ui/core";
+import { InputBase, InputAdornment, IconButton, Button, Tooltip, InputBaseClassKey } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import Search from "@material-ui/icons/Search";
 import Clear from "@material-ui/icons/Clear";
 
 interface SearchBarProps {
-  classes?: any;
+  classes?: Partial<Record<InputBaseClassKey, string>>;
   autoComplete?: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: any;
   onClear?: () => void;
   onFocus?: () => void;
   onBlur?: () => void;
-  adornmentPaddingTopBottom?: number;
-  useContrastingColor?: boolean;
-  hideSearchButtonOnTiny?: boolean;
-  style?: React.CSSProperties;
+  apv: number;
+  aph: number;
+  dynamicSizing?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(2),
     },
     clearButton: {
-      color: ({ useContrastingColor }: any) => (useContrastingColor ? theme.palette.primary.contrastText : undefined),
+      color: theme.palette.primary.contrastText,
       "&:hover": {
         backgroundColor: "transparent",
       },
@@ -35,47 +33,48 @@ const useStyles = makeStyles((theme: Theme) =>
     searchInputAdornment: {
       display: "flex",
       height: "100%",
-      padding: ({ adornmentPaddingTopBottom }: any) => `${adornmentPaddingTopBottom}px ${theme.spacing(3)}px`, // hack
+      padding: ({ apv, aph }: any) => theme.spacing(apv, aph), // hack
       borderTopRightRadius: theme.shape.borderRadius,
       borderBottomRightRadius: theme.shape.borderRadius,
+      borderBottomLeftRadius: 0,
+      borderTopLeftRadius: 0,
       backgroundColor: grey[600],
       color: theme.palette.common.white,
       cursor: "pointer",
       "&:hover": {
         backgroundColor: theme.palette.primary.dark,
       },
+      [theme.breakpoints.down("sm")]: {
+        padding: ({ apv, aph, dynamicSizing }: any) => theme.spacing(apv, dynamicSizing ? aph - 1 : aph),
+      },
       [theme.breakpoints.down("xs")]: {
-        display: ({ hideSearchButtonOnTiny }: any) => (hideSearchButtonOnTiny ? "none" : "flex"),
+        padding: ({ apv, aph, dynamicSizing }: any) => theme.spacing(apv, dynamicSizing ? aph - 2 : aph),
       },
     },
   })
 );
 
 const SearchBar = ({
-  classes: extensionClasses,
+  classes: clazzes,
   autoComplete,
   value,
   onChange,
-  onSubmit,
   onClear,
   onFocus,
   onBlur,
-  adornmentPaddingTopBottom = 0,
-  useContrastingColor = false,
-  hideSearchButtonOnTiny = false,
-  style,
+  apv,
+  aph,
+  dynamicSizing = false,
 }: SearchBarProps) => {
-  const classes = useStyles({ adornmentPaddingTopBottom, useContrastingColor, hideSearchButtonOnTiny });
+  const classes = useStyles({ apv, aph, dynamicSizing });
   const intl = useIntl();
 
-  const handleMouseDownClear = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  const handleMouseDownClear = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
 
   return (
     <InputBase
       className={classes.root}
-      classes={{ ...extensionClasses }}
+      classes={{ ...clazzes }}
       placeholder={intl.formatMessage({ id: "home.search.prompt" })}
       value={value}
       onChange={onChange}
@@ -99,11 +98,9 @@ const SearchBar = ({
           <Tooltip title={intl.formatMessage({ id: "general.action.search" })}>
             <InputAdornment
               className={classes.searchInputAdornment}
-              variant="filled"
+              component={Button}
+              type="submit"
               position="end"
-              role="button"
-              tabIndex={0}
-              onClick={onSubmit}
               aria-label={intl.formatMessage({ id: "general.action.search.submit.aria" })}
             >
               <Search />
@@ -117,7 +114,6 @@ const SearchBar = ({
         "aria-label": intl.formatMessage({ id: "home.search.prompt" }),
       }}
       aria-label={intl.formatMessage({ id: "general.action.search.aria" })}
-      style={{ ...style }}
     />
   );
 };

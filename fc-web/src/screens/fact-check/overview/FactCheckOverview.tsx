@@ -42,14 +42,15 @@ const FactCheckOverview = ({ content, userLoggedIn }: FactCheckOverviewProps) =>
   const [, setAlert] = useAlert();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const handleOpenShareMenu = (event: any) => setAnchorEl(event.currentTarget);
+  const handleOpenShareMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+    setAnchorEl(event.currentTarget);
   const handleCloseShareMenu = () => setAnchorEl(null);
 
   const [openCitationGenerator, setOpenCitationGenerator] = useState<boolean>(false);
   const handleOpenCitationGenerator = () => setOpenCitationGenerator(true);
   const handleCloseCitationGenerator = () => setOpenCitationGenerator(false);
 
-  const [bookmarkMutation] = useMutation<BookmarkContent, BookmarkContentVariables>(BOOKMARK_CONTENT, {
+  const [createBookmark] = useMutation<BookmarkContent, BookmarkContentVariables>(BOOKMARK_CONTENT, {
     variables: {
       input: {
         contentId: content.id,
@@ -67,10 +68,10 @@ const FactCheckOverview = ({ content, userLoggedIn }: FactCheckOverviewProps) =>
     },
   });
   const handleCreateBookmark = async () => {
-    await bookmarkMutation();
+    await createBookmark();
     setAlert({
       severity: "success",
-      message: intl.formatMessage({ id: "bookmarks.alert.msg.added" }),
+      message: intl.formatMessage({ id: "bookmarks.alert.add.success" }),
     });
   };
 
@@ -82,7 +83,7 @@ const FactCheckOverview = ({ content, userLoggedIn }: FactCheckOverviewProps) =>
             content={content}
             userLoggedIn={userLoggedIn}
             onOpenShareMenu={handleOpenShareMenu}
-            onOpenCitationGenerator={handleOpenCitationGenerator}
+            onOpenReferenceGenerator={handleOpenCitationGenerator}
             onCreateBookmark={handleCreateBookmark}
           />
         </Hidden>

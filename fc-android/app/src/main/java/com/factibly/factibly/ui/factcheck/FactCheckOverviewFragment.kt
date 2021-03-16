@@ -27,16 +27,15 @@ class FactCheckOverviewFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fact_check_overview_fragment, container, false)
-    }
+    ): View = inflater.inflate(R.layout.fact_check_overview_fragment, container, false)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FactCheckOverviewFragmentBinding.bind(view)
 
-        viewModel.content.observe(viewLifecycleOwner) {
+        viewModel.factCheck.observe(viewLifecycleOwner) {
             val overallScore = it?.overallScore
             val ratingCount = it?.ratingSet?.size ?: 0
             val url = it?.url

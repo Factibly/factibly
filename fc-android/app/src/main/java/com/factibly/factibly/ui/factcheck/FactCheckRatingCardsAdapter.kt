@@ -17,8 +17,7 @@ class FactCheckRatingCardsAdapter(private val ratings: List<ContentQuery.RatingS
         SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
     }
 
-    inner class ViewHolder internal constructor(private val binding: FactCheckRatingCardBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder internal constructor() : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(rating: ContentQuery.RatingSet?) {
             val displayName = rating?.user?.displayName ?: ""
@@ -44,7 +43,7 @@ class FactCheckRatingCardsAdapter(private val ratings: List<ContentQuery.RatingS
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = FactCheckRatingCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -1,38 +1,34 @@
 package com.factibly.factibly.viewmodels
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.apollographql.apollo.coroutines.toDeferred
 import com.factibly.factibly.ContentQuery
+import com.factibly.factibly.SearchContentMutation
 import com.factibly.factibly.repositories.FactCheckRepository
+import com.factibly.factibly.type.SearchContentInput
+import kotlinx.coroutines.launch
 
 
-class FactCheckViewModel @ViewModelInject constructor(private val repository: FactCheckRepository) :
-    ViewModel() {
+class FactCheckViewModel @ViewModelInject constructor(
+    private val repository: FactCheckRepository
+) : ViewModel() {
 
-    val contentId = MutableLiveData<String?>()
+    private val _searchContent = MutableLiveData<SearchContentMutation.SearchContent?>()
+    val searchContent: LiveData<SearchContentMutation.SearchContent?> = _searchContent
 
-    var content: LiveData<ContentQuery.Content?>
+    private val _factCheck = MutableLiveData<ContentQuery.Content>()
+    val factCheck: LiveData<ContentQuery.Content> = _factCheck
 
-    init {
-        content = Transformations.switchMap(contentId) {
-            if (it == null) {
-                MutableLiveData()
-            } else {
-                repository.getFactCheck(it)
-            }
+    fun searchFactCheck(url: String) {
+        viewModelScope.launch {
+            _searchContent.value = repository.searchFactCheck(url).data?.searchContent
         }
     }
 
-    fun searchFactCheck(url: String) = repository.searchFactCheck(url)
-
-    fun setContentId(contentId: String) {
-        this.contentId.value = contentId
-    }
-
-    fun refreshContent() {
-        this.setContentId(this.contentId.value!!)
+    fun findFactCheck(contentId: String) {
+        viewModelScope.launch {
+            _factCheck.value = repository.getFactCheck(contentId).data?.content
+        }
     }
 }

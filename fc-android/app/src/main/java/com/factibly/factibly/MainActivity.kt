@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         optionsMenu = menu
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        (menu?.findItem(R.id.menu_search)!!.actionView as SearchView).apply {
+        (menu?.findItem(R.id.menu_search)?.actionView as? SearchView)?.apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             queryHint = getString(R.string.query_hint)
             imeOptions = EditorInfo.IME_ACTION_SEARCH
@@ -103,21 +103,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleIntent(intent: Intent) {
         if (intent.action == Intent.ACTION_SEARCH) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-            val navHostFragment = supportFragmentManager.findFragmentById(R.id.key_display) as NavHostFragment
-            val navController = NavHostFragment.findNavController(navHostFragment)
-            viewModelFactCheck.searchFactCheck(query!!).observeOnce(this) {
-                if (it?.errors.isNullOrBlank()) {
-                    navController.navigate(
-                        R.id.factCheckFragment,
-                        bundleOf("content_id" to it?.content?.id)
-                    )
-                } else {
-                    val msgRes = resources.getErrorString(it?.errors!!, packageName)
-                    Snackbar.make(binding.keyDisplay, msgRes, Snackbar.LENGTH_SHORT)
-                        .setAnchorView(binding.bottomNavigationView)
-                        .setBackgroundTint(resources.getColor(R.color.colorAlertError, theme))
-                        .show()
+            intent.getStringExtra(SearchManager.QUERY)?.let { searchQuery ->
+                val navHostFragment = supportFragmentManager.findFragmentById(R.id.key_display) as NavHostFragment
+                val navController = NavHostFragment.findNavController(navHostFragment)
+                viewModelFactCheck.searchFactCheck(searchQuery)
+                viewModelFactCheck.searchContent.observeOnce(this) { searchRes ->
+                    if (searchRes?.errors.isNullOrBlank()) {
+                        navController.navigate(
+                            R.id.factCheckFragment,
+                            bundleOf("content_id" to searchRes?.content?.id)
+                        )
+                    } else if (searchRes != null) {
+                        val msgRes = resources.getErrorString(searchRes.errors, packageName)
+                        Snackbar.make(binding.keyDisplay, msgRes, Snackbar.LENGTH_SHORT)
+                            .setAnchorView(binding.bottomNavigationView)
+                            .setBackgroundTint(resources.getColor(R.color.colorAlertError, theme))
+                            .show()
+                    }
                 }
             }
         }

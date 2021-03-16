@@ -32,9 +32,7 @@ class FactCheckRatingsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fact_check_ratings_fragment, container, false)
-    }
+    ): View = inflater.inflate(R.layout.fact_check_ratings_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +40,8 @@ class FactCheckRatingsFragment : Fragment() {
         binding = FactCheckRatingsFragmentBinding.bind(view)
         viewManager = LinearLayoutManager(context)
 
-        viewModel.content.observe(viewLifecycleOwner) {
+        viewModel.findFactCheck("-1")
+        viewModel.factCheck.observe(viewLifecycleOwner) {
             val ratings = it?.ratingSet ?: emptyList()
 
             viewAdapter = FactCheckRatingCardsAdapter(ratings)
@@ -53,7 +52,7 @@ class FactCheckRatingsFragment : Fragment() {
         }
 
         binding.factCheckRatingsSwipeRefresh.setOnRefreshListener {
-            viewModel.refreshContent()
+            viewModel.findFactCheck("-1")
             binding.factCheckRatingsSwipeRefresh.isRefreshing = false
         }
     }

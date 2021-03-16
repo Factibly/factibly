@@ -30,6 +30,7 @@
     <string name="delete_bookmarks">Delete Bookmarks</string>
     <string name="preferences">Preferences</string>
     <string name="register_factibly_account">Register for a Free Factibly Account</string>
+    <string name="invalid_credentials">Incorrect email or password</string>
 
     <string name="home_search_alert_url_error">Invalid URL</string>
 

@@ -10,8 +10,12 @@ import androidx.navigation.fragment.findNavController
 import com.factibly.factibly.R
 import com.factibly.factibly.databinding.LoginFragmentBinding
 import com.factibly.factibly.utils.Validators.validateEmail
+import com.factibly.factibly.utils.extensions.observeOnce
 import com.factibly.factibly.viewmodels.UserViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.rollbar.android.Rollbar
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -27,9 +31,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.login_fragment, container, false)
-    }
+    ): View = inflater.inflate(R.layout.login_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,7 +67,29 @@ class LoginFragment : Fragment() {
 
             if (!invalidSubmission) {
                 viewModel.login(email, password)
-                findNavController().navigateUp()
+                viewModel.loggedIn.observeOnce(viewLifecycleOwner) { loginSuccess ->
+                    if (loginSuccess) {
+                        viewModel.getCurrentUser()
+                        viewModel.user.observeOnce(viewLifecycleOwner) { currentUser ->
+                            if (currentUser != null) {
+                                Rollbar.instance()?.setPersonData(
+                                    currentUser.id,
+                                    currentUser.displayName,
+                                    currentUser.email
+                                )
+                            }
+                            findNavController().navigateUp()
+                            val intent = requireActivity().intent
+                            requireActivity().finish()
+                            startActivity(intent)
+                        }
+                    } else {
+                        Snackbar.make(binding.root, getString(R.string.invalid_credentials), Snackbar.LENGTH_SHORT)
+                            .setAnchorView(activity?.findViewById(R.id.bottom_navigation_view))
+                            .setBackgroundTint(resources.getColor(R.color.colorAlertError, activity?.theme))
+                            .show()
+                    }
+                }
             }
         }
     }

@@ -14,8 +14,9 @@ class BookmarksActionModeCallback : ActionMode.Callback {
     var title = ""
         set(value) {
             field = value
+            val mode = mode
             if (mode != null) {
-                onPrepareActionMode(mode!!, mode!!.menu)
+                onPrepareActionMode(mode, mode.menu)
             }
         }
 

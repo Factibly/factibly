@@ -33,9 +33,7 @@ class BookmarksFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.bookmarks_fragment, container, false)
-    }
+    ): View = inflater.inflate(R.layout.bookmarks_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,6 +41,7 @@ class BookmarksFragment : Fragment() {
         binding = BookmarksFragmentBinding.bind(view)
         viewManager = LinearLayoutManager(context)
 
+        viewModel.getBookmarks()
         viewModel.bookmarks.observe(viewLifecycleOwner) {
             val bookmarksSize = it.size
 

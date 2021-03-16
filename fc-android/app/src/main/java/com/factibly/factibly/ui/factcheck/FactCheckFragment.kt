@@ -28,10 +28,8 @@ class FactCheckFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
 
     companion object {
-        fun newInstance(contentId: String?): FactCheckFragment {
-            val fragment = FactCheckFragment()
-            fragment.arguments = bundleOf("content_id" to contentId)
-            return fragment
+        fun newInstance(contentId: String?) = FactCheckFragment().apply {
+           arguments = bundleOf("content_id" to contentId)
         }
     }
 
@@ -39,48 +37,37 @@ class FactCheckFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fact_check_fragment, container, false)
-    }
+    ): View = inflater.inflate(R.layout.fact_check_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FactCheckFragmentBinding.bind(view)
 
-        viewPager = binding.factCheckPager
+        binding.factCheckPager.adapter = FactCheckPagerAdapter(requireActivity())
 
-        val pagerAdapter = FactCheckPagerAdapter(requireActivity())
-        viewPager.adapter = pagerAdapter
-
-        val tabLayout = binding.factCheckTabs
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            when (position) {
-                0 -> {
-                    tab.text = "Overview"
-                }
-                1 -> {
-                    tab.text = "My Rating"
-                }
-                2 -> {
-                    tab.text = "User Ratings"
-                }
+        TabLayoutMediator(binding.factCheckTabs, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Overview"
+                1 -> "My Rating"
+                2 -> "User Ratings"
+                else -> null
             }
         }.attach()
 
-        viewModel.setContentId(args.contentId ?: arguments?.getString("content_id") ?: "")
+        viewModel.findFactCheck(args.contentId ?: arguments?.getString("content_id") ?: "")
     }
 
     private class FactCheckPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
-        private val fragments: Array<Fragment> = arrayOf(
+        private val fragments = arrayOf(
             FactCheckOverviewFragment.newInstance(),
             FactCheckOverviewFragment.newInstance(),
             FactCheckRatingsFragment.newInstance()
         )
 
-        override fun getItemCount(): Int = fragments.size
+        override fun getItemCount() = fragments.size
 
-        override fun createFragment(position: Int): Fragment = fragments[position]
+        override fun createFragment(position: Int) = fragments[position]
     }
 }

@@ -16,11 +16,10 @@ class BookmarkCardsAdapter(private val bookmarks: List<BookmarksListQuery.Bookma
     private lateinit var binding: BookmarkCardBinding
 
     private var selectedCount = 0
-    private var selectedCards = emptySet<Pair<MaterialCardView, String>>()
+    private var selectedCards = hashMapOf<String, MaterialCardView>()
     private lateinit var titleTemplate: String
 
-    inner class ViewHolder internal constructor(private val binding: BookmarkCardBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder internal constructor() : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(bookmark: BookmarksListQuery.Bookmark?) {
             if (bookmark == null) return
@@ -29,10 +28,10 @@ class BookmarkCardsAdapter(private val bookmarks: List<BookmarksListQuery.Bookma
                 if (actionModeCallback.hasStarted) {
                     binding.bookmarkCard.isChecked = !binding.bookmarkCard.isChecked
                     if (binding.bookmarkCard.isChecked) {
-                        selectedCards = selectedCards.plus(Pair(binding.bookmarkCard, bookmark.id))
+                        selectedCards[bookmark.id] = binding.bookmarkCard
                         selectedCount += 1
                     } else {
-                        selectedCards = selectedCards.minus(Pair(binding.bookmarkCard, bookmark.id))
+                        selectedCards.remove(bookmark.id)
                         selectedCount -= 1
                     }
                     actionModeCallback.title = titleTemplate.format(selectedCount)
@@ -41,15 +40,15 @@ class BookmarkCardsAdapter(private val bookmarks: List<BookmarksListQuery.Bookma
             binding.bookmarkCard.setOnLongClickListener {
                 if (!actionModeCallback.hasStarted) {
                     selectedCount = 1
-                    selectedCards = selectedCards.plus(Pair(binding.bookmarkCard, bookmark.id))
+                    selectedCards[bookmark.id] = binding.bookmarkCard
                     actionModeCallback.startActionMode(
                         binding.root.rootView,
                         titleTemplate.format(selectedCount)
                     ) {
                         selectedCount = 0
                         val contentIds = selectedCards.map { c ->
-                            c.first.isChecked = false
-                            c.second
+                            c.value.isChecked = false
+                            c.key
                         }
                         onRemoveBookmarks(contentIds)
                     }
@@ -65,7 +64,7 @@ class BookmarkCardsAdapter(private val bookmarks: List<BookmarksListQuery.Bookma
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = BookmarkCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         titleTemplate = binding.root.rootView.context.getString(R.string.action_selected_count)
-        return ViewHolder(binding)
+        return ViewHolder()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

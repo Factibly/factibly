@@ -14,18 +14,18 @@ class BookmarksActionModeCallback : ActionMode.Callback {
     var title = ""
         set(value) {
             field = value
-            val mode = mode
-            if (mode != null) {
-                onPrepareActionMode(mode, mode.menu)
+            mode?.let {
+                onPrepareActionMode(it, it.menu)
             }
         }
 
     var hasStarted = false
 
     override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-        this.mode = mode
-        mode.menuInflater.inflate(R.menu.bookmarks_action_menu, menu)
-        mode.title = title
+        this.mode = mode.apply {
+            menuInflater.inflate(R.menu.bookmarks_action_menu, menu)
+            title = title
+        }
         return true
     }
 
@@ -42,7 +42,6 @@ class BookmarksActionModeCallback : ActionMode.Callback {
     override fun onDestroyActionMode(mode: ActionMode) {
         hasStarted = false
         onComplete?.invoke()
-        return
     }
 
     fun startActionMode(view: View, title: String, onComplete: () -> Unit) {

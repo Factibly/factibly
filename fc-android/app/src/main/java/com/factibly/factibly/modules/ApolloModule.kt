@@ -31,27 +31,31 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApolloModule {
-    private const val BASE_URL = BuildConfig.graphql_base_url
     private const val ISO_8601_PATTERN = "yyyy-MM-dd'T'HH:mm:ss"
+    private const val APOLLO_SQL_CACHE_DB = "apollo.db"
 
     @Singleton
     @Provides
-    fun provideApolloClient(okHttpClient: OkHttpClient,
-                            cacheFactory: NormalizedCacheFactory<LruNormalizedCache>,
-                            dateTypeAdapter: CustomTypeAdapter<Date>): ApolloClient =
+    fun provideApolloClient(
+        okHttpClient: OkHttpClient,
+        cacheFactory: NormalizedCacheFactory<LruNormalizedCache>,
+        dateTypeAdapter: CustomTypeAdapter<Date>
+    ): ApolloClient =
         ApolloClient.builder()
             .okHttpClient(okHttpClient)
-            .serverUrl(BASE_URL)
+            .serverUrl(BuildConfig.graphql_base_url)
             .normalizedCache(cacheFactory)
             .addCustomTypeAdapter(CustomType.DATETIME, dateTypeAdapter)
             .build()
 
     @Provides
-    fun provideOkHttpClient(httpLogInterceptor: HttpLoggingInterceptor, cookieJar: PersistentCookieJar) =
-        OkHttpClient.Builder()
-            .cookieJar(cookieJar)
-            .addInterceptor(httpLogInterceptor)
-            .build()
+    fun provideOkHttpClient(
+        httpLogInterceptor: HttpLoggingInterceptor,
+        cookieJar: PersistentCookieJar
+    ) = OkHttpClient.Builder()
+        .cookieJar(cookieJar)
+        .addInterceptor(httpLogInterceptor)
+        .build()
 
     @Provides
     fun provideCookieJar(@ApplicationContext context: Context) =
@@ -59,23 +63,23 @@ object ApolloModule {
         
     @Provides
     fun provideHttpLogInterceptor() =
-        HttpLoggingInterceptor(
-            object : HttpLoggingInterceptor.Logger {
-                override fun log(message: String) {
-                    Timber.tag("OkHttp").i(message)
-                }
-            }
-        ).apply {
+        HttpLoggingInterceptor {
+            message -> Timber.tag("OkHttp").i(message)
+        }.apply {
             level = HttpLoggingInterceptor.Level.BASIC
         }
 
     @Provides
-    fun provideCacheFactory(@ApplicationContext context: Context): NormalizedCacheFactory<LruNormalizedCache> {
+    fun provideCacheFactory(
+        @ApplicationContext context: Context
+    ): NormalizedCacheFactory<LruNormalizedCache> {
         val memoryCacheFactory =
             LruNormalizedCacheFactory(
-                EvictionPolicy.builder().maxSizeBytes(10 * 1024 * 1024).build()
+                EvictionPolicy.builder()
+                    .maxSizeBytes(10 * 1024 * 1024)
+                    .build()
             )
-        val sqlCacheFactory = SqlNormalizedCacheFactory(context, "apollo.db")
+        val sqlCacheFactory = SqlNormalizedCacheFactory(context, APOLLO_SQL_CACHE_DB)
         return memoryCacheFactory.chain(sqlCacheFactory)
     }
 

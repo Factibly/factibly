@@ -6,8 +6,13 @@ private const val GQL_ERROR_MESSAGE_PATTERN = "^.*#@([.|\\d\\w]+)@$"
 private const val GQL_FALLBACK_ERROR_MESSAGE = "app.alert.error.fallback"
 private const val DEFAULT_DELIMITER = "-"
 
-fun String.parseGqlErrorMsg(): String {
+fun String?.parseGqlErrorMsg(): String {
+    if (this == null) {
+        return GQL_FALLBACK_ERROR_MESSAGE
+    }
+
     val matched = GQL_ERROR_MESSAGE_PATTERN.toRegex(RegexOption.IGNORE_CASE).find(this)
+
     return if (matched == null) {
         GQL_FALLBACK_ERROR_MESSAGE
     } else {

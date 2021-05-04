@@ -1,16 +1,17 @@
 package com.factibly.factibly.viewmodels
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apollographql.apollo.coroutines.toDeferred
 import com.factibly.factibly.BookmarksListQuery
 import com.factibly.factibly.repositories.BookmarksRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BookmarksViewModel @ViewModelInject constructor(
+@HiltViewModel
+class BookmarksViewModel @Inject constructor(
     private val repository: BookmarksRepository
 ) : ViewModel() {
 
@@ -25,8 +26,10 @@ class BookmarksViewModel @ViewModelInject constructor(
 
     fun removeBookmarks(contentIds: List<String>) {
         viewModelScope.launch {
-            repository.removeBookmarks(contentIds)
+            val res = repository.removeBookmarks(contentIds)
+            if (!res.hasErrors()) {
+                getBookmarks()
+            }
         }
-        getBookmarks()
     }
 }

@@ -18,12 +18,7 @@ class FactCheckRatingsFragment : Fragment() {
 
     private lateinit var binding: FactCheckRatingsFragmentBinding
     private val viewModel: FactCheckViewModel by activityViewModels()
-
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-
-
+    
     companion object {
         fun newInstance() = FactCheckRatingsFragment()
     }
@@ -38,16 +33,15 @@ class FactCheckRatingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FactCheckRatingsFragmentBinding.bind(view)
-        viewManager = LinearLayoutManager(context)
+        val viewManager = LinearLayoutManager(context)
 
         viewModel.findFactCheck("-1")
         viewModel.factCheck.observe(viewLifecycleOwner) {
             val ratings = it?.ratingSet ?: emptyList()
 
-            viewAdapter = FactCheckRatingCardsAdapter(ratings)
-            recyclerView = binding.factCheckRatingCards.apply {
+            binding.factCheckRatingCards.apply {
                 layoutManager = viewManager
-                adapter = viewAdapter
+                adapter = FactCheckRatingCardsAdapter(ratings)
             }
         }
 

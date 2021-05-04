@@ -1,24 +1,26 @@
 package com.factibly.factibly.viewmodels
 
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
-import com.apollographql.apollo.coroutines.toDeferred
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.factibly.factibly.ContentQuery
 import com.factibly.factibly.SearchContentMutation
 import com.factibly.factibly.repositories.FactCheckRepository
-import com.factibly.factibly.type.SearchContentInput
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class FactCheckViewModel @ViewModelInject constructor(
+@HiltViewModel
+class FactCheckViewModel @Inject constructor(
     private val repository: FactCheckRepository
 ) : ViewModel() {
 
     private val _searchContent = MutableLiveData<SearchContentMutation.SearchContent?>()
     val searchContent: LiveData<SearchContentMutation.SearchContent?> = _searchContent
 
-    private val _factCheck = MutableLiveData<ContentQuery.Content>()
-    val factCheck: LiveData<ContentQuery.Content> = _factCheck
+    private val _factCheck = MutableLiveData<ContentQuery.Content?>()
+    val factCheck: LiveData<ContentQuery.Content?> = _factCheck
 
     fun searchFactCheck(url: String) {
         viewModelScope.launch {

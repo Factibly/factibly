@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.factibly.factibly.databinding.MainActivityBinding
+import com.factibly.factibly.ui.factcheck.FactCheckFragment.Companion.CONTENT_ID_KEY
 import com.factibly.factibly.utils.extensions.getErrorString
 import com.factibly.factibly.utils.extensions.observeOnce
 import com.factibly.factibly.viewmodels.FactCheckViewModel
@@ -34,9 +35,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private var optionsMenu: Menu? = null
 
-    private val viewModelFactCheck: FactCheckViewModel by viewModels()
+    private val viewModel: FactCheckViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,26 +59,18 @@ class MainActivity : AppCompatActivity() {
         handleIntent(intent)
 
         if (savedInstanceState == null) {
-            val remoteConfig = Firebase.remoteConfig
-            remoteConfig.fetchAndActivate().addOnSuccessListener(this) {
-                binding.container.apply {
-                    visibility = View.VISIBLE
-                }
+            Firebase.remoteConfig.fetchAndActivate().addOnSuccessListener(this) {
+                binding.container.visibility = View.VISIBLE
             }
 
             if (BuildConfig.FLAVOR == "production") {
                 Rollbar.init(applicationContext)
             }
-
-            //  supportFragmentManager.beginTransaction()
-            //      .replace(R.id.key_display, HomeFragment.newInstance())
-            //      .commitNow()
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_options_menu, menu)
-        optionsMenu = menu
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         (menu?.findItem(R.id.menu_search)?.actionView as? SearchView)?.apply {
@@ -106,12 +98,11 @@ class MainActivity : AppCompatActivity() {
             intent.getStringExtra(SearchManager.QUERY)?.let { searchQuery ->
                 val navHostFragment = supportFragmentManager.findFragmentById(R.id.key_display) as NavHostFragment
                 val navController = NavHostFragment.findNavController(navHostFragment)
-                viewModelFactCheck.searchFactCheck(searchQuery)
-                viewModelFactCheck.searchContent.observeOnce(this) { searchRes ->
+                viewModel.searchContent.observeOnce(this) { searchRes ->
                     if (searchRes?.errors.isNullOrBlank()) {
                         navController.navigate(
                             R.id.factCheckFragment,
-                            bundleOf("content_id" to searchRes?.content?.id)
+                            bundleOf(CONTENT_ID_KEY to searchRes?.content?.id)
                         )
                     } else if (searchRes != null) {
                         val msgRes = resources.getErrorString(searchRes.errors, packageName)
@@ -121,6 +112,7 @@ class MainActivity : AppCompatActivity() {
                             .show()
                     }
                 }
+                viewModel.searchFactCheck(searchQuery)
             }
         }
     }

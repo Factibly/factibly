@@ -2,13 +2,13 @@
     <string name="app_name">Factibly</string>
 
     <string name="std_float">%.2f</string>
-    <string name="action_selected_count" tools:ignore="PluralsCandidate">%d selected</string>
+    <string name="action_selected_count" comment="$0 integral number" tools:ignore="PluralsCandidate">%d selected</string>
 
     <string name="not_yet_rated">Not Yet Rated</string>
     <string name="rating_out_of">out of 5.00</string>
     <string name="visit_source">Visit Source</string>
     <string name="user_rating">user rating</string>
-    <string name="last_updated_on">Last updated on %s</string>
+    <string name="last_updated_on" comment="$0 ISO date">Last updated on %s</string>
     <string name="my_account">My Account</string>
     <string name="search">Search</string>
     <string name="query_hint">Enter a URL</string>
@@ -33,6 +33,9 @@
     <string name="invalid_credentials">Incorrect email or password</string>
 
     <string name="home_search_alert_url_error">Invalid URL</string>
+    <string name="overview">Overview</string>
+    <string name="my_rating">My Rating</string>
+    <string name="user_ratings">User Ratings</string>
 
     <string-array name="themes">
         <item>System Default</item>

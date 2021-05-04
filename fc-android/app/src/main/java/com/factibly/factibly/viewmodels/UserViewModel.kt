@@ -1,23 +1,25 @@
 package com.factibly.factibly.viewmodels
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.factibly.factibly.CurrentUserQuery
 import com.factibly.factibly.repositories.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserViewModel @ViewModelInject constructor(
+@HiltViewModel
+class UserViewModel @Inject constructor(
     private val repository: UserRepository
 ) : ViewModel() {
 
     private val _loggedIn = MutableLiveData<Boolean>()
     val loggedIn: LiveData<Boolean> = _loggedIn
 
-    private val _user = MutableLiveData<CurrentUserQuery.CurrentUser>()
-    val user: LiveData<CurrentUserQuery.CurrentUser> = _user
+    private val _user = MutableLiveData<CurrentUserQuery.CurrentUser?>()
+    val user: LiveData<CurrentUserQuery.CurrentUser?> = _user
 
     fun login(email: String, password: String) {
         viewModelScope.launch {

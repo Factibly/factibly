@@ -25,11 +25,11 @@ class FactCheckFragment : Fragment() {
     private lateinit var binding: FactCheckFragmentBinding
     private val viewModel: FactCheckViewModel by activityViewModels()
 
-    private lateinit var viewPager: ViewPager2
-
     companion object {
+        const val CONTENT_ID_KEY = "content_id"
+
         fun newInstance(contentId: String?) = FactCheckFragment().apply {
-           arguments = bundleOf("content_id" to contentId)
+           arguments = bundleOf(CONTENT_ID_KEY to contentId)
         }
     }
 
@@ -46,16 +46,19 @@ class FactCheckFragment : Fragment() {
 
         binding.factCheckPager.adapter = FactCheckPagerAdapter(requireActivity())
 
-        TabLayoutMediator(binding.factCheckTabs, viewPager) { tab, position ->
+        TabLayoutMediator(binding.factCheckTabs, binding.factCheckPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Overview"
-                1 -> "My Rating"
-                2 -> "User Ratings"
+                0 -> getString(R.string.overview)
+                1 -> getString(R.string.my_rating)
+                2 -> getString(R.string.user_rating)
                 else -> null
             }
         }.attach()
 
-        viewModel.findFactCheck(args.contentId ?: arguments?.getString("content_id") ?: "")
+        viewModel.findFactCheck(args.contentId
+            ?: requireArguments().getString(CONTENT_ID_KEY)
+            ?: ""
+        )
     }
 
     private class FactCheckPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {

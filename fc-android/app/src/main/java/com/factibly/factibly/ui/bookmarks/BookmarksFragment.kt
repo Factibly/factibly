@@ -19,10 +19,6 @@ class BookmarksFragment : Fragment() {
     private lateinit var binding: BookmarksFragmentBinding
     private val viewModel: BookmarksViewModel by activityViewModels()
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-
     private val actionModeCallback = BookmarksActionModeCallback()
 
     companion object {
@@ -39,23 +35,22 @@ class BookmarksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding = BookmarksFragmentBinding.bind(view)
-        viewManager = LinearLayoutManager(context)
+        val viewManager = LinearLayoutManager(context)
 
-        viewModel.getBookmarks()
         viewModel.bookmarks.observe(viewLifecycleOwner) {
             val bookmarksSize = it.size
 
             binding.bookmarksCount.text =
                 resources.getQuantityString(R.plurals.bookmarks_count, bookmarksSize, bookmarksSize)
 
-            viewAdapter = BookmarkCardsAdapter(it, actionModeCallback) { contentIds ->
-                viewModel.removeBookmarks(contentIds)
-            }
-
-            recyclerView = binding.bookmarkCards.apply {
+            binding.bookmarkCards.apply {
                 layoutManager = viewManager
-                adapter = viewAdapter
+                adapter = BookmarkCardsAdapter(it, context, actionModeCallback) { contentIds ->
+                    viewModel.removeBookmarks(contentIds)
+                }
             }
         }
+
+        viewModel.getBookmarks()
     }
 }

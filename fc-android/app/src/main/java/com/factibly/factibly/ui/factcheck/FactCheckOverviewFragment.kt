@@ -29,7 +29,6 @@ class FactCheckOverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fact_check_overview_fragment, container, false)
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,7 +47,7 @@ class FactCheckOverviewFragment : Fragment() {
                 binding.maxScore.visibility = View.GONE
                 binding.ratingCount.visibility = View.GONE
             } else {
-                binding.ratingScore.text = getString(R.string.std_float).format(overallScore)
+                binding.ratingScore.text = getString(R.string.std_float, overallScore)
                 binding.maxScore.visibility = View.VISIBLE
                 binding.ratingCount.text =
                     resources.getQuantityString(R.plurals.rating_based_on, ratingCount, ratingCount)
@@ -65,7 +64,7 @@ class FactCheckOverviewFragment : Fragment() {
                 }
             }
 
-            binding.lastUpdatedOn.text = getString(R.string.last_updated_on).format(updatedAt)
+            binding.lastUpdatedOn.text = getString(R.string.last_updated_on, updatedAt)
         }
     }
 }

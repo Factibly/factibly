@@ -66,15 +66,6 @@ supportFragmentManager.beginTransaction()
     .commit()
 ```
 
-## Error Handling
-
-You can use a `try {...} catch {...} finally {...}` statement to handle errors sent by the back-end.
-Within a particular error message, you can likely find its ID between the `#@` and `@` symbols; if
-such symbols do exist, you can call the `String.parseGqlErrorMsg()` **extension function** on the error message
-to retrieve its ID _in a snake\_case format_ and then map that ID to its corresponding string resource
-through the use of the `resources.getIdentifier(String, String, String)` function. This way, you can
-obtain a localized and user-friendly version of the error message.
-
 ## User Interface (UI) Design
 
 The app uses [material design](https://material.io/design/foundation-overview/) as its design language.
@@ -101,7 +92,7 @@ incorrectly treat some resources as unused.
 
 ## Tests
 
-We use JUnit and Espresso to create automated tests.
+We use JUnit, Mockito and Espresso to create automated tests.
 
 ## Frameworks and Libraries
 

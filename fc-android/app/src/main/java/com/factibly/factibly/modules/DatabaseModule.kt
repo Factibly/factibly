@@ -13,10 +13,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
+    private const val FACTIBLY_DB = "factibly_db"
+
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, FactiblyDatabase::class.java, "factibly_db").build()
+        Room.databaseBuilder(context, FactiblyDatabase::class.java, FACTIBLY_DB).build()
 
     @Singleton
     @Provides

@@ -1,4 +1,4 @@
-package com.factibly.factibly.models
+package com.factibly.factibly.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

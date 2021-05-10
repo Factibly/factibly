@@ -1,4 +1,4 @@
-package com.factibly.factibly.utils.extensions
+package com.factibly.factibly.util.extension
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

@@ -9,9 +9,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.factibly.factibly.R
 import com.factibly.factibly.databinding.LoginFragmentBinding
-import com.factibly.factibly.utils.Validators.validateEmail
-import com.factibly.factibly.utils.extensions.observeOnce
-import com.factibly.factibly.viewmodels.UserViewModel
+import com.factibly.factibly.util.Validators.validateEmail
+import com.factibly.factibly.util.extension.observeOnce
+import com.factibly.factibly.viewmodel.UserViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.rollbar.android.Rollbar
 import dagger.hilt.android.AndroidEntryPoint

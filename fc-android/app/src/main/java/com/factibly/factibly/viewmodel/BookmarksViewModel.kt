@@ -1,11 +1,11 @@
-package com.factibly.factibly.viewmodels
+package com.factibly.factibly.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.factibly.factibly.BookmarksListQuery
-import com.factibly.factibly.repositories.BookmarksRepository
+import com.factibly.factibly.repository.BookmarksRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

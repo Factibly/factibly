@@ -20,9 +20,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.factibly.factibly.databinding.MainActivityBinding
 import com.factibly.factibly.ui.factcheck.FactCheckFragment.Companion.CONTENT_ID_KEY
-import com.factibly.factibly.utils.extensions.getErrorString
-import com.factibly.factibly.utils.extensions.observeOnce
-import com.factibly.factibly.viewmodels.FactCheckViewModel
+import com.factibly.factibly.util.extension.getErrorString
+import com.factibly.factibly.util.extension.observeOnce
+import com.factibly.factibly.viewmodel.FactCheckViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig

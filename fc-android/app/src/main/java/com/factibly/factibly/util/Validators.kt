@@ -1,4 +1,4 @@
-package com.factibly.factibly.utils
+package com.factibly.factibly.util
 
 import android.util.Patterns
 

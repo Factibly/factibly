@@ -1,4 +1,4 @@
-package com.factibly.factibly.utils.room
+package com.factibly.factibly.util.converter
 
 import androidx.room.TypeConverter
 import java.util.*

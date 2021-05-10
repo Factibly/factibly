@@ -1,4 +1,4 @@
-package com.factibly.factibly.modules
+package com.factibly.factibly.module
 
 import android.content.Context
 import com.apollographql.apollo.ApolloClient

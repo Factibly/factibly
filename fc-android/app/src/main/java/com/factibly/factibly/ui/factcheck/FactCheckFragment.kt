@@ -10,10 +10,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.factibly.factibly.R
 import com.factibly.factibly.databinding.FactCheckFragmentBinding
-import com.factibly.factibly.viewmodels.FactCheckViewModel
+import com.factibly.factibly.viewmodel.FactCheckViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 

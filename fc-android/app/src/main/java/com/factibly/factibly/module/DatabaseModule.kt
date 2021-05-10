@@ -1,8 +1,8 @@
-package com.factibly.factibly.modules
+package com.factibly.factibly.module
 
 import android.content.Context
 import androidx.room.Room
-import com.factibly.factibly.databases.FactiblyDatabase
+import com.factibly.factibly.database.FactiblyDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

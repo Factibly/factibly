@@ -1,4 +1,4 @@
-package com.factibly.factibly.repositories
+package com.factibly.factibly.repository
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response

@@ -1,8 +1,8 @@
-package com.factibly.factibly.databases
+package com.factibly.factibly.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.factibly.factibly.models.FactCheckHistory
+import com.factibly.factibly.model.FactCheckHistory
 
 @Dao
 interface FactCheckHistoryDao {

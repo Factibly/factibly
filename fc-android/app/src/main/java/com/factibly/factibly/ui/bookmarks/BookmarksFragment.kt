@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.factibly.factibly.R
 import com.factibly.factibly.databinding.BookmarksFragmentBinding
-import com.factibly.factibly.viewmodels.BookmarksViewModel
+import com.factibly.factibly.viewmodel.BookmarksViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
